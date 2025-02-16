@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="container__header" >
+        <app-home *ngIf="!isHomePage()" [isHomePage]="isHomePage()"></app-home>
+        <div class="navbar" *ngIf="!isHomePage()">
+            <span *ngFor="let nav of navigationRoutes">
+                <a 
+                class="navbar__link" 
+                (click)="navigate(nav.route)"
+                [routerLink]="nav.route" 
+                routerLinkActive="navbar__link--active"
+                ><img [src]="nav.icon" [alt]="nav.title" [title]="nav.title" />
+                </a>
+                <!-- {{ nav.title }} for mobile -->
+            </span>
+        </div>
+    </div>
+    <div class="container__page" [ngClass]="{ 'container__page--home': isHomePage() }">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="container__footer">
+        &copy; Eden Oren
+    </div>
+</div>

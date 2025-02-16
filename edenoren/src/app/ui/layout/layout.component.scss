@@ -1,0 +1,54 @@
+@use '../../../styles/variables' as *;
+
+$container-width: 40vw;
+$container-margin: 3px;
+$border-width: 1px;
+$regular-padding: 1rem;
+$extended-padding: 3rem;
+
+.container {
+    margin: 10vh calc((100vw - #{$container-width}) / 2);
+    width: $container-width;
+    position: relative;
+    &__header {
+        height: 7vh;
+        margin: $container-margin;
+    }
+    &__page {
+        border: $border-width solid $color-coal;
+        margin: $container-margin;
+        min-height: 10vh;
+        padding: $extended-padding;
+        background-color: $color-light-teal;
+        &--home {
+            border: calc($border-width + $container-margin) double $color-coal;
+            margin: 0;
+            padding: 0;
+        }
+    }
+    &__footer {
+        display: flex;
+        justify-content: flex-end;
+        user-select: none;
+        font-size: 14px;
+        margin: $container-margin;
+    }
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: $regular-padding;
+    &__link {
+        user-select: none;
+        text-decoration: none;
+        cursor: pointer;
+        padding: $regular-padding;
+        filter: grayscale(100%);
+        &--active {
+            filter: grayscale(0);
+        }
+        &:hover {
+            filter: grayscale(0);
+        }
+    }
+}

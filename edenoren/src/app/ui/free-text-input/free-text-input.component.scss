@@ -1,0 +1,46 @@
+@use '../../../styles/variables' as *;
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    justify-content: end;
+    position: relative;
+    &__label {
+      margin-inline: 15px;
+      font-size: $small-font-size;
+  }
+  &__input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    margin: 5px 15px 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid $color-coal;
+    transition: all 0.3s ease;
+    width: 50%;
+    &:focus {
+      border-color: $color-deep-green;
+    }
+    &--error {
+      border-color: $color-error;
+    }
+  }
+  &__error {
+    position: absolute;
+    font-size: $error-font-size;
+    display: flex;
+    left: 15px;
+    top: 42px;
+    color: $color-error;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .container__input {
+    width: 285px;
+  }
+}

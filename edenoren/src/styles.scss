@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'styles/variables' as *;
+
+body {
+    font-size: 18px;
+    line-height: 1.6;
+    font-family: 'Assistant', sans-serif;
+    color: $color-coal;
+    background-color: $color-light-beige;
+    white-space: pre-line;
+}
