@@ -1,0 +1,16 @@
+<div class="container" [ngClass]="{ 'container--logo': !isHomePage }">
+    <div class="container__home" (click)="isHomePage ? navigate(mainRoutes.About) : navigate(mainRoutes.Home)">
+        <span class="container__home-icon" *ngIf="isHomePage">icon</span>
+        <div class="container__title-wrapper">
+            <h1 class="container__title" [ngClass]="{ 'container__title--logo': !isHomePage }">Eden Oren</h1>
+            <h2 class="container__subtitle" [ngClass]="{ 'container__subtitle--logo': !isHomePage }">Front-End Developer</h2>
+        </div>
+        <div *ngIf="!isHomePage" class="icons">
+            <span *ngFor="let icon of icons">
+                <a class="icons__link" (click)="openNewWindow(icon.url ?? '')">
+                    <img class="icons__icon" [src]="icon.icon" [alt]="icon.title" [title]="icon.title" />
+                </a>
+            </span>
+        </div>
+    </div>
+</div>

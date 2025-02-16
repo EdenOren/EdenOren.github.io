@@ -1,0 +1,63 @@
+:host {
+    width: 100%;
+}
+
+.container {
+    width: 40vw;
+    display: flex;
+    justify-content: space-between;
+    &__home {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 1rem;
+        gap: 14px;
+    }
+    &__home-icon {
+        padding-inline: 20px;
+    }
+    &__title-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        user-select: none;
+        letter-spacing: 2px;
+    }
+    &--logo {
+        width: 100%;
+        position: absolute;
+        top: -10vh;
+        justify-content: center;
+    }
+    &__title {
+        font-size: 26px;
+        margin: 0;
+        &--logo {
+            font-size: 22px;
+        }
+    }
+    &__subtitle {
+        font-size: 22px;
+        margin: 0;
+        &--logo {
+            font-size: 18px;
+        }
+    }
+}
+.icons {
+    display: flex;
+    flex-direction: column;
+    &__link {
+        filter:grayscale(100%);
+        &:hover {
+            filter:grayscale(0);
+        }
+    }
+    &__icon {
+        cursor: pointer;
+        user-select: none;
+        width: 20px;
+    }
+}
