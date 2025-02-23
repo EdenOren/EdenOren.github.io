@@ -3,31 +3,36 @@
 .container {
     display: flex;
     flex-direction: column;
-    height: 155px;
+    height: 150px;
     justify-content: end;
     position: relative;
+    @extend %container-scroll;
     &__label {
       margin-inline: 15px;
       font-size: $small-font-size;
+      position: absolute;
+      top: 0;
     }
     &__error {
       position: absolute;
       font-size: $error-font-size;
       display: flex;
       left: 15px;
-      top: 146px;
+      bottom: -6px;
       color: $color-error;
     }
     &__input {
       outline: none;
       margin: 5px 15px 10px;
       padding: 10px 15px;
-      font-family: inherit;
+      font-family: 'Assistant', sans-serif;
       border-radius: 10px;
       border: 1px solid $color-coal;
       transition: all 0.3s ease;
       resize: none;
       height: 6rem;
+      background-color: $color-light;
+      font-size: 16px;
       &:focus {
         border-color: $color-deep-green;
       }
@@ -37,9 +42,18 @@
     }
 }
 
-
-@media screen and (max-width: 480px) {
-  .container__input {
-    width: 285px;
+@media screen and (max-width: 768px) {
+  .container {
+    &__input {
+      font-size: 20px;
+    }
+    &__label {
+      font-size: 16px;
+      top: -4px;
+    }
+    &__error {
+      font-size: 16px;
+      bottom: -8px;
+    }
   }
 }

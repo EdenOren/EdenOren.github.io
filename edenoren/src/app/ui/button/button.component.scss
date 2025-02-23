@@ -1,0 +1,11 @@
+@use 'variables' as *;
+.button {
+    @extend %button;
+    color: $color-light;
+    padding: 4px 8px;
+    border-width: 1px;
+    &:hover {
+        @extend %button-pressed;
+        transform: none;
+    }
+}

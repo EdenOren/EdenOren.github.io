@@ -1,23 +1,24 @@
-<div class="container">
-    <div class="container__header" >
-        <app-home *ngIf="!isHomePage()" [isHomePage]="isHomePage()"></app-home>
-        <div class="navbar" *ngIf="!isHomePage()">
-            <span *ngFor="let nav of navigationRoutes">
-                <a 
-                class="navbar__link" 
-                (click)="navigate(nav.route)"
-                [routerLink]="nav.route" 
-                routerLinkActive="navbar__link--active"
-                ><img [src]="nav.icon" [alt]="nav.title" [title]="nav.title" />
-                </a>
-                <!-- {{ nav.title }} for mobile -->
-            </span>
+<div class="container" [ngClass]="{ 'container--home': isHomePage() }">
+    <div class="container__header" *ngIf="!isHomePage()">
+        <app-home [isHomePage]="isHomePage()"></app-home>
+        <div class="navbar">
+            <a 
+            *ngFor="let nav of navigationRoutes"
+            class="navbar__link"
+            [routerLink]="nav.route" 
+            routerLinkActive="navbar__link--active"
+            [title]="nav.title | titlecase"
+            ><img [src]="nav.icon" [alt]="nav.title" class="mobile-image"/>
+            {{ nav.title | titlecase }}
+            </a>
+
         </div>
     </div>
     <div class="container__page" [ngClass]="{ 'container__page--home': isHomePage() }">
+        <h2 class="container__page-title" *ngIf="!isHomePage()">{{ currentPage() | titlecase}}</h2>
         <router-outlet></router-outlet>
     </div>
-    <div class="container__footer">
+    <div class="container__footer" *ngIf="!isHomePage()">
         &copy; Eden Oren
     </div>
 </div>

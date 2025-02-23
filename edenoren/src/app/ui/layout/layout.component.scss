@@ -3,26 +3,35 @@
 $container-width: 40vw;
 $container-margin: 3px;
 $border-width: 1px;
-$regular-padding: 1rem;
-$extended-padding: 3rem;
+$regular-space: 1rem;
+$extended-space: 3rem;
 
 .container {
-    margin: 10vh calc((100vw - #{$container-width}) / 2);
+    margin: 4vh auto;
     width: $container-width;
     position: relative;
+    overflow-y: auto;
+    &--home {
+        margin-top: 10vh;
+        width: calc($container-width / 1.5);
+        overflow-y: unset;
+    }
     &__header {
-        height: 7vh;
         margin: $container-margin;
     }
     &__page {
         border: $border-width solid $color-coal;
         margin: $container-margin;
         min-height: 10vh;
-        padding: $extended-padding;
+        padding: $extended-space;
         background-color: $color-light-teal;
+        position: relative;
+        transition: 0.4s ease-out;
         &--home {
             border: calc($border-width + $container-margin) double $color-coal;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin: 0;
+            width: calc($container-width / 1.5);
             padding: 0;
         }
     }
@@ -33,22 +42,60 @@ $extended-padding: 3rem;
         font-size: 14px;
         margin: $container-margin;
     }
+    &__page-title {
+        position: absolute;
+        margin: 0;
+        top: 4px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-weight: 400;
+    }
 }
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: $regular-padding;
+    margin: $regular-space 0;
     &__link {
         user-select: none;
         text-decoration: none;
         cursor: pointer;
-        padding: $regular-padding;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: $color-coal;
         filter: grayscale(100%);
+        @extend %hover-out-icon;
         &--active {
             filter: grayscale(0);
         }
         &:hover {
             filter: grayscale(0);
+            @extend %hover-icon;
         }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        margin: 0;
+        width: 100%;
+        padding: 0;
+        overflow-y: unset;
+        &__page {
+            min-height: 10vh;
+            margin: 0;
+            &--home {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    }
+    .mobile-image {
+        height: 50px;
+        width: 50px;
     }
 }

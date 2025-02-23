@@ -25,9 +25,10 @@ export class FreeTextInputComponent implements ControlValueAccessor {
   @Input() name: string | null = null;
   @Input() type: string = '';
   @Input() isRequired: boolean = false;
+  @Input() maxLength: number = 100;
   @Input() 
   set showError(value: string) {
-    this._showError = !!value?.length;
+    this._showError = !!value;
     this.errorMessage = this._showError ? value : '';
   };
   get showError(): boolean {

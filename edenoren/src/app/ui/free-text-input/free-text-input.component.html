@@ -1,16 +1,17 @@
 <div class="container">
-    <label *ngIf="value?.length" class="container__label">{{ label }}</label>
+    <label *ngIf="value?.length" class="container__label">{{ label | titlecase }}</label>
     <input
         class="container__input"
+        [maxLength]="maxLength"
         (focus)="onTouch()"
         (input)="handleInputChange($event)"
-        [placeholder]="label + (isRequired ? '*' : '')"
+        [placeholder]="(label | titlecase) + (isRequired ? '*' : '')"
         [ngClass]="{ 'container__input--error': showError }"
         [required]="isRequired"
         [name]="name ?? label"
         [type]="type"
     >
     <span *ngIf="showError" class="container__error">
-        {{ errorMessage | translate }}
+        {{ errorMessage }}
     </span>
 </div>

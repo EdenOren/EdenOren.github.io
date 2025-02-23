@@ -3,12 +3,14 @@
 .container {
     display: flex;
     flex-direction: column;
-    height: 50px;
+    height: 70px;
     justify-content: end;
     position: relative;
     &__label {
       margin-inline: 15px;
       font-size: $small-font-size;
+      position: absolute;
+      top: 0;
   }
   &__input {
     appearance: none;
@@ -21,6 +23,9 @@
     border: 1px solid $color-coal;
     transition: all 0.3s ease;
     width: 50%;
+    background-color: $color-light;
+    font-size: 16px;
+    font-family: 'Assistant', sans-serif;
     &:focus {
       border-color: $color-deep-green;
     }
@@ -33,14 +38,23 @@
     font-size: $error-font-size;
     display: flex;
     left: 15px;
-    top: 42px;
+    bottom: -6px;
     color: $color-error;
   }
 }
 
-
-@media screen and (max-width: 480px) {
-  .container__input {
-    width: 285px;
+@media screen and (max-width: 768px) {
+  .container {
+    &__input {
+      font-size: 20px;
+    }
+    &__label {
+      font-size: 16px;
+      top: -12px;
+  }
+    &__error {
+      font-size: 16px;
+      bottom: -10px;
+    }
   }
 }

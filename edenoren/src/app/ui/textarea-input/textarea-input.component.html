@@ -1,17 +1,17 @@
 <div class="container">
-    <label *ngIf="value" class="container__label">{{ label }}</label>
+    <label *ngIf="value" class="container__label">{{ label | titlecase }}</label>
     <textarea
         class="container__input"
         rows="4"
         cols="20"
         (focus)="onTouch()"
         (input)="handleInputChange($event)"
-        [placeholder]="label + (isRequired ? '*' : '')"
+        [placeholder]="(label | titlecase) + (isRequired ? '*' : '')"
         [ngClass]="{ 'container__input--error': showError }"
         [required]="isRequired"
         [name]="name ?? label"
     ></textarea>
     <span *ngIf="showError" class="container__error">
-        {{ errorMessage | translate }}
+        {{ errorMessage }}
     </span>
 </div>
