@@ -85,6 +85,12 @@ $extended-space: 3rem;
         width: 100%;
         padding: 0;
         overflow-y: unset;
+        &--home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
         &__page {
             min-height: 10vh;
             margin: 0;

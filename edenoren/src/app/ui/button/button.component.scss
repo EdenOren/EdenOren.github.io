@@ -9,3 +9,10 @@
         transform: none;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .button {
+        padding: 12px 12px;
+        font-size: 18px;
+    }
+  }
