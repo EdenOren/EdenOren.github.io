@@ -1,11 +1,52 @@
-<div class="form">
+<form class="form" [formGroup]="formGroup" *ngIf="!emailSent(); else success">
     <div class="form__input-row">
-        <free-text-input></free-text-input>
+        <free-text-input
+        [formControlName]="NAME_CONTROL_NAME"
+        [isRequired]="true"
+        [maxLength]="20"
+        [label]="NAME_CONTROL_NAME"
+        [name]="NAME_CONTROL_NAME"
+        [type]="'text'"
+        [showError]="formErrors()[NAME_CONTROL_NAME]"
+        ></free-text-input>
     </div>
     <div class="form__input-row">
-        <free-text-input></free-text-input>
+        <free-text-input
+        [formControlName]="EMAIL_CONTROL_NAME"
+        [isRequired]="true"
+        [maxLength]="40"
+        [label]="EMAIL_CONTROL_NAME"
+        [name]="EMAIL_CONTROL_NAME"
+        [type]="'email'"
+        [showError]="formErrors()[EMAIL_CONTROL_NAME]"
+        ></free-text-input>
     </div>
     <div class="form__input-row">
-        <textarea-input></textarea-input>
+        <textarea-input
+            [formControlName]="DETAILS_CONTROL_NAME"
+            [isRequired]="true"
+            [label]="'Let\'s talk'"
+            [name]="DETAILS_CONTROL_NAME"
+            [showError]="formErrors()[DETAILS_CONTROL_NAME]"
+        ></textarea-input>
     </div>
-</div>
+    <div class="form__buttons">
+        <custom-button
+            [label]="'Reset'"
+            [type]="'reset'"
+            (click)="reset()"
+        ></custom-button>
+            <custom-button
+            [label]="'Submit'"
+            [type]="'submit'"
+            (click)="submit()"
+        ></custom-button>
+    </div>
+</form>
+
+<ng-template #success>
+    <div class="form__success">
+        <p>Thank you for reaching out!</p>
+        <p>I'll get back to you as soon as possible.</p>
+    </div>
+</ng-template>

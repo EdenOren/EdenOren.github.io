@@ -1,16 +1,20 @@
 <div class="conainer">
     <div class="container__project" *ngFor="let project of projects">
-        <span>
-            {{ project.name }}
-        </span>
-        <span>
+        <div class="container__header">
+            <span class="project__title">
+                {{ project.name }}
+            </span>
+            <custom-button
+                [label]="'GitHub'"
+                [title]="project.link"
+                (click)="openLink(project.link)"
+            ></custom-button>
+        </div>
+        <span class="project__desc">
             {{ project.description }}
         </span>
-        <span>
-            {{ project.skills }}
-        </span>
-        <span>
-            {{ project.link }}
+        <span class="project__skills">
+            {{ project.skills.join(', ') }}
         </span>
     </div>
 </div>

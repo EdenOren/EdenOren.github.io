@@ -1,10 +1,22 @@
 @use 'styles/variables' as *;
 
+html {
+    @extend %container-scroll;
+}
 body {
     font-size: 18px;
     line-height: 1.6;
     font-family: 'Assistant', sans-serif;
     color: $color-coal;
     background-color: $color-light-beige;
+    margin: 0;
+}
+span {
     white-space: pre-line;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 20px;
+    }
 }

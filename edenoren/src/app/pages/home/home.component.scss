@@ -1,19 +1,18 @@
-:host {
-    width: 100%;
-}
+@use 'variables' as *;
 
 .container {
-    width: 40vw;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    &__home {
+    &__wrapper {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        cursor: pointer;
-        padding: 1rem;
-        gap: 14px;
+        padding: 0;
+        width: 100%;
+        &--home {
+            padding: 1rem;
+        }
     }
     &__home-icon {
         padding-inline: 20px;
@@ -24,11 +23,11 @@
         flex: 1;
         user-select: none;
         letter-spacing: 2px;
+        &--logo {
+            cursor: pointer;
+        }
     }
     &--logo {
-        width: 100%;
-        position: absolute;
-        top: -10vh;
         justify-content: center;
     }
     &__title {
@@ -48,16 +47,54 @@
 }
 .icons {
     display: flex;
-    flex-direction: column;
-    &__link {
-        filter:grayscale(100%);
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    flex: 0.4;
+    gap: 8px;
+    @extend %hover-out-icon;
+    &__icon {
+        user-select: none;
+        &--large {
+            width: 40px;
+        }
         &:hover {
-            filter:grayscale(0);
+            fill: $color-deep-green;
+            @extend %hover-icon;
+            cursor: pointer;
         }
     }
-    &__icon {
-        cursor: pointer;
-        user-select: none;
-        width: 20px;
+    &__button {
+        @extend %button;
+        @extend %hover-out-icon;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+            @extend %button-pressed;
+            @extend %hover-icon;
+        }
+    }
+    &__inner {
+        background-color: $color-deep-green;
+        border: 4px double $color-soft-green;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0;
+        &__wrapper {
+            padding: 1rem;
+        }
     }
 }

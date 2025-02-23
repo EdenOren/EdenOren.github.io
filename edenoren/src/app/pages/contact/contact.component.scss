@@ -1,5 +1,19 @@
 .form {
     &__input-row {
-        margin-bottom: 20px;
+        margin-bottom: 0px;
+    }
+    &__buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 12px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .form {
+        &__input-row {
+        margin-bottom: 12px;
+        }   
     }
 }

@@ -1,0 +1,13 @@
+@use 'variables' as *;
+.container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+}
+.link {
+    color: $color-coal;
+    font-weight: 500;
+    &:hover {
+        opacity: 0.7;
+    }
+}

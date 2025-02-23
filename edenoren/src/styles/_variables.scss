@@ -2,9 +2,45 @@ $color-deep-green: #3D8D7A;
 $color-soft-green: #B3D8A8;
 $color-light-beige: #FBFFE4;
 $color-light-teal: #A3D1C6;
+$color-light: #f2f4e9;
 $color-coal: #2C2C2C;
 $color-error: #880e0e;
 
 
 $small-font-size: 14px;
 $error-font-size: 12px;
+
+%button {
+    background-color: $color-deep-green;
+    filter:brightness(100%);
+    border: 2px solid $color-coal;
+    cursor: pointer;
+}
+%button-pressed {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
+    filter:brightness(95%);
+}
+%hover-out-icon {
+    transition: 1s ease;
+}
+%hover-icon {
+    transition: 0.3s ease;
+}
+%container-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 3px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #999;
+    }
+}

@@ -1,9 +1,35 @@
+@use 'variables' as *;
+
 .container {
     display: flex;
     flex-direction: column;
     &__project {
         display: flex;
         flex-direction: column;
+        margin-bottom: 2rem;
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+    &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
         margin-bottom: 1rem;
+    }
+}
+
+.project {
+    &__title {
+        font-weight: bold;
+        user-select: none;
+    }
+    &__skills {
+        font-style: italic;
+        user-select: none;
+    }
+    &__desc {
+        user-select: none;
     }
 }

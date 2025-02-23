@@ -1,16 +1,40 @@
 <div class="container" [ngClass]="{ 'container--logo': !isHomePage }">
-    <div class="container__home" (click)="isHomePage ? navigate(mainRoutes.About) : navigate(mainRoutes.Home)">
-        <span class="container__home-icon" *ngIf="isHomePage">icon</span>
-        <div class="container__title-wrapper">
+    <div 
+    class="container__wrapper"
+    [ngClass]="{ 'container__wrapper--home': isHomePage }"
+    >
+        <div 
+        class="container__title-wrapper"
+        [ngClass]="{ 'container__title-wrapper--logo': !isHomePage }"
+        [title]="isHomePage ? '' : mainRoutes.Home  | titlecase"
+        (click)="isHomePage ? null : navigate(mainRoutes.Home)"
+        >
             <h1 class="container__title" [ngClass]="{ 'container__title--logo': !isHomePage }">Eden Oren</h1>
             <h2 class="container__subtitle" [ngClass]="{ 'container__subtitle--logo': !isHomePage }">Front-End Developer</h2>
         </div>
-        <div *ngIf="!isHomePage" class="icons">
-            <span *ngFor="let icon of icons">
-                <a class="icons__link" (click)="openNewWindow(icon.url ?? '')">
-                    <img class="icons__icon" [src]="icon.icon" [alt]="icon.title" [title]="icon.title" />
+        <div *ngIf="!isHomePage; else homeButton" class="icons">
+            <span>
+                <a class="icons__link" (click)="openNewWindow(icons[0].url ?? '')" [title]="icons[0].title">
+                    <svg class="icons__icon" *ngIf="icons[0].icon" viewBox="0 0 50 50" width="30" height="30">
+                        <use [attr.href]="icons[0].icon"></use>
+                    </svg>
+                </a>
+            </span>
+            <span>
+                <a class="icons__link" (click)="openNewWindow(icons[1].url ?? '')" [title]="icons[1].title">
+                    <svg class="icons__icon" *ngIf="icons[1].icon" viewBox="0 0 50 50" width="40" height="40">
+                        <use [attr.href]="icons[1].icon"></use>
+                    </svg>
                 </a>
             </span>
         </div>
     </div>
 </div>
+
+<ng-template #homeButton>
+    <div class="icons">
+        <div class="icons__button" (click)="navigate(mainRoutes.About)">
+            <div class="icons__inner"></div>
+        </div>
+    </div>
+</ng-template>
