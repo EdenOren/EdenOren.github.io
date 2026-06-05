@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact",
+    "resume": "Resume"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "title": "Frontend Developer",
+    "tagline": "I build fast, accessible, and beautiful web experiences.",
+    "cta_work": "View My Work",
+    "cta_contact": "Get In Touch"
+  },
+  "about": {
+    "heading": "About Me",
+    "github_label": "GitHub Profile",
+    "linkedin_label": "LinkedIn Profile"
+  },
+  "experience": {
+    "heading": "Experience",
+    "present": "Present"
+  },
+  "skills": {
+    "heading": "Skills",
+    "frontend": "Frontend",
+    "tools": "Tools & DevOps",
+    "other": "Other"
+  },
+  "projects": {
+    "heading": "Projects",
+    "github_label": "View on GitHub",
+    "live_label": "Live Demo",
+    "no_projects": "No projects yet."
+  },
+  "contact": {
+    "heading": "Get In Touch",
+    "name_label": "Name",
+    "name_placeholder": "Your name",
+    "email_label": "Email",
+    "email_placeholder": "your@email.com",
+    "message_label": "Message",
+    "message_placeholder": "What's on your mind?",
+    "submit": "Send Message",
+    "success": "Message sent! I'll get back to you soon.",
+    "error": "Something went wrong. Please try again."
+  },
+  "admin": {
+    "heading": "Admin Panel",
+    "add_project": "Add Project",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm_delete": "Are you sure you want to delete this?"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong.",
+    "back": "Back",
+    "close": "Close"
+  }
+}
