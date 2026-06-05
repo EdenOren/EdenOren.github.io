@@ -4,16 +4,7 @@
 body {
   font-family: v.$font-family-base;
   font-size: v.$font-size-base;
+  line-height: 1.6;
   color: c.$color-text;
   background-color: c.$color-bg;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
-  font-weight: 700;
-}
-
-code,
-pre {
-  font-family: v.$font-family-mono;
 }
