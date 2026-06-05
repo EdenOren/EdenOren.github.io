@@ -10,17 +10,21 @@ $space-16: 4rem;
 $space-24: 6rem;
 
 // Typography
-$font-family-base: 'Inter', system-ui, sans-serif;
+$font-family-display: 'Cormorant', Georgia, serif;
+$font-family-base: 'Geist', system-ui, sans-serif;
 $font-family-mono: 'JetBrains Mono', monospace;
 
-$font-size-sm: 0.875rem;
+// Single base size for all UI text (nav, body, labels, inputs, footer, tags).
+// Only headings/titles deviate from this.
 $font-size-base: 1rem;
-$font-size-lg: 1.125rem;
-$font-size-xl: 1.25rem;
+$font-size-sm: 0.875rem;
+
+// Heading scale — titles only
 $font-size-2xl: 1.5rem;
 $font-size-3xl: 1.875rem;
 $font-size-4xl: 2.25rem;
 $font-size-5xl: 3rem;
+$font-size-display: clamp(3.5rem, 10vw, 9rem);
 
 // Layout
 $container-max: 1200px;
