@@ -1,3 +1,147 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes radial-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 0.9; transform: scale(1.08); }
+}
+
 .hero {
-  // BEM styles go here
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  &__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 90% 85%, rgb(26 158 101 / 10%), transparent 70%);
+      animation: radial-pulse 7s ease-in-out infinite;
+    }
+  }
+
+  &__content {
+    @include mixins.container;
+    position: relative;
+    z-index: 1;
+    padding-block: variables.$space-24;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$space-4;
+  }
+
+  &__greeting {
+    @include mixins.text-mono;
+    color: colors.$color-text-muted;
+    animation: fade-up 0.6s ease both;
+    animation-delay: 0.1s;
+  }
+
+  &__name {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    margin-block: variables.$space-2;
+    animation: fade-up 0.8s ease both;
+    animation-delay: 0.25s;
+  }
+
+  &__name-first,
+  &__name-last {
+    @include mixins.text-display;
+    display: block;
+  }
+
+  &__role {
+    @include mixins.text-label;
+    color: colors.$color-accent;
+    letter-spacing: 0.15em;
+    animation: fade-up 0.6s ease both;
+    animation-delay: 0.45s;
+  }
+
+  &__tagline {
+    @include mixins.text-mono;
+    color: colors.$color-text-muted;
+    max-width: 44ch;
+    margin-top: variables.$space-2;
+    animation: fade-up 0.6s ease both;
+    animation-delay: 0.6s;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: variables.$space-4;
+    margin-top: variables.$space-6;
+    animation: fade-up 0.6s ease both;
+    animation-delay: 0.8s;
+  }
+
+  &__cta {
+    @include mixins.text-label;
+    display: inline-flex;
+    align-items: center;
+    padding: variables.$space-3 variables.$space-8;
+    text-decoration: none;
+    transition:
+      background-color variables.$transition-fast,
+      color variables.$transition-fast,
+      border-color variables.$transition-fast;
+
+    &:focus-visible {
+      @include mixins.focus-ring;
+    }
+
+    &--filled {
+      background-color: colors.$color-accent;
+      color: colors.$color-bg;
+      border: 1px solid colors.$color-accent;
+
+      &:hover {
+        background-color: transparent;
+        color: colors.$color-accent;
+      }
+    }
+
+    &--outline {
+      background-color: transparent;
+      color: colors.$color-accent;
+      border: 1px solid colors.$color-accent;
+
+      &:hover {
+        background-color: colors.$color-accent;
+        color: colors.$color-bg;
+      }
+    }
+  }
 }
