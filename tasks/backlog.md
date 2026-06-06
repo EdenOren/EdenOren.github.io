@@ -11,6 +11,7 @@ Planned feature branches — each maps to a PR into `development`.
 ## Future
 - [ ] `feature/14-skeleton-loaders`
 - [ ] `feature/15-admin-panel`
+- [ ] `refactor/feature-folder-structure` — each feature folder gets subfolders: `components/`, `enums/`, `utils/`, `models/`, `facades/` instead of flat dumps; all `httpResource` services move to `core/services/data/`; analytics, seo, theme services move to a dedicated subfolder under `core/services/` (e.g. `core/services/ui/` or `core/services/platform/`)
 - [ ] `refactor/scss-shared-styles` — extract repeated SCSS patterns into shared mixins/placeholders, fix anyComponentStyle budget warnings (about.component.scss currently at 6.69 kB, budget is 4 kB)
 - [ ] `feature/13-og-image-final` — replace placeholder og-image.png with final 1200×630 Signal Luxe dark card (Cormorant name, emerald accent, role label)
 

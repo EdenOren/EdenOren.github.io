@@ -7,49 +7,57 @@
       <h2 class="projects__heading no-select">{{ t['HEADING'] }}</h2>
     </div>
 
-    <div class="projects__grid">
-      @for (project of facade.PROJECTS; track project.id) {
-        <article class="projects__card" [class.projects__card--featured]="project.featured">
-          <div class="projects__card-body">
-            <h3 class="projects__card-title">{{ project.title }}</h3>
-            <p class="projects__card-description">{{ project.description }}</p>
+    @if (facade.isLoading()) {
+      <app-skeleton-loader
+        [type]="SkeletonType.Card"
+        [count]="4"
+        [ariaLabel]="t['LOADING_ARIA']"
+      />
+    } @else {
+      <div class="projects__grid" animate.enter="content-reveal">
+        @for (project of facade.PROJECTS; track project.id) {
+          <article class="projects__card" [class.projects__card--featured]="project.featured">
+            <div class="projects__card-body">
+              <h3 class="projects__card-title">{{ project.title }}</h3>
+              <p class="projects__card-description">{{ project.description }}</p>
 
-            <ul class="projects__card-tags" role="list" aria-label="Technologies used">
-              @for (tag of project.tags; track tag) {
-                <li class="projects__card-tag no-select">{{ tag }}</li>
+              <ul class="projects__card-tags" role="list" aria-label="Technologies used">
+                @for (tag of project.tags; track tag) {
+                  <li class="projects__card-tag no-select">{{ tag }}</li>
+                }
+              </ul>
+            </div>
+
+            <footer class="projects__card-footer">
+              @if (project.githubUrl) {
+                <a
+                  class="projects__card-link no-select"
+                  [href]="project.githubUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  [attr.aria-label]="t['GITHUB_LABEL'] + ': ' + project.title">
+                  <span class="projects__card-link-icon" aria-hidden="true">↗</span>
+                  {{ t['GITHUB_LABEL'] }}
+                </a>
               }
-            </ul>
-          </div>
-
-          <footer class="projects__card-footer">
-            @if (project.githubUrl) {
-              <a
-                class="projects__card-link no-select"
-                [href]="project.githubUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                [attr.aria-label]="t['GITHUB_LABEL'] + ': ' + project.title">
-                <span class="projects__card-link-icon" aria-hidden="true">↗</span>
-                {{ t['GITHUB_LABEL'] }}
-              </a>
-            }
-            @if (project.liveUrl) {
-              <a
-                class="projects__card-link projects__card-link--accent no-select"
-                [href]="project.liveUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                [attr.aria-label]="t['LIVE_LABEL'] + ': ' + project.title">
-                <span class="projects__card-link-icon" aria-hidden="true">↗</span>
-                {{ t['LIVE_LABEL'] }}
-              </a>
-            }
-          </footer>
-        </article>
-      } @empty {
-        <p class="projects__empty">{{ t['NO_PROJECTS'] }}</p>
-      }
-    </div>
+              @if (project.liveUrl) {
+                <a
+                  class="projects__card-link projects__card-link--accent no-select"
+                  [href]="project.liveUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  [attr.aria-label]="t['LIVE_LABEL'] + ': ' + project.title">
+                  <span class="projects__card-link-icon" aria-hidden="true">↗</span>
+                  {{ t['LIVE_LABEL'] }}
+                </a>
+              }
+            </footer>
+          </article>
+        } @empty {
+          <p class="projects__empty">{{ t['NO_PROJECTS'] }}</p>
+        }
+      </div>
+    }
 
   </div>
 </section>

@@ -32,7 +32,7 @@ This document defines mandatory standards for all code generation, refactoring, 
 
 ### Enums
 - **No literal strings in logic or comparisons** — always define and use an enum.
-- Feature-scoped enums live in `features/[name]/[name].enums.ts`.
+- Feature-scoped enums live in `features/[name]/enums/`.
 - Shared / cross-feature enums live in `shared/enums/[name].enum.ts`.
 - **No string comparisons in templates** — expose a `Signal<boolean>` computed in the facade instead (e.g. `isLoading`, `isSuccess`, `isError`).
 
@@ -217,7 +217,7 @@ This document defines mandatory standards for all code generation, refactoring, 
 
 ### HTTP
 - Use `httpResource()` for all HTTP data fetching inside services. This is a new project; raw `HttpClient` calls are not permitted in any file — not in components, facades, or services.
-- Every `httpResource()` call lives in `features/[name]/[name].service.ts`.
+- Every `httpResource()` call lives in `core/services/data/[feature].service.ts`.
 - The resource's reactive `params` function is the only place to derive the request from signals or route state. Do not call `.reload()` as a substitute for reactive params.
 - Handle loading, error, and resolved states using the resource's `status`, `isLoading`, `error`, and `hasValue()` signals — expose these through the facade as computed `Signal<boolean>` properties (`isLoading`, `isError`, `isSuccess`) rather than exposing the raw resource object to templates.
 
@@ -254,27 +254,46 @@ This document defines mandatory standards for all code generation, refactoring, 
 ```
 src/
 ├── app/
-│   ├── core/           # Root singletons, interceptors, guards
-│   ├── shared/         # Dumb UI components, utils, constants, enums, models
-│   └── features/       # Smart components + facades (one folder per feature)
+│   ├── core/                     # Root singletons, interceptors, guards
+│   │   ├── interceptors/
+│   │   ├── guards/
+│   │   └── services/
+│   │       ├── data/             # httpResource services — one file per feature
+│   │       │   └── [feature].service.ts
+│   │       └── platform/         # App-wide singletons: analytics, seo, theme
+│   │           ├── analytics.service.ts
+│   │           ├── seo.service.ts
+│   │           └── theme.service.ts
+│   ├── shared/                   # Dumb UI components, utils, constants, enums, models
+│   └── features/                 # Smart components + facades (one folder per feature)
 │       └── [feature]/
-│           ├── [feature].component.ts
-│           ├── [feature].facade.ts
-│           ├── [feature].models.ts   (interfaces / types for this feature)
-│           ├── [feature].enums.ts    (enums scoped to this feature)
-│           ├── [feature].service.ts  (httpResource calls — if API calls needed)
-│           └── [feature].routes.ts   (if sub-routing needed)
+│           ├── components/       # Dumb sub-components scoped to this feature
+│           ├── enums/            # Feature-scoped enums
+│           ├── facades/          # Feature facade(s)
+│           ├── models/           # Interfaces / types for this feature
+│           ├── utils/            # Feature-scoped utilities
+│           ├── [feature].component.ts   # Smart root component
+│           └── [feature].routes.ts      # If sub-routing needed
 └── styles/
     ├── abstract/   # _colors.scss, _variables.scss, _mixins.scss
     └── base/       # _reset.scss, _typography.scss
 ```
 
 Additional rules:
-- A feature's `httpResource` instances live exclusively in `[feature].service.ts`. Facades inject the service and expose computed signals derived from the resource's state signals.
+- `httpResource` instances live exclusively in `core/services/data/[feature].service.ts`. Facades inject the service and expose computed signals derived from the resource's state signals.
+- Platform services (`analytics`, `seo`, `theme`) are root-provided singletons and live in `core/services/platform/`.
 - `@defer` imports that reference components from other features go through the component's own file path, never a barrel index.
 
 ### Naming Conventions
-- Files: `feature-name.component.ts` / `.facade.ts` / `.service.ts` / `.routes.ts` / `.models.ts` / `.enums.ts`
+- Feature root component: `[feature].component.ts` (directly inside `[feature]/`)
+- Feature routes: `[feature].routes.ts` (directly inside `[feature]/`)
+- Sub-components: `[feature]/components/[name].component.ts`
+- Facades: `[feature]/facades/[feature].facade.ts`
+- Models: `[feature]/models/[feature].models.ts`
+- Enums: `[feature]/enums/[name].enum.ts`
+- Utils: `[feature]/utils/[name].utils.ts`
+- Data services: `core/services/data/[feature].service.ts`
+- Platform services: `core/services/platform/[name].service.ts`
 - Global constants: `src/app/shared/constants/`
 - Global enums: `src/app/shared/enums/`
 - Global models: `src/app/shared/models/`

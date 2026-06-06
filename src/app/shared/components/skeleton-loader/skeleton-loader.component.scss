@@ -1,13 +1,124 @@
 @use 'abstract/colors';
 
-.skeleton-loader {
-  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+$shimmer-base: colors.$color-surface;
+$shimmer-highlight: colors.$color-surface-hover;
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@mixin shimmer {
+  background: linear-gradient(
+    90deg,
+    $shimmer-base 25%,
+    $shimmer-highlight 50%,
+    $shimmer-base 75%
+  );
   background-size: 200% 100%;
-  animation: skeleton-pulse 1.5s infinite;
+  animation: skeleton-shimmer 1.8s infinite linear;
   border-radius: 4px;
 }
 
-@keyframes skeleton-pulse {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+.skeleton-loader {
+  &__bar {
+    @include shimmer;
+    height: 0.875rem;
+    width: 100%;
+
+    & + & { margin-top: 0.5rem; }
+
+    &--role { width: 60%; height: 1.125rem; }
+    &--company { width: 40%; }
+    &--title { width: 70%; height: 1.125rem; }
+    &--group-label { width: 30%; height: 0.75rem; margin-bottom: 0.75rem; }
+    &--short { width: 65%; }
+    &--desc { width: 100%; }
+  }
+
+  &__pill {
+    @include shimmer;
+    height: 1.75rem;
+    width: 5rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  &__pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  // Timeline layout
+  &__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  &__timeline-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 1.5rem;
+    border-left: 1px solid colors.$color-border;
+  }
+
+  // Card grid layout
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid colors.$color-border;
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  &__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__card-footer {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__action-btn {
+    @include shimmer;
+    height: 2rem;
+    width: 7.5rem;
+  }
+
+  // Groups (skills) layout
+  &__groups {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+  }
 }
