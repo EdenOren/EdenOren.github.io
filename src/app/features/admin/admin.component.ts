@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { AdminFacade } from './admin.facade';
+import { AdminFacade } from './facades/admin.facade';
 
 @Component({
   selector: 'app-admin',

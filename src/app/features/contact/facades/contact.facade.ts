@@ -2,12 +2,12 @@ import { Service, Signal, WritableSignal, computed, inject, signal } from '@angu
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { SubmitState } from './contact.enums';
+import { SubmitState } from '../enums/contact.enums';
 import {
   CONTACT_MIN_MESSAGE_LENGTH,
   CONTACT_SECTION_NUMBER,
   CONTACT_SUBMIT_DELAY_MS,
-} from './contact.constants';
+} from '../utils/contact.constants';
 
 export { SubmitState };
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
-import { AboutFacade } from './about.facade';
+import { AboutFacade } from './facades/about.facade';
 
 @Component({
   selector: 'app-about',

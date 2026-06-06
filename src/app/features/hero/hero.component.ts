@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { HeroFacade } from './hero.facade';
+import { HeroFacade } from './facades/hero.facade';
 
 @Component({
   selector: 'app-hero',

@@ -2,8 +2,8 @@ import { Service, Signal, WritableSignal, computed, inject, signal } from '@angu
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { SKILLS_SECTION_NUMBER } from './skills.constants';
-import { SkillGroupKey } from './skills.enums';
+import { SKILLS_SECTION_NUMBER } from '../utils/skills.constants';
+import { SkillGroupKey } from '../enums/skills.enums';
 
 export interface SkillGroup {
   id: SkillGroupKey;

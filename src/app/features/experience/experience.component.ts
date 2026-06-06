@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { SkeletonType } from '../../shared/enums/shared.enums';
-import { ExperienceFacade } from './experience.facade';
+import { ExperienceFacade } from './facades/experience.facade';
 
 @Component({
   selector: 'app-experience',
