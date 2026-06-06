@@ -7,12 +7,9 @@ Planned feature branches — each maps to a PR into `development`.
 
 ## Up Next
 
-- [ ] `feature/9-translate-service` — wire up i18n keys
-- [ ] `feature/10-github-pages-deploy`
+- [ ] `feature/18-scroll-reveal-directive` — IntersectionObserver → `.is-visible` class
 
 ## Future
-- [ ] `feature/17-responsive-layout` — mobile hamburger nav, section padding, experience timeline, portrait frame
-- [ ] `feature/11-scroll-reveal-directive` — IntersectionObserver → `.is-visible` class
 - [ ] `feature/12-ghost-section-numbers` — 01–06 Cormorant watermarks
 - [ ] `feature/13-seo-open-graph`
 - [ ] `feature/14-skeleton-loaders`
@@ -28,5 +25,9 @@ Planned feature branches — each maps to a PR into `development`.
 - [x] `feature/6-skills` — grouped pill tags, emerald hover border
 - [x] `feature/7-projects` — 2-col card grid, hover lift + emerald bottom border
 - [x] `feature/8-contact` — centered form, emerald submit button
+- [x] `feature/9-translate-service` — wire up i18n keys with APP_INITIALIZER
+- [x] `docs/claude-commit-policy` — branch naming, commit approval policy
+- [x] `feature/10-github-pages-deploy` — base-href config for GitHub Pages
 - [x] `feature/11-constants-followup` — extract magic numbers into constants files
-- [x] `docs/10-claude-commit-policy` — branch naming, commit approval policy
+- [x] `feature/17-responsive-layout` — mobile hamburger nav, fluid section padding, timeline and portrait fixes
+- [x] `refactor/angular22-standards` — align codebase with Angular 22 standards (zoneless, signals, standalone)
