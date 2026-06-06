@@ -7,10 +7,13 @@ This document defines mandatory standards for all code generation, refactoring, 
 ## Universal Standards (all projects)
 
 ### Git Workflow
-- **Branches:** `main` (production) · `development` (integration) · `feature/name` · `bugfix/name`
+- **Branches:** `main` (production) · `development` (integration) · `feature/name` · `bugfix/name` · `docs/name`
+- **Branch & PR title format:** `type/number-general-description` — e.g. `feature/4-about`, `bugfix/11-navbar-scroll`, `docs/10-claude-commit-policy`. Every branch carries a sequential number.
+- **PR titles** must match the branch name exactly.
 - **PRs always target `development`.** Only `development → main` PRs release to production.
 - **Never push directly to `main` or `development`.**
 - **One PR per feature** — do not batch unrelated changes.
+- **Never commit or push** without explicit user approval. Show planned changes first and wait for a go-ahead before any `git commit` or `git push`.
 - **PR template:** `.github/PULL_REQUEST_TEMPLATE.md` must be filled out on every PR.
 - See `CONTRIBUTING.md` for full workflow details.
 
