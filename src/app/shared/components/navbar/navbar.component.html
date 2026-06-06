@@ -1,0 +1,30 @@
+<nav class="navbar" [class.navbar--scrolled]="isScrolled()">
+  <div class="navbar__inner">
+    <a class="navbar__logo no-select" routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive>
+      E. Oren
+    </a>
+
+    <ul class="navbar__links" role="list">
+      @for (link of navLinks; track link.path) {
+        <li class="navbar__item">
+          <a
+            class="navbar__link no-select"
+            [routerLink]="link.path"
+            routerLinkActive="navbar__link--active"
+          >
+            {{ link.label() }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <a
+      class="navbar__resume no-select"
+      href="assets/resume.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {{ resumeLabel() }}
+    </a>
+  </div>
+</nav>
