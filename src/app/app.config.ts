@@ -6,6 +6,7 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
 import { Language } from './core/enums/core.enums';
+import { SeoService } from './core/services/seo.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,5 +16,6 @@ export const appConfig: ApplicationConfig = {
     ...provideTranslateService(),
     ...provideTranslateHttpLoader(),
     provideAppInitializer(() => inject(TranslateService).use(Language.English)),
+    provideAppInitializer(() => inject(SeoService).apply()),
   ]
 };

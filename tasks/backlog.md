@@ -3,15 +3,16 @@
 Planned feature branches — each maps to a PR into `development`.
 
 ## In Progress
-- `feature/12-ghost-section-numbers` — 01–06 Cormorant watermarks
+- `feature/13-seo-open-graph` — Meta/Title/OG/Twitter tags, canonical link
 
 ## Up Next
 - [ ] `feature/16-scroll-reveal-directive` — IntersectionObserver → `.is-visible` class
 
 ## Future
-- [ ] `feature/13-seo-open-graph`
 - [ ] `feature/14-skeleton-loaders`
 - [ ] `feature/15-admin-panel`
+- [ ] `refactor/scss-shared-styles` — extract repeated SCSS patterns into shared mixins/placeholders, fix anyComponentStyle budget warnings (about.component.scss currently at 6.69 kB, budget is 4 kB)
+- [ ] `feature/13-og-image-final` — replace placeholder og-image.png with final 1200×630 Signal Luxe dark card (Cormorant name, emerald accent, role label)
 
 ## Done
 - [x] `feature/1-design-tokens` — palette, Cormorant + Geist fonts, base font size
