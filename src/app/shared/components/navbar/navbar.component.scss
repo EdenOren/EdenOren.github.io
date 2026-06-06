@@ -1,3 +1,118 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
 .navbar {
-  // BEM styles go here
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: variables.$z-nav;
+  transition:
+    background-color variables.$transition-base,
+    border-color variables.$transition-base,
+    backdrop-filter variables.$transition-base;
+
+  &--scrolled {
+    background-color: rgb(10 10 10 / 85%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid colors.$color-border;
+  }
+
+  &__inner {
+    @include mixins.container;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+    gap: variables.$space-8;
+  }
+
+  &__logo {
+    @include mixins.text-heading-md;
+    font-style: italic;
+    font-weight: 400;
+    color: colors.$color-text;
+    text-decoration: none;
+    flex-shrink: 0;
+    letter-spacing: 0.01em;
+    transition: color variables.$transition-fast;
+
+    &:hover {
+      color: colors.$color-accent;
+    }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: variables.$space-6;
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__link {
+    @include mixins.text-label;
+    position: relative;
+    color: colors.$color-text-muted;
+    text-decoration: none;
+    padding-block: variables.$space-1;
+    transition: color variables.$transition-fast;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: colors.$color-accent;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform variables.$transition-base;
+    }
+
+    &:hover {
+      color: colors.$color-text;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    &--active {
+      color: colors.$color-text;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    &:focus-visible {
+      @include mixins.focus-ring;
+    }
+  }
+
+  &__resume {
+    @include mixins.text-label;
+    color: colors.$color-accent;
+    text-decoration: none;
+    border: 1px solid colors.$color-accent;
+    padding: variables.$space-2 variables.$space-4;
+    flex-shrink: 0;
+    transition:
+      background-color variables.$transition-fast,
+      color variables.$transition-fast;
+
+    &:hover {
+      background-color: colors.$color-accent;
+      color: colors.$color-bg;
+    }
+
+    &:focus-visible {
+      @include mixins.focus-ring;
+    }
+  }
 }
