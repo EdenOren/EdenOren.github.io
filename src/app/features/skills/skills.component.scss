@@ -1,3 +1,101 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
 .skills {
-  // BEM styles go here
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-block: variables.$space-24;
+
+  &__inner {
+    @include mixins.container;
+  }
+
+  &__header {
+    position: relative;
+    margin-bottom: variables.$space-16;
+  }
+
+  &__section-number {
+    @include mixins.text-display;
+    position: absolute;
+    top: -3.5rem;
+    left: -1rem;
+    font-size: clamp(5rem, 12vw, 10rem);
+    color: colors.$color-surface-hover;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__heading {
+    @include mixins.text-heading-lg;
+    position: relative;
+    z-index: 1;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 2px;
+      background-color: colors.$color-accent;
+      margin-top: variables.$space-4;
+    }
+  }
+
+  &__groups {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$space-12;
+
+    @include mixins.respond-to(md) {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: variables.$space-8;
+    }
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$space-4;
+  }
+
+  &__group-label {
+    @include mixins.text-label;
+    font-size: variables.$font-size-sm;
+    color: colors.$color-accent;
+    margin-bottom: variables.$space-2;
+  }
+
+  &__tag-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: variables.$space-2;
+  }
+
+  &__tag {
+    @include mixins.text-mono;
+    font-size: 0.875rem;
+    color: colors.$color-text-muted;
+    background-color: colors.$color-surface;
+    border: 1px solid colors.$color-border;
+    padding: variables.$space-1 variables.$space-3;
+    border-radius: 2px;
+    cursor: default;
+    transition:
+      border-color variables.$transition-fast,
+      color variables.$transition-fast,
+      background-color variables.$transition-fast;
+
+    &:hover {
+      border-color: colors.$color-accent;
+      color: colors.$color-text;
+      background-color: rgb(26 158 101 / 6%);
+    }
+  }
 }
