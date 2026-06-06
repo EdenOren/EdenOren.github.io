@@ -3,10 +3,10 @@
 @use 'abstract/mixins' as mixins;
 
 .contact {
+  @include mixins.section-padding;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding-block: variables.$space-24;
 
   &__inner {
     @include mixins.container;

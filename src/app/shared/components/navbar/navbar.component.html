@@ -1,30 +1,54 @@
-<nav class="navbar" [class.navbar--scrolled]="isScrolled()">
+<nav class="navbar" [class.navbar--scrolled]="isScrolled()" [class.navbar--open]="isMenuOpen()">
   <div class="navbar__inner">
     <a class="navbar__logo no-select" routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive>
       E. Oren
     </a>
 
-    <ul class="navbar__links" role="list">
-      @for (link of navLinks; track link.path) {
-        <li class="navbar__item">
-          <a
-            class="navbar__link no-select"
-            [routerLink]="link.path"
-            routerLinkActive="navbar__link--active"
-          >
-            {{ link.label() }}
-          </a>
-        </li>
-      }
-    </ul>
-
-    <a
-      class="navbar__resume no-select"
-      href="assets/resume.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      class="navbar__burger no-select"
+      [class.navbar__burger--open]="isMenuOpen()"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen()"
+      aria-label="Toggle navigation"
+      aria-controls="navbar-drawer"
     >
-      {{ resumeLabel() }}
-    </a>
+      <span class="navbar__burger-line"></span>
+      <span class="navbar__burger-line"></span>
+      <span class="navbar__burger-line"></span>
+    </button>
+
+    <div
+      class="navbar__overlay"
+      [class.navbar__overlay--visible]="isMenuOpen()"
+      (click)="closeMenu()"
+      aria-hidden="true"
+    ></div>
+
+    <div class="navbar__drawer" id="navbar-drawer" [class.navbar__drawer--open]="isMenuOpen()">
+      <ul class="navbar__links" role="list">
+        @for (link of navLinks; track link.path) {
+          <li class="navbar__item">
+            <a
+              class="navbar__link no-select"
+              [routerLink]="link.path"
+              routerLinkActive="navbar__link--active"
+              (click)="closeMenu()"
+            >
+              {{ link.label() }}
+            </a>
+          </li>
+        }
+      </ul>
+
+      <a
+        class="navbar__resume no-select"
+        href="assets/resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        (click)="closeMenu()"
+      >
+        {{ resumeLabel() }}
+      </a>
+    </div>
   </div>
 </nav>

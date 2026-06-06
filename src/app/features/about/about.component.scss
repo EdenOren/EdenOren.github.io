@@ -3,10 +3,10 @@
 @use 'abstract/mixins' as mixins;
 
 .about {
+  @include mixins.section-padding;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding-block: variables.$space-24;
 
   &__inner {
     @include mixins.container;
@@ -36,8 +36,8 @@
 
   &__frame {
     position: relative;
-    width: 280px;
-    height: 340px;
+    width: min(280px, 75vw);
+    aspect-ratio: 280 / 340;
     flex-shrink: 0;
   }
 

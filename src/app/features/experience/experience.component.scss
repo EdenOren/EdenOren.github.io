@@ -3,10 +3,10 @@
 @use 'abstract/mixins' as mixins;
 
 .experience {
+  @include mixins.section-padding;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding-block: variables.$space-24;
 
   &__inner {
     @include mixins.container;
@@ -55,9 +55,14 @@
 
   &__entry {
     display: grid;
-    grid-template-columns: 4rem 2rem 1fr;
-    gap: 0 variables.$space-6;
+    grid-template-columns: 1.5rem 1fr;
+    gap: 0 variables.$space-4;
     padding-bottom: variables.$space-12;
+
+    @include mixins.respond-to(sm) {
+      grid-template-columns: 4rem 2rem 1fr;
+      gap: 0 variables.$space-6;
+    }
 
     &:last-child {
       padding-bottom: 0;
@@ -81,6 +86,22 @@
     font-size: variables.$font-size-sm;
     padding-top: 2px;
     text-align: right;
+    display: none;
+
+    @include mixins.respond-to(sm) {
+      display: block;
+    }
+  }
+
+  &__entry-year--inline {
+    @include mixins.text-mono;
+    color: colors.$color-text-muted;
+    font-size: variables.$font-size-sm;
+    margin-bottom: variables.$space-1;
+
+    @include mixins.respond-to(sm) {
+      display: none;
+    }
   }
 
   &__entry-marker {
