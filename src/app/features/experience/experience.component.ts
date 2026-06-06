@@ -5,7 +5,7 @@ import { ExperienceFacade } from './experience.facade';
   selector: 'app-experience',
   standalone: true,
   imports: [],
-  template: `<section class="experience"><!-- feature/experience --></section>`,
+  templateUrl: './experience.component.html',
   styleUrl: './experience.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
