@@ -1,0 +1,74 @@
+<section class="contact">
+  <div class="contact__inner">
+
+    <div class="contact__header">
+      <p class="contact__section-number no-select" aria-hidden="true">{{ facade.sectionNumber }}</p>
+      <h2 class="contact__heading no-select">{{ facade.heading() }}</h2>
+    </div>
+
+    @if (facade.submitState() === 'success') {
+      <p class="contact__success" role="status" aria-live="polite">{{ facade.successMessage() }}</p>
+    } @else {
+      <form
+        class="contact__form"
+        (submit)="$event.preventDefault(); facade.submit()"
+        novalidate>
+
+        <div class="contact__field">
+          <label class="contact__label" for="contact-name">{{ facade.nameLabel() }}</label>
+          <input
+            class="contact__input"
+            id="contact-name"
+            type="text"
+            autocomplete="name"
+            [placeholder]="facade.namePlaceholder()"
+            [value]="facade.name()"
+            (input)="facade.name.set($any($event.target).value)"
+            [disabled]="facade.isLoading()" />
+        </div>
+
+        <div class="contact__field">
+          <label class="contact__label" for="contact-email">{{ facade.emailLabel() }}</label>
+          <input
+            class="contact__input"
+            id="contact-email"
+            type="email"
+            autocomplete="email"
+            [placeholder]="facade.emailPlaceholder()"
+            [value]="facade.email()"
+            (input)="facade.email.set($any($event.target).value)"
+            [disabled]="facade.isLoading()" />
+        </div>
+
+        <div class="contact__field">
+          <label class="contact__label" for="contact-message">{{ facade.messageLabel() }}</label>
+          <textarea
+            class="contact__textarea"
+            id="contact-message"
+            [attr.rows]="textareaRows"
+            [placeholder]="facade.messagePlaceholder()"
+            [value]="facade.message()"
+            (input)="facade.message.set($any($event.target).value)"
+            [disabled]="facade.isLoading()"></textarea>
+        </div>
+
+        @if (facade.submitState() === 'error') {
+          <p class="contact__error" role="alert" aria-live="assertive">{{ facade.errorMessage() }}</p>
+        }
+
+        <button
+          class="contact__submit no-select"
+          type="submit"
+          [disabled]="!facade.isValid() || facade.isLoading()"
+          [class.contact__submit--loading]="facade.isLoading()">
+          @if (facade.isLoading()) {
+            <span class="contact__submit-spinner" aria-hidden="true"></span>
+          }
+          {{ facade.submitLabel() }}
+        </button>
+
+      </form>
+    }
+
+  </div>
+</section>
