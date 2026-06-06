@@ -162,6 +162,9 @@
     text-decoration: none;
     padding-block: variables.$space-1;
     transition: color variables.$transition-fast;
+    background: none;
+    border: none;
+    cursor: pointer;
 
     @media (max-width: #{variables.$breakpoint-md - 1px}) {
       padding-block: variables.$space-4;
@@ -207,30 +210,4 @@
     }
   }
 
-  &__resume {
-    @include mixins.text-label;
-    color: colors.$color-accent;
-    text-decoration: none;
-    border: 1px solid colors.$color-accent;
-    padding: variables.$space-2 variables.$space-4;
-    flex-shrink: 0;
-    transition:
-      background-color variables.$transition-fast,
-      color variables.$transition-fast;
-
-    @media (max-width: #{variables.$breakpoint-md - 1px}) {
-      margin-top: variables.$space-6;
-      text-align: center;
-      padding: variables.$space-3 variables.$space-4;
-    }
-
-    &:hover {
-      background-color: colors.$color-accent;
-      color: colors.$color-bg;
-    }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
-  }
 }
