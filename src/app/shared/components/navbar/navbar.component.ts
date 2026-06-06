@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateService } from '../../services/translate.service';
+import { NAVBAR_SCROLL_THRESHOLD_PX } from './navbar.constants';
 
 @Component({
   selector: 'app-navbar',
@@ -35,7 +36,7 @@ export class NavbarComponent {
 
   constructor() {
     afterNextRender(() => {
-      const onScroll = () => this.isScrolled.set(window.scrollY > 40);
+      const onScroll = () => this.isScrolled.set(window.scrollY > NAVBAR_SCROLL_THRESHOLD_PX);
       window.addEventListener('scroll', onScroll, { passive: true });
       this.destroyRef.onDestroy(() => window.removeEventListener('scroll', onScroll));
     });
