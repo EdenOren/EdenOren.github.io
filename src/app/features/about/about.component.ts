@@ -5,7 +5,7 @@ import { AboutFacade } from './about.facade';
   selector: 'app-about',
   standalone: true,
   imports: [],
-  template: `<section class="about"><!-- feature/about --></section>`,
+  templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
