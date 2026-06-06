@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Service, Signal, inject } from '@angular/core';
 import { TranslateService } from '../../shared/services/translate.service';
+import { I18nSection } from '../../shared/enums/i18n-section.enum';
 import { EXPERIENCE_SECTION_NUMBER } from './experience.constants';
 
 export interface ExperienceEntry {
@@ -12,15 +13,15 @@ export interface ExperienceEntry {
   tags: string[];
 }
 
-@Injectable({ providedIn: 'root' })
+@Service({ autoProvided: false })
 export class ExperienceFacade {
   private readonly translate = inject(TranslateService);
 
-  readonly heading = this.translate.t('experience', 'heading');
-  readonly present = this.translate.t('experience', 'present');
-  readonly sectionNumber = EXPERIENCE_SECTION_NUMBER;
+  readonly heading:        Signal<string> = this.translate.get(I18nSection.Experience, 'HEADING');
+  readonly present:        Signal<string> = this.translate.get(I18nSection.Experience, 'PRESENT');
+  readonly SECTION_NUMBER: number         = EXPERIENCE_SECTION_NUMBER;
 
-  readonly entries: ExperienceEntry[] = [
+  readonly ENTRIES: ExperienceEntry[] = [
     {
       id: 'exp-1',
       role: 'Frontend Developer',

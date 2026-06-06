@@ -1,8 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Service } from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class AdminService {
-  private readonly http = inject(HttpClient);
   // CRUD for projects, about text, experience items via TiDB API
 }

@@ -3,8 +3,8 @@ import { AdminFacade } from './admin.facade';
 
 @Component({
   selector: 'app-admin',
-  standalone: true,
   imports: [],
+  providers: [AdminFacade],
   template: `<section class="admin"><!-- feature/admin-panel --></section>`,
   styleUrl: './admin.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

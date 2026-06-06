@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { Service, inject } from '@angular/core';
 import { AdminService } from './admin.service';
 
-@Injectable({ providedIn: 'root' })
+@Service({ autoProvided: false })
 export class AdminFacade {
-  private readonly service = inject(AdminService);
+  private readonly adminService = inject(AdminService);
 }

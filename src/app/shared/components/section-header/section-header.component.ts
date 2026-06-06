@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-section-header',
-  standalone: true,
   imports: [],
   template: `
     <div class="section-header">

@@ -3,8 +3,8 @@ import { ProjectsFacade } from './projects.facade';
 
 @Component({
   selector: 'app-projects',
-  standalone: true,
   imports: [],
+  providers: [ProjectsFacade],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

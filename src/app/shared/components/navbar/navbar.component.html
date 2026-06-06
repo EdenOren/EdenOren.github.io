@@ -26,7 +26,7 @@
 
     <div class="navbar__drawer" id="navbar-drawer" [class.navbar__drawer--open]="isMenuOpen()">
       <ul class="navbar__links" role="list">
-        @for (link of navLinks; track link.path) {
+        @for (link of NAV_LINKS; track link.path) {
           <li class="navbar__item">
             <a
               class="navbar__link no-select"

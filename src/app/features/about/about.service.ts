@@ -1,8 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Service } from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class AboutService {
-  private readonly http = inject(HttpClient);
   // GET /about — returns editable bio text from TiDB API
 }

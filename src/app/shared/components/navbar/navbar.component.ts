@@ -1,19 +1,21 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  DestroyRef,
+  Signal,
+  WritableSignal,
   afterNextRender,
   effect,
   inject,
   signal,
 } from '@angular/core';
 import { NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '../../services/translate.service';
+import { I18nSection } from '../../enums/i18n-section.enum';
 import { NAVBAR_SCROLL_THRESHOLD_PX } from './navbar.constants';
 
 @Component({
   selector: 'app-navbar',
-  standalone: true,
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
@@ -21,37 +23,38 @@ import { NAVBAR_SCROLL_THRESHOLD_PX } from './navbar.constants';
 })
 export class NavbarComponent {
   private readonly translate = inject(TranslateService);
-  private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
 
-  protected readonly isScrolled = signal(false);
-  protected readonly isMenuOpen = signal(false);
+  protected readonly isScrolled: WritableSignal<boolean> = signal(false);
+  protected readonly isMenuOpen: WritableSignal<boolean> = signal(false);
 
-  protected readonly navLinks = [
-    { path: '/about',      label: this.translate.t('nav', 'about') },
-    { path: '/experience', label: this.translate.t('nav', 'experience') },
-    { path: '/skills',     label: this.translate.t('nav', 'skills') },
-    { path: '/projects',   label: this.translate.t('nav', 'projects') },
-    { path: '/contact',    label: this.translate.t('nav', 'contact') },
+  protected readonly NAV_LINKS: { path: string; label: Signal<string> }[] = [
+    { path: '/about',      label: this.translate.get(I18nSection.Nav, 'ABOUT') },
+    { path: '/experience', label: this.translate.get(I18nSection.Nav, 'EXPERIENCE') },
+    { path: '/skills',     label: this.translate.get(I18nSection.Nav, 'SKILLS') },
+    { path: '/projects',   label: this.translate.get(I18nSection.Nav, 'PROJECTS') },
+    { path: '/contact',    label: this.translate.get(I18nSection.Nav, 'CONTACT') },
   ];
 
-  protected readonly resumeLabel = this.translate.t('nav', 'resume');
+  protected readonly resumeLabel: Signal<string> = this.translate.get(I18nSection.Nav, 'RESUME');
 
   constructor() {
     afterNextRender(() => {
       const onScroll = () => this.isScrolled.set(window.scrollY > NAVBAR_SCROLL_THRESHOLD_PX);
       window.addEventListener('scroll', onScroll, { passive: true });
-      this.destroyRef.onDestroy(() => window.removeEventListener('scroll', onScroll));
     });
 
     effect(() => {
       document.body.style.overflow = this.isMenuOpen() ? 'hidden' : '';
     });
 
-    const sub = this.router.events.subscribe(e => {
-      if (e instanceof NavigationStart) this.isMenuOpen.set(false);
-    });
-    this.destroyRef.onDestroy(() => sub.unsubscribe());
+    this.router.events
+      .pipe(takeUntilDestroyed())
+      .subscribe(e => {
+        if (e instanceof NavigationStart) {
+          this.isMenuOpen.set(false);
+        }
+      });
   }
 
   protected toggleMenu(): void {

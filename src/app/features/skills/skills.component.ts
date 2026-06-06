@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { SkillsFacade } from './skills.facade';
+import { SkillsFacade, SkillGroup } from './skills.facade';
+import { SkillGroupKey } from './skills.enums';
 
 @Component({
   selector: 'app-skills',
-  standalone: true,
   imports: [],
+  providers: [SkillsFacade],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,9 +13,13 @@ import { SkillsFacade } from './skills.facade';
 export class SkillsComponent {
   protected readonly facade = inject(SkillsFacade);
 
-  protected groupLabel(group: { labelKey: string }): string {
-    if (group.labelKey === 'frontend') return this.facade.frontendLabel();
-    if (group.labelKey === 'tools') return this.facade.toolsLabel();
+  protected groupLabel(group: SkillGroup): string {
+    if (group.labelKey === SkillGroupKey.Frontend) {
+      return this.facade.frontendLabel();
+    }
+    if (group.labelKey === SkillGroupKey.Tools) {
+      return this.facade.toolsLabel();
+    }
     return this.facade.otherLabel();
   }
 }

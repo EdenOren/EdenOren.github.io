@@ -1,49 +1,51 @@
-import { Injectable, Signal, inject } from '@angular/core';
+import { Service, Signal, inject } from '@angular/core';
 import { TranslateService } from '../../shared/services/translate.service';
+import { I18nSection } from '../../shared/enums/i18n-section.enum';
 import { ABOUT_SECTION_NUMBER } from './about.constants';
+import { SocialIcon, SocialLinkKey } from './about.enums';
 
 export interface SocialLink {
-  key: string;
+  key: SocialLinkKey;
   href: string;
   label: string;
   ariaLabel: Signal<string>;
-  icon: string;
+  icon: SocialIcon;
 }
 
-@Injectable({ providedIn: 'root' })
+@Service({ autoProvided: false })
 export class AboutFacade {
   private readonly translate = inject(TranslateService);
 
-  readonly heading = this.translate.t('about', 'heading');
-  readonly sectionNumber = ABOUT_SECTION_NUMBER;
+  readonly heading:       Signal<string> = this.translate.get(I18nSection.About, 'HEADING');
+  readonly SECTION_NUMBER: string = ABOUT_SECTION_NUMBER;
 
-  readonly bio: Signal<string>[] = [
-    this.translate.t('about', 'bio_1'),
-    this.translate.t('about', 'bio_2'),
-    this.translate.t('about', 'bio_3'),
+  readonly BIO: Signal<string>[] = [
+    this.translate.get(I18nSection.About, 'BIO_1'),
+    this.translate.get(I18nSection.About, 'BIO_2'),
+    this.translate.get(I18nSection.About, 'BIO_3'),
   ];
 
-  readonly socialLinks: SocialLink[] = [
+  readonly SOCIAL_LINKS: SocialLink[] = [
     {
-      key: 'github',
+      key: SocialLinkKey.GitHub,
       href: 'https://github.com/EdenOren',
       label: 'GitHub',
-      ariaLabel: this.translate.t('about', 'github_label'),
-      icon: 'github',
+      ariaLabel: this.translate.get(I18nSection.About, 'GITHUB_LABEL'),
+      icon: SocialIcon.GitHub,
     },
     {
-      key: 'linkedin',
+      key: SocialLinkKey.LinkedIn,
       href: 'https://linkedin.com/in/edenoren',
       label: 'LinkedIn',
-      ariaLabel: this.translate.t('about', 'linkedin_label'),
-      icon: 'linkedin',
+      ariaLabel: this.translate.get(I18nSection.About, 'LINKEDIN_LABEL'),
+      icon: SocialIcon.LinkedIn,
     },
     {
-      key: 'email',
+      key: SocialLinkKey.Email,
       href: 'mailto:edenoren@gmail.com',
       label: 'Email',
-      ariaLabel: this.translate.t('about', 'email_label'),
-      icon: 'mail',
+      ariaLabel: this.translate.get(I18nSection.About, 'EMAIL_LABEL'),
+      icon: SocialIcon.Mail,
     },
   ];
 }

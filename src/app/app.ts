@@ -5,7 +5,6 @@ import { TranslateService } from './shared/services/translate.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -13,6 +12,6 @@ import { TranslateService } from './shared/services/translate.service';
 })
 export class App {
   constructor() {
-    inject(TranslateService).load();
+    void inject(TranslateService).load();
   }
 }
