@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { TranslateService } from './shared/services/translate.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +9,4 @@ import { TranslateService } from './shared/services/translate.service';
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {
-  constructor() {
-    void inject(TranslateService).load();
-  }
-}
+export class App {}

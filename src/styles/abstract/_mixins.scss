@@ -1,3 +1,4 @@
+@use 'colors' as colors;
 @use 'variables' as variables;
 
 @mixin respond-to($breakpoint) {
@@ -85,4 +86,15 @@
   font-family: variables.$font-family-mono;
   font-size: variables.$font-size-base;
   line-height: 1.6;
+}
+
+@mixin ghost-section-number {
+  font-family: variables.$font-family-display;
+  font-size: clamp(6rem, 15vw, 12rem);
+  font-weight: 500;
+  line-height: 1;
+  color: colors.$color-surface-hover;
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
 }

@@ -18,15 +18,9 @@
   }
 
   &__section-number {
-    @include mixins.text-display;
-    position: absolute;
+    @include mixins.ghost-section-number;
     top: -3.5rem;
     left: -1rem;
-    font-size: clamp(5rem, 12vw, 10rem);
-    color: colors.$color-surface-hover;
-    line-height: 1;
-    pointer-events: none;
-    z-index: 0;
   }
 
   &__heading {
