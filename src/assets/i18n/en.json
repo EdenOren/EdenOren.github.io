@@ -27,19 +27,22 @@
   },
   "EXPERIENCE": {
     "HEADING": "Experience",
-    "PRESENT": "Present"
+    "PRESENT": "Present",
+    "LOADING_ARIA": "Loading experience…"
   },
   "SKILLS": {
     "HEADING": "Skills",
     "FRONTEND": "Frontend",
     "TOOLS": "Tools & DevOps",
-    "OTHER": "Other"
+    "OTHER": "Other",
+    "LOADING_ARIA": "Loading skills…"
   },
   "PROJECTS": {
     "HEADING": "Projects",
     "GITHUB_LABEL": "View on GitHub",
     "LIVE_LABEL": "Live Demo",
-    "NO_PROJECTS": "No projects yet."
+    "NO_PROJECTS": "No projects yet.",
+    "LOADING_ARIA": "Loading projects…"
   },
   "CONTACT": {
     "HEADING": "Get In Touch",

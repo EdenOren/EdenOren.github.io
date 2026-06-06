@@ -1,4 +1,4 @@
-import { Service, Signal, inject } from '@angular/core';
+import { Service, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -14,6 +14,9 @@ export interface SkillGroup {
 @Service({ autoProvided: false })
 export class SkillsFacade {
   private readonly translateService: TranslateService = inject(TranslateService);
+
+  private readonly _loading: WritableSignal<boolean> = signal(true);
+  readonly isLoading: Signal<boolean> = computed(() => this._loading());
 
   readonly translation: Signal<Record<string, string>> = toSignal(
     this.translateService.stream('SKILLS') as Observable<Record<string, string>>,
@@ -39,4 +42,9 @@ export class SkillsFacade {
       skills: ['REST APIs', 'GraphQL', 'Design Systems', 'Web Perf', 'SEO', 'i18n'],
     },
   ];
+
+  constructor() {
+    // Simulates realistic async latency for static in-memory data
+    setTimeout(() => this._loading.set(false), 600);
+  }
 }

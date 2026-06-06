@@ -1,0 +1,67 @@
+@switch (type()) {
+  @case (SkeletonType.Timeline) {
+    <div class="skeleton-loader__timeline" role="status" [attr.aria-label]="ariaLabel()">
+      @for (item of countArray(); track item) {
+        <div class="skeleton-loader__timeline-entry">
+          <div class="skeleton-loader__bar skeleton-loader__bar--role"></div>
+          <div class="skeleton-loader__bar skeleton-loader__bar--company"></div>
+          <div class="skeleton-loader__bar skeleton-loader__bar--desc"></div>
+          <div class="skeleton-loader__bar skeleton-loader__bar--desc"></div>
+          <div class="skeleton-loader__bar skeleton-loader__bar--desc skeleton-loader__bar--short"></div>
+          <div class="skeleton-loader__pills">
+            <div class="skeleton-loader__pill"></div>
+            <div class="skeleton-loader__pill"></div>
+            <div class="skeleton-loader__pill"></div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+  @case (SkeletonType.Card) {
+    <div class="skeleton-loader__grid" role="status" [attr.aria-label]="ariaLabel()">
+      @for (item of countArray(); track item) {
+        <div class="skeleton-loader__card">
+          <div class="skeleton-loader__card-body">
+            <div class="skeleton-loader__bar skeleton-loader__bar--title"></div>
+            <div class="skeleton-loader__bar skeleton-loader__bar--desc"></div>
+            <div class="skeleton-loader__bar skeleton-loader__bar--desc skeleton-loader__bar--short"></div>
+            <div class="skeleton-loader__pills">
+              <div class="skeleton-loader__pill"></div>
+              <div class="skeleton-loader__pill"></div>
+              <div class="skeleton-loader__pill"></div>
+            </div>
+          </div>
+          <div class="skeleton-loader__card-footer">
+            <div class="skeleton-loader__action-btn"></div>
+            <div class="skeleton-loader__action-btn"></div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+  @case (SkeletonType.Pill) {
+    <div class="skeleton-loader__groups" role="status" [attr.aria-label]="ariaLabel()">
+      @for (item of countArray(); track item) {
+        <div class="skeleton-loader__group">
+          <div class="skeleton-loader__bar skeleton-loader__bar--group-label"></div>
+          <div class="skeleton-loader__pill-row">
+            <div class="skeleton-loader__pill"></div>
+            <div class="skeleton-loader__pill"></div>
+            <div class="skeleton-loader__pill"></div>
+            <div class="skeleton-loader__pill"></div>
+            <div class="skeleton-loader__pill"></div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+  @default {
+    <div
+      class="skeleton-loader__bar"
+      role="status"
+      [attr.aria-label]="ariaLabel()"
+      [style.height]="height()"
+      [style.width]="width()"
+    ></div>
+  }
+}

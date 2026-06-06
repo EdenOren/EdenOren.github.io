@@ -7,35 +7,43 @@
       <h2 class="experience__heading no-select">{{ t['HEADING'] }}</h2>
     </div>
 
-    <ol class="experience__timeline" role="list">
-      @for (entry of facade.ENTRIES; track entry.id) {
-        <li class="experience__entry" [class.experience__entry--current]="entry.current">
-          <div class="experience__entry-year no-select" aria-hidden="true">{{ entry.period }}</div>
+    @if (facade.isLoading()) {
+      <app-skeleton-loader
+        [type]="SkeletonType.Timeline"
+        [count]="3"
+        [ariaLabel]="t['LOADING_ARIA']"
+      />
+    } @else {
+      <ol class="experience__timeline" role="list" animate.enter="content-reveal">
+        @for (entry of facade.ENTRIES; track entry.id) {
+          <li class="experience__entry" [class.experience__entry--current]="entry.current">
+            <div class="experience__entry-year no-select" aria-hidden="true">{{ entry.period }}</div>
 
-          <div class="experience__entry-marker" aria-hidden="true">
-            <div class="experience__entry-dot"></div>
-            <div class="experience__entry-line"></div>
-          </div>
-
-          <div class="experience__entry-body">
-            <div class="experience__entry-year--inline no-select" aria-hidden="true">{{ entry.period }}</div>
-            <div class="experience__entry-meta">
-              <h3 class="experience__entry-role">{{ entry.role }}</h3>
-              <span class="experience__entry-company">{{ entry.company }}</span>
-              @if (entry.current) {
-                <span class="experience__entry-badge no-select">{{ t['PRESENT'] }}</span>
-              }
+            <div class="experience__entry-marker" aria-hidden="true">
+              <div class="experience__entry-dot"></div>
+              <div class="experience__entry-line"></div>
             </div>
-            <p class="experience__entry-description">{{ entry.description }}</p>
-            <ul class="experience__entry-tags" role="list" aria-label="Technologies">
-              @for (tag of entry.tags; track tag) {
-                <li class="experience__entry-tag no-select">{{ tag }}</li>
-              }
-            </ul>
-          </div>
-        </li>
-      }
-    </ol>
+
+            <div class="experience__entry-body">
+              <div class="experience__entry-year--inline no-select" aria-hidden="true">{{ entry.period }}</div>
+              <div class="experience__entry-meta">
+                <h3 class="experience__entry-role">{{ entry.role }}</h3>
+                <span class="experience__entry-company">{{ entry.company }}</span>
+                @if (entry.current) {
+                  <span class="experience__entry-badge no-select">{{ t['PRESENT'] }}</span>
+                }
+              </div>
+              <p class="experience__entry-description">{{ entry.description }}</p>
+              <ul class="experience__entry-tags" role="list" aria-label="Technologies">
+                @for (tag of entry.tags; track tag) {
+                  <li class="experience__entry-tag no-select">{{ tag }}</li>
+                }
+              </ul>
+            </div>
+          </li>
+        }
+      </ol>
+    }
 
   </div>
 </section>
