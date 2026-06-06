@@ -1,3 +1,169 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
 .contact {
-  // BEM styles go here
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-block: variables.$space-24;
+
+  &__inner {
+    @include mixins.container;
+    max-width: 640px;
+  }
+
+  &__header {
+    position: relative;
+    margin-bottom: variables.$space-16;
+  }
+
+  &__section-number {
+    @include mixins.text-display;
+    position: absolute;
+    top: -3.5rem;
+    left: -1rem;
+    font-size: clamp(5rem, 12vw, 10rem);
+    color: colors.$color-surface-hover;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__heading {
+    @include mixins.text-heading-lg;
+    position: relative;
+    z-index: 1;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 2px;
+      background-color: colors.$color-accent;
+      margin-top: variables.$space-4;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$space-6;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$space-2;
+  }
+
+  &__label {
+    @include mixins.text-label;
+    font-size: variables.$font-size-sm;
+    color: colors.$color-text-muted;
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    background-color: colors.$color-surface;
+    border: 1px solid colors.$color-border;
+    color: colors.$color-text;
+    font-family: variables.$font-family-base;
+    font-size: variables.$font-size-base;
+    padding: variables.$space-3 variables.$space-4;
+    border-radius: 2px;
+    transition:
+      border-color variables.$transition-fast,
+      box-shadow variables.$transition-fast;
+    appearance: none;
+    resize: none;
+
+    &::placeholder {
+      color: colors.$color-border;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: colors.$color-accent;
+      box-shadow: 0 0 0 3px rgb(26 158 101 / 12%);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__textarea {
+    min-height: 140px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  &__error {
+    color: colors.$color-error;
+    font-size: variables.$font-size-sm;
+  }
+
+  &__success {
+    color: colors.$color-accent;
+    font-size: variables.$font-size-base;
+    line-height: 1.6;
+    padding: variables.$space-8;
+    border: 1px solid rgb(26 158 101 / 30%);
+    background-color: rgb(26 158 101 / 6%);
+  }
+
+  &__submit {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: variables.$space-2;
+    padding: variables.$space-3 variables.$space-8;
+    background-color: colors.$color-accent;
+    color: colors.$color-bg;
+    font-family: variables.$font-family-base;
+    font-size: variables.$font-size-base;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border: 1px solid colors.$color-accent;
+    border-radius: 2px;
+    cursor: pointer;
+    transition:
+      background-color variables.$transition-fast,
+      color variables.$transition-fast,
+      opacity variables.$transition-fast;
+
+    &:hover:not(:disabled) {
+      background-color: transparent;
+      color: colors.$color-accent;
+    }
+
+    &:focus-visible {
+      @include mixins.focus-ring;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    &--loading {
+      pointer-events: none;
+    }
+  }
+
+  &__submit-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: contact-spin 0.6s linear infinite;
+  }
+}
+
+@keyframes contact-spin {
+  to { transform: rotate(360deg); }
 }
