@@ -2,8 +2,8 @@ import { Service, Signal, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { ABOUT_SECTION_NUMBER } from './about.constants';
-import { SocialIcon, SocialLinkKey } from './about.enums';
+import { ABOUT_SECTION_NUMBER } from '../utils/about.constants';
+import { SocialIcon, SocialLinkKey } from '../enums/about.enums';
 
 export interface SocialLink {
   key: SocialLinkKey;

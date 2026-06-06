@@ -3,16 +3,14 @@
 Planned feature branches — each maps to a PR into `development`.
 
 ## In Progress
-- `feature/13-seo-open-graph` — Meta/Title/OG/Twitter tags, canonical link
 
 ## Up Next
-- [ ] `feature/16-scroll-reveal-directive` — IntersectionObserver → `.is-visible` class
-
-## Future
-- [ ] `feature/14-skeleton-loaders`
 - [ ] `feature/15-admin-panel`
 - [ ] `feature/18-404-page` — styled 404 component; evaluate removing withHashLocation() and switching to 404.html trick or Netlify/Cloudflare Pages for clean URLs
-- [ ] `refactor/feature-folder-structure` — each feature folder gets subfolders: `components/`, `enums/`, `utils/`, `models/`, `facades/` instead of flat dumps; all `httpResource` services move to `core/services/data/`; analytics, seo, theme services move to a dedicated subfolder under `core/services/` (e.g. `core/services/ui/` or `core/services/platform/`)
+
+## Future
+- [ ] `feature/19-share-button` — share portfolio URL (Web Share API with clipboard fallback)
+- [ ] `feature/20-contact-form-connect` — wire contact form to a real email service (EmailJS / Formspree)
 - [ ] `refactor/scss-shared-styles` — extract repeated SCSS patterns into shared mixins/placeholders, fix anyComponentStyle budget warnings (about.component.scss currently at 6.69 kB, budget is 4 kB)
 - [ ] `feature/13-og-image-final` — replace placeholder og-image.png with final 1200×630 Signal Luxe dark card (Cormorant name, emerald accent, role label)
 
@@ -31,3 +29,7 @@ Planned feature branches — each maps to a PR into `development`.
 - [x] `feature/11-constants-followup` — extract magic numbers into constants files
 - [x] `feature/17-responsive-layout` — mobile hamburger nav, fluid section padding, timeline and portrait fixes
 - [x] `refactor/angular22-standards` — align codebase with Angular 22 standards (zoneless, signals, standalone)
+- [x] `feature/13-seo-open-graph` — Meta/Title/OG/Twitter tags, canonical link
+- [x] `feature/14-skeleton-loaders` — shimmer skeletons with fade reveal for experience, projects, and skills
+- [x] `feature/16-scroll-reveal-directive` — IntersectionObserver directive with fade-slide entrance on 5 sections
+- [x] `refactor/feature-folder-structure` — feature subfolders (facades/, enums/, utils/); data services → core/services/data/; platform services → core/services/platform/

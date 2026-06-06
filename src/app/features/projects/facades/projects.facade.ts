@@ -2,7 +2,7 @@ import { Service, Signal, WritableSignal, computed, inject, signal } from '@angu
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { PROJECTS_SECTION_NUMBER } from './projects.constants';
+import { PROJECTS_SECTION_NUMBER } from '../utils/projects.constants';
 
 export interface Project {
   id: string;

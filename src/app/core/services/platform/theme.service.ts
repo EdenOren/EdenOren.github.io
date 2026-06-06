@@ -1,5 +1,5 @@
 import { Service, WritableSignal, signal } from '@angular/core';
-import { Theme } from '../enums/core.enums';
+import { Theme } from '../../enums/core.enums';
 
 @Service()
 export class ThemeService {

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
-import { ContactFacade } from './contact.facade';
-import { CONTACT_TEXTAREA_ROWS } from './contact.constants';
+import { ContactFacade } from './facades/contact.facade';
+import { CONTACT_TEXTAREA_ROWS } from './utils/contact.constants';
 
 @Component({
   selector: 'app-contact',
