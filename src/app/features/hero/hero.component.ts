@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { HeroFacade } from './hero.facade';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [],
-  template: `<section class="hero"><!-- feature/hero --></section>`,
+  imports: [RouterLink],
+  templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

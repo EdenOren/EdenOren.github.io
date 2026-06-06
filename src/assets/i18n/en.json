@@ -8,6 +8,8 @@
     "resume": "Resume"
   },
   "hero": {
+    "name_first": "Eden",
+    "name_last": "Oren",
     "greeting": "Hi, I'm",
     "title": "Frontend Developer",
     "tagline": "I build fast, accessible, and beautiful web experiences.",
