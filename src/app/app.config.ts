@@ -3,9 +3,9 @@ import { provideRouter, withHashLocation } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { TranslateService, provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
-import { firstValueFrom } from 'rxjs';
 
 import { routes } from './app.routes';
+import { Language } from './core/enums/core.enums';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     ...provideTranslateService(),
     ...provideTranslateHttpLoader(),
-    provideAppInitializer(() => firstValueFrom(inject(TranslateService).use('en'))),
+    provideAppInitializer(() => inject(TranslateService).use(Language.English)),
   ]
 };
