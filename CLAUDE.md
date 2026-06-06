@@ -14,7 +14,6 @@ This document defines mandatory standards for all code generation, refactoring, 
 - **Never push directly to `main` or `development`.**
 - **One PR per feature** — do not batch unrelated changes.
 - **Never commit or push** without explicit user approval. Show planned changes first and wait for a go-ahead before any `git commit` or `git push`.
-- **PR template:** `.github/PULL_REQUEST_TEMPLATE.md` must be filled out on every PR.
 - See `CONTRIBUTING.md` for full workflow details.
 
 ### Planning
