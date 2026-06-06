@@ -1,0 +1,1 @@
+export const NAVBAR_SCROLL_THRESHOLD_PX = 40;

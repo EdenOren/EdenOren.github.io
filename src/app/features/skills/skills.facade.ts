@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { TranslateService } from '../../shared/services/translate.service';
+import { SKILLS_SECTION_NUMBER } from './skills.constants';
 
 export interface SkillGroup {
   id: string;
@@ -12,6 +13,7 @@ export class SkillsFacade {
   private readonly translate = inject(TranslateService);
 
   readonly heading = this.translate.t('skills', 'heading');
+  readonly sectionNumber = SKILLS_SECTION_NUMBER;
   readonly frontendLabel = this.translate.t('skills', 'frontend');
   readonly toolsLabel = this.translate.t('skills', 'tools');
   readonly otherLabel = this.translate.t('skills', 'other');

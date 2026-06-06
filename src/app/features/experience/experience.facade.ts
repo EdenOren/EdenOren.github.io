@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { TranslateService } from '../../shared/services/translate.service';
+import { EXPERIENCE_SECTION_NUMBER } from './experience.constants';
 
 export interface ExperienceEntry {
   id: string;
@@ -17,6 +18,7 @@ export class ExperienceFacade {
 
   readonly heading = this.translate.t('experience', 'heading');
   readonly present = this.translate.t('experience', 'present');
+  readonly sectionNumber = EXPERIENCE_SECTION_NUMBER;
 
   readonly entries: ExperienceEntry[] = [
     {
