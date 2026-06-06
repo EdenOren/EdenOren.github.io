@@ -5,7 +5,7 @@ import { ProjectsFacade } from './projects.facade';
   selector: 'app-projects',
   standalone: true,
   imports: [],
-  template: `<section class="projects"><!-- feature/projects --></section>`,
+  templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

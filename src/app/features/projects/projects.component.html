@@ -1,0 +1,52 @@
+<section class="projects">
+  <div class="projects__inner">
+
+    <div class="projects__header">
+      <p class="projects__section-number no-select" aria-hidden="true">{{ facade.sectionNumber }}</p>
+      <h2 class="projects__heading no-select">{{ facade.heading() }}</h2>
+    </div>
+
+    <div class="projects__grid">
+      @for (project of facade.projects; track project.id) {
+        <article class="projects__card" [class.projects__card--featured]="project.featured">
+          <div class="projects__card-body">
+            <h3 class="projects__card-title">{{ project.title }}</h3>
+            <p class="projects__card-description">{{ project.description }}</p>
+
+            <ul class="projects__card-tags" role="list" aria-label="Technologies used">
+              @for (tag of project.tags; track tag) {
+                <li class="projects__card-tag no-select">{{ tag }}</li>
+              }
+            </ul>
+          </div>
+
+          <footer class="projects__card-footer">
+            @if (project.githubUrl) {
+              <a
+                class="projects__card-link no-select"
+                [href]="project.githubUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="facade.githubLabel() + ': ' + project.title">
+                <span class="projects__card-link-icon" aria-hidden="true">↗</span>
+                {{ facade.githubLabel() }}
+              </a>
+            }
+            @if (project.liveUrl) {
+              <a
+                class="projects__card-link projects__card-link--accent no-select"
+                [href]="project.liveUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="facade.liveLabel() + ': ' + project.title">
+                <span class="projects__card-link-icon" aria-hidden="true">↗</span>
+                {{ facade.liveLabel() }}
+              </a>
+            }
+          </footer>
+        </article>
+      }
+    </div>
+
+  </div>
+</section>
