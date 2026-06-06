@@ -1,9 +1,10 @@
 <section class="projects">
   <div class="projects__inner">
 
+    @let t = facade.translation();
     <div class="projects__header">
       <p class="projects__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
-      <h2 class="projects__heading no-select">{{ facade.heading() }}</h2>
+      <h2 class="projects__heading no-select">{{ t['HEADING'] }}</h2>
     </div>
 
     <div class="projects__grid">
@@ -27,9 +28,9 @@
                 [href]="project.githubUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                [attr.aria-label]="facade.githubLabel() + ': ' + project.title">
+                [attr.aria-label]="t['GITHUB_LABEL'] + ': ' + project.title">
                 <span class="projects__card-link-icon" aria-hidden="true">↗</span>
-                {{ facade.githubLabel() }}
+                {{ t['GITHUB_LABEL'] }}
               </a>
             }
             @if (project.liveUrl) {
@@ -38,15 +39,15 @@
                 [href]="project.liveUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                [attr.aria-label]="facade.liveLabel() + ': ' + project.title">
+                [attr.aria-label]="t['LIVE_LABEL'] + ': ' + project.title">
                 <span class="projects__card-link-icon" aria-hidden="true">↗</span>
-                {{ facade.liveLabel() }}
+                {{ t['LIVE_LABEL'] }}
               </a>
             }
           </footer>
         </article>
       } @empty {
-        <p class="projects__empty">{{ facade.noProjects() }}</p>
+        <p class="projects__empty">{{ t['NO_PROJECTS'] }}</p>
       }
     </div>
 

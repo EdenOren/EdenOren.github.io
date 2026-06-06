@@ -8,10 +8,11 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslateService } from '../../services/translate.service';
-import { I18nSection } from '../../enums/i18n-section.enum';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { NAVBAR_SCROLL_THRESHOLD_PX } from './navbar.constants';
 
 @Component({
@@ -22,21 +23,24 @@ import { NAVBAR_SCROLL_THRESHOLD_PX } from './navbar.constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent {
-  private readonly translate = inject(TranslateService);
+  private readonly translateService: TranslateService = inject(TranslateService);
   private readonly router = inject(Router);
+
+  protected readonly translation: Signal<Record<string, string>> = toSignal(
+    this.translateService.stream('NAV') as Observable<Record<string, string>>,
+    { initialValue: {} as Record<string, string> }
+  );
 
   protected readonly isScrolled: WritableSignal<boolean> = signal(false);
   protected readonly isMenuOpen: WritableSignal<boolean> = signal(false);
 
-  protected readonly NAV_LINKS: { path: string; label: Signal<string> }[] = [
-    { path: '/about',      label: this.translate.get(I18nSection.Nav, 'ABOUT') },
-    { path: '/experience', label: this.translate.get(I18nSection.Nav, 'EXPERIENCE') },
-    { path: '/skills',     label: this.translate.get(I18nSection.Nav, 'SKILLS') },
-    { path: '/projects',   label: this.translate.get(I18nSection.Nav, 'PROJECTS') },
-    { path: '/contact',    label: this.translate.get(I18nSection.Nav, 'CONTACT') },
+  protected readonly NAV_LINKS: { path: string; labelKey: string }[] = [
+    { path: '/about', labelKey: 'ABOUT' },
+    { path: '/experience', labelKey: 'EXPERIENCE' },
+    { path: '/skills', labelKey: 'SKILLS' },
+    { path: '/projects', labelKey: 'PROJECTS' },
+    { path: '/contact', labelKey: 'CONTACT' },
   ];
-
-  protected readonly resumeLabel: Signal<string> = this.translate.get(I18nSection.Nav, 'RESUME');
 
   constructor() {
     afterNextRender(() => {

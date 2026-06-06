@@ -24,6 +24,7 @@
       aria-hidden="true"
     ></div>
 
+    @let t = translation();
     <div class="navbar__drawer" id="navbar-drawer" [class.navbar__drawer--open]="isMenuOpen()">
       <ul class="navbar__links" role="list">
         @for (link of NAV_LINKS; track link.path) {
@@ -34,7 +35,7 @@
               routerLinkActive="navbar__link--active"
               (click)="closeMenu()"
             >
-              {{ link.label() }}
+              {{ t[link.labelKey] }}
             </a>
           </li>
         }
@@ -47,7 +48,7 @@
         rel="noopener noreferrer"
         (click)="closeMenu()"
       >
-        {{ resumeLabel() }}
+        {{ t['RESUME'] }}
       </a>
     </div>
   </div>

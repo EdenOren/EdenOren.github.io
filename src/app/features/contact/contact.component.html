@@ -1,13 +1,14 @@
 <section class="contact">
   <div class="contact__inner">
 
+    @let t = facade.translation();
     <div class="contact__header">
       <p class="contact__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
-      <h2 class="contact__heading no-select">{{ facade.heading() }}</h2>
+      <h2 class="contact__heading no-select">{{ t['HEADING'] }}</h2>
     </div>
 
     @if (facade.isSuccess()) {
-      <p class="contact__success" role="status" aria-live="polite">{{ facade.successMessage() }}</p>
+      <p class="contact__success" role="status" aria-live="polite">{{ t['SUCCESS'] }}</p>
     } @else {
       <form
         class="contact__form"
@@ -15,45 +16,45 @@
         novalidate>
 
         <div class="contact__field">
-          <label class="contact__label" for="contact-name">{{ facade.nameLabel() }}</label>
+          <label class="contact__label" for="contact-name">{{ t['NAME_LABEL'] }}</label>
           <input
             class="contact__input"
             id="contact-name"
             type="text"
             autocomplete="name"
-            [placeholder]="facade.namePlaceholder()"
+            [placeholder]="t['NAME_PLACEHOLDER']"
             [value]="facade.name()"
             (input)="facade.name.set($any($event.target).value)"
             [disabled]="facade.isLoading()" />
         </div>
 
         <div class="contact__field">
-          <label class="contact__label" for="contact-email">{{ facade.emailLabel() }}</label>
+          <label class="contact__label" for="contact-email">{{ t['EMAIL_LABEL'] }}</label>
           <input
             class="contact__input"
             id="contact-email"
             type="email"
             autocomplete="email"
-            [placeholder]="facade.emailPlaceholder()"
+            [placeholder]="t['EMAIL_PLACEHOLDER']"
             [value]="facade.email()"
             (input)="facade.email.set($any($event.target).value)"
             [disabled]="facade.isLoading()" />
         </div>
 
         <div class="contact__field">
-          <label class="contact__label" for="contact-message">{{ facade.messageLabel() }}</label>
+          <label class="contact__label" for="contact-message">{{ t['MESSAGE_LABEL'] }}</label>
           <textarea
             class="contact__textarea"
             id="contact-message"
             [attr.rows]="TEXTAREA_ROWS"
-            [placeholder]="facade.messagePlaceholder()"
+            [placeholder]="t['MESSAGE_PLACEHOLDER']"
             [value]="facade.message()"
             (input)="facade.message.set($any($event.target).value)"
             [disabled]="facade.isLoading()"></textarea>
         </div>
 
         @if (facade.isError()) {
-          <p class="contact__error" role="alert" aria-live="assertive">{{ facade.errorMessage() }}</p>
+          <p class="contact__error" role="alert" aria-live="assertive">{{ t['ERROR'] }}</p>
         }
 
         <button
@@ -64,7 +65,7 @@
           @if (facade.isLoading()) {
             <span class="contact__submit-spinner" aria-hidden="true"></span>
           }
-          {{ facade.submitLabel() }}
+          {{ t['SUBMIT'] }}
         </button>
 
       </form>

@@ -1,23 +1,24 @@
 <section class="hero">
   <div class="hero__bg" aria-hidden="true"></div>
 
+  @let t = facade.translation();
   <div class="hero__content">
-    <p class="hero__greeting no-select">{{ facade.greeting() }}</p>
+    <p class="hero__greeting no-select">{{ t['GREETING'] }}</p>
 
     <h1 class="hero__name no-select">
-      <span class="hero__name-first">{{ facade.nameFirst() }}</span>
-      <span class="hero__name-last">{{ facade.nameLast() }}</span>
+      <span class="hero__name-first">{{ t['NAME_FIRST'] }}</span>
+      <span class="hero__name-last">{{ t['NAME_LAST'] }}</span>
     </h1>
 
-    <p class="hero__role no-select">{{ facade.title() }}</p>
-    <p class="hero__tagline">{{ facade.tagline() }}</p>
+    <p class="hero__role no-select">{{ t['TITLE'] }}</p>
+    <p class="hero__tagline">{{ t['TAGLINE'] }}</p>
 
     <div class="hero__actions">
       <a class="hero__cta hero__cta--filled no-select" routerLink="/projects">
-        {{ facade.ctaWork() }}
+        {{ t['CTA_WORK'] }}
       </a>
       <a class="hero__cta hero__cta--outline no-select" routerLink="/contact">
-        {{ facade.ctaContact() }}
+        {{ t['CTA_CONTACT'] }}
       </a>
     </div>
   </div>

@@ -1,15 +1,16 @@
 <section class="skills">
   <div class="skills__inner">
 
+    @let t = facade.translation();
     <div class="skills__header">
       <p class="skills__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
-      <h2 class="skills__heading no-select">{{ facade.heading() }}</h2>
+      <h2 class="skills__heading no-select">{{ t['HEADING'] }}</h2>
     </div>
 
     <div class="skills__groups">
       @for (group of facade.GROUPS; track group.id) {
         <div class="skills__group">
-          <h3 class="skills__group-label no-select">{{ groupLabel(group) }}</h3>
+          <h3 class="skills__group-label no-select">{{ t[group.labelKey] }}</h3>
           <ul class="skills__tag-list" role="list">
             @for (skill of group.skills; track skill) {
               <li class="skills__tag no-select">{{ skill }}</li>

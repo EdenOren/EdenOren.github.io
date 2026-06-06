@@ -1,6 +1,7 @@
 import { Service, Signal, inject } from '@angular/core';
-import { TranslateService } from '../../shared/services/translate.service';
-import { I18nSection } from '../../shared/enums/i18n-section.enum';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { SKILLS_SECTION_NUMBER } from './skills.constants';
 import { SkillGroupKey } from './skills.enums';
 
@@ -12,13 +13,14 @@ export interface SkillGroup {
 
 @Service({ autoProvided: false })
 export class SkillsFacade {
-  private readonly translate = inject(TranslateService);
+  private readonly translateService: TranslateService = inject(TranslateService);
 
-  readonly heading:        Signal<string> = this.translate.get(I18nSection.Skills, 'HEADING');
-  readonly SECTION_NUMBER: number         = SKILLS_SECTION_NUMBER;
-  readonly frontendLabel:  Signal<string> = this.translate.get(I18nSection.Skills, 'FRONTEND');
-  readonly toolsLabel:     Signal<string> = this.translate.get(I18nSection.Skills, 'TOOLS');
-  readonly otherLabel:     Signal<string> = this.translate.get(I18nSection.Skills, 'OTHER');
+  readonly translation: Signal<Record<string, string>> = toSignal(
+    this.translateService.stream('SKILLS') as Observable<Record<string, string>>,
+    { initialValue: {} as Record<string, string> }
+  );
+
+  readonly SECTION_NUMBER: string = SKILLS_SECTION_NUMBER;
 
   readonly GROUPS: SkillGroup[] = [
     {

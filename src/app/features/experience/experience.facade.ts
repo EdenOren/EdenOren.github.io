@@ -1,6 +1,7 @@
 import { Service, Signal, inject } from '@angular/core';
-import { TranslateService } from '../../shared/services/translate.service';
-import { I18nSection } from '../../shared/enums/i18n-section.enum';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { EXPERIENCE_SECTION_NUMBER } from './experience.constants';
 
 export interface ExperienceEntry {
@@ -15,11 +16,14 @@ export interface ExperienceEntry {
 
 @Service({ autoProvided: false })
 export class ExperienceFacade {
-  private readonly translate = inject(TranslateService);
+  private readonly translateService: TranslateService = inject(TranslateService);
 
-  readonly heading:        Signal<string> = this.translate.get(I18nSection.Experience, 'HEADING');
-  readonly present:        Signal<string> = this.translate.get(I18nSection.Experience, 'PRESENT');
-  readonly SECTION_NUMBER: number         = EXPERIENCE_SECTION_NUMBER;
+  readonly translation: Signal<Record<string, string>> = toSignal(
+    this.translateService.stream('EXPERIENCE') as Observable<Record<string, string>>,
+    { initialValue: {} as Record<string, string> }
+  );
+
+  readonly SECTION_NUMBER: string = EXPERIENCE_SECTION_NUMBER;
 
   readonly ENTRIES: ExperienceEntry[] = [
     {

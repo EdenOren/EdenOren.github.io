@@ -1,6 +1,7 @@
 import { Service, Signal, inject } from '@angular/core';
-import { TranslateService } from '../../shared/services/translate.service';
-import { I18nSection } from '../../shared/enums/i18n-section.enum';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { PROJECTS_SECTION_NUMBER } from './projects.constants';
 
 export interface Project {
@@ -15,13 +16,14 @@ export interface Project {
 
 @Service({ autoProvided: false })
 export class ProjectsFacade {
-  private readonly translate = inject(TranslateService);
+  private readonly translateService: TranslateService = inject(TranslateService);
 
-  readonly heading:        Signal<string> = this.translate.get(I18nSection.Projects, 'HEADING');
-  readonly SECTION_NUMBER: number         = PROJECTS_SECTION_NUMBER;
-  readonly githubLabel:    Signal<string> = this.translate.get(I18nSection.Projects, 'GITHUB_LABEL');
-  readonly liveLabel:      Signal<string> = this.translate.get(I18nSection.Projects, 'LIVE_LABEL');
-  readonly noProjects:     Signal<string> = this.translate.get(I18nSection.Projects, 'NO_PROJECTS');
+  readonly translation: Signal<Record<string, string>> = toSignal(
+    this.translateService.stream('PROJECTS') as Observable<Record<string, string>>,
+    { initialValue: {} as Record<string, string> }
+  );
+
+  readonly SECTION_NUMBER: string = PROJECTS_SECTION_NUMBER;
 
   readonly PROJECTS: Project[] = [
     {
