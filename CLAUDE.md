@@ -7,7 +7,7 @@ This document defines mandatory standards for all code generation, refactoring, 
 ## Universal Standards (all projects)
 
 ### Git Workflow
-- **Branches:** `main` (production) · `development` (integration) · `feature/name` · `bugfix/name` · `docs/name`
+- **Branches:** `main` (production) · `development` (integration) · `feature/name` · `bugfix/name` · `refactor/name` (optional) · `docs/name`
 - **Branch & PR title format:** `type/number-general-description` — e.g. `feature/4-about`, `bugfix/11-navbar-scroll`, `docs/10-claude-commit-policy`. Every branch carries a sequential number.
 - **PR titles** must match the branch name exactly.
 - **PRs always target `development`.** Only `development → main` PRs release to production.

@@ -8,6 +8,7 @@
 | `development` | Integration — all PRs target this branch. |
 | `feature/name` | New features (e.g. `feature/hero`, `feature/dark-light-mode`) |
 | `bugfix/name` | Bug fixes (e.g. `bugfix/navbar-scroll`) |
+| `refactor/name` | Optional — code restructuring with no behaviour change |
 
 ## Workflow
 
