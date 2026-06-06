@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { HeroFacade } from './hero.facade';
 
 @Component({
   selector: 'app-hero',
-  imports: [RouterLink],
+  imports: [],
   providers: [HeroFacade],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
@@ -12,4 +11,9 @@ import { HeroFacade } from './hero.facade';
 })
 export class HeroComponent {
   protected readonly facade = inject(HeroFacade);
+
+  protected scrollToSection(sectionId: string): void {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
+  }
 }

@@ -1,4 +1,4 @@
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero__bg" aria-hidden="true"></div>
 
   @let t = facade.translation();
@@ -14,12 +14,12 @@
     <p class="hero__tagline">{{ t['TAGLINE'] }}</p>
 
     <div class="hero__actions">
-      <a class="hero__cta hero__cta--filled no-select" routerLink="/projects">
+      <button class="hero__cta hero__cta--filled no-select" type="button" (click)="scrollToSection('projects')">
         {{ t['CTA_WORK'] }}
-      </a>
-      <a class="hero__cta hero__cta--outline no-select" routerLink="/contact">
+      </button>
+      <button class="hero__cta hero__cta--outline no-select" type="button" (click)="scrollToSection('contact')">
         {{ t['CTA_CONTACT'] }}
-      </a>
+      </button>
     </div>
   </div>
 </section>
