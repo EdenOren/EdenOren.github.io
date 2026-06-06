@@ -3,8 +3,8 @@ import { ExperienceFacade } from './experience.facade';
 
 @Component({
   selector: 'app-experience',
-  standalone: true,
   imports: [],
+  providers: [ExperienceFacade],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

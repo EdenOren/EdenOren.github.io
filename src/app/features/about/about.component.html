@@ -10,7 +10,7 @@
       </div>
 
       <ul class="about__social" role="list" aria-label="Social links">
-        @for (link of facade.socialLinks; track link.key) {
+        @for (link of facade.SOCIAL_LINKS; track link.key) {
           <li class="about__social-item">
             <a
               class="about__social-link no-select"
@@ -27,11 +27,11 @@
     </div>
 
     <div class="about__text-col">
-      <p class="about__section-number no-select" aria-hidden="true">{{ facade.sectionNumber }}</p>
+      <p class="about__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
       <h2 class="about__heading no-select">{{ facade.heading() }}</h2>
 
       <div class="about__bio">
-        @for (paragraph of facade.bio; track $index) {
+        @for (paragraph of facade.BIO; track $index) {
           <p class="about__bio-paragraph">{{ paragraph() }}</p>
         }
       </div>

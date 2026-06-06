@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-skeleton-loader',
-  standalone: true,
   imports: [],
   template: `
     <div class="skeleton-loader" [style.height]="height()" [style.width]="width()"></div>

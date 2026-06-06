@@ -1,23 +1,23 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, Signal, computed, inject, signal } from '@angular/core';
+import { Service, Signal, computed, signal } from '@angular/core';
+import { I18nSection } from '../enums/i18n-section.enum';
 
 type TranslationMap = Record<string, Record<string, string>>;
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class TranslateService {
-  private readonly http = inject(HttpClient);
   private readonly translations = signal<TranslationMap>({});
 
-  load(): Promise<void> {
-    return new Promise(resolve => {
-      this.http.get<TranslationMap>('assets/i18n/en.json').subscribe({
-        next: data => { this.translations.set(data); resolve(); },
-        error: () => resolve(),
-      });
-    });
+  async load(): Promise<void> {
+    try {
+      const response = await fetch('assets/i18n/en.json');
+      const data = await response.json() as TranslationMap;
+      this.translations.set(data);
+    } catch {
+      // silently fall back to key placeholders
+    }
   }
 
-  t(section: string, key: string): Signal<string> {
+  get(section: I18nSection, key: string): Signal<string> {
     return computed(() => this.translations()[section]?.[key] ?? `${section}.${key}`);
   }
 }

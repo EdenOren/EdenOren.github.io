@@ -1,37 +1,39 @@
-import { Injectable, inject } from '@angular/core';
+import { Service, Signal, inject } from '@angular/core';
 import { TranslateService } from '../../shared/services/translate.service';
+import { I18nSection } from '../../shared/enums/i18n-section.enum';
 import { SKILLS_SECTION_NUMBER } from './skills.constants';
+import { SkillGroupKey } from './skills.enums';
 
 export interface SkillGroup {
-  id: string;
-  labelKey: string;
+  id: SkillGroupKey;
+  labelKey: SkillGroupKey;
   skills: string[];
 }
 
-@Injectable({ providedIn: 'root' })
+@Service({ autoProvided: false })
 export class SkillsFacade {
   private readonly translate = inject(TranslateService);
 
-  readonly heading = this.translate.t('skills', 'heading');
-  readonly sectionNumber = SKILLS_SECTION_NUMBER;
-  readonly frontendLabel = this.translate.t('skills', 'frontend');
-  readonly toolsLabel = this.translate.t('skills', 'tools');
-  readonly otherLabel = this.translate.t('skills', 'other');
+  readonly heading:        Signal<string> = this.translate.get(I18nSection.Skills, 'HEADING');
+  readonly SECTION_NUMBER: number         = SKILLS_SECTION_NUMBER;
+  readonly frontendLabel:  Signal<string> = this.translate.get(I18nSection.Skills, 'FRONTEND');
+  readonly toolsLabel:     Signal<string> = this.translate.get(I18nSection.Skills, 'TOOLS');
+  readonly otherLabel:     Signal<string> = this.translate.get(I18nSection.Skills, 'OTHER');
 
-  readonly groups: SkillGroup[] = [
+  readonly GROUPS: SkillGroup[] = [
     {
-      id: 'frontend',
-      labelKey: 'frontend',
+      id: SkillGroupKey.Frontend,
+      labelKey: SkillGroupKey.Frontend,
       skills: ['Angular', 'TypeScript', 'RxJS', 'Signals', 'HTML', 'CSS / SCSS', 'Animations', 'A11y'],
     },
     {
-      id: 'tools',
-      labelKey: 'tools',
+      id: SkillGroupKey.Tools,
+      labelKey: SkillGroupKey.Tools,
       skills: ['Git', 'GitHub Actions', 'Vite', 'Node.js', 'Figma', 'Storybook', 'Jest', 'Playwright'],
     },
     {
-      id: 'other',
-      labelKey: 'other',
+      id: SkillGroupKey.Other,
+      labelKey: SkillGroupKey.Other,
       skills: ['REST APIs', 'GraphQL', 'Design Systems', 'Web Perf', 'SEO', 'i18n'],
     },
   ];

@@ -1,10 +1,9 @@
-import { Injectable, signal } from '@angular/core';
+import { Service, WritableSignal, signal } from '@angular/core';
+import { Theme } from '../enums/core.enums';
 
-export type Theme = 'light' | 'dark';
-
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ThemeService {
-  readonly theme = signal<Theme>('light');
+  readonly theme: WritableSignal<Theme> = signal<Theme>(Theme.Light);
 
   // TODO feature/dark-light-mode: implement toggle + persistence
 }

@@ -2,12 +2,12 @@
   <div class="projects__inner">
 
     <div class="projects__header">
-      <p class="projects__section-number no-select" aria-hidden="true">{{ facade.sectionNumber }}</p>
+      <p class="projects__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
       <h2 class="projects__heading no-select">{{ facade.heading() }}</h2>
     </div>
 
     <div class="projects__grid">
-      @for (project of facade.projects; track project.id) {
+      @for (project of facade.PROJECTS; track project.id) {
         <article class="projects__card" [class.projects__card--featured]="project.featured">
           <div class="projects__card-body">
             <h3 class="projects__card-title">{{ project.title }}</h3>

@@ -1,15 +1,16 @@
-import { Injectable, inject } from '@angular/core';
+import { Service, Signal, inject } from '@angular/core';
 import { TranslateService } from '../../shared/services/translate.service';
+import { I18nSection } from '../../shared/enums/i18n-section.enum';
 
-@Injectable({ providedIn: 'root' })
+@Service({ autoProvided: false })
 export class HeroFacade {
   private readonly translate = inject(TranslateService);
 
-  readonly nameFirst  = this.translate.t('hero', 'name_first');
-  readonly nameLast   = this.translate.t('hero', 'name_last');
-  readonly greeting   = this.translate.t('hero', 'greeting');
-  readonly title      = this.translate.t('hero', 'title');
-  readonly tagline    = this.translate.t('hero', 'tagline');
-  readonly ctaWork    = this.translate.t('hero', 'cta_work');
-  readonly ctaContact = this.translate.t('hero', 'cta_contact');
+  readonly nameFirst:  Signal<string> = this.translate.get(I18nSection.Hero, 'NAME_FIRST');
+  readonly nameLast:   Signal<string> = this.translate.get(I18nSection.Hero, 'NAME_LAST');
+  readonly greeting:   Signal<string> = this.translate.get(I18nSection.Hero, 'GREETING');
+  readonly title:      Signal<string> = this.translate.get(I18nSection.Hero, 'TITLE');
+  readonly tagline:    Signal<string> = this.translate.get(I18nSection.Hero, 'TAGLINE');
+  readonly ctaWork:    Signal<string> = this.translate.get(I18nSection.Hero, 'CTA_WORK');
+  readonly ctaContact: Signal<string> = this.translate.get(I18nSection.Hero, 'CTA_CONTACT');
 }

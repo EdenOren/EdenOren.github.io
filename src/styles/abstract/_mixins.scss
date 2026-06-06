@@ -1,37 +1,37 @@
-@use 'variables' as v;
+@use 'variables' as variables;
 
 @mixin respond-to($breakpoint) {
   @if $breakpoint == sm {
-    @media (min-width: v.$breakpoint-sm) { @content; }
+    @media (min-width: variables.$breakpoint-sm) { @content; }
   } @else if $breakpoint == md {
-    @media (min-width: v.$breakpoint-md) { @content; }
+    @media (min-width: variables.$breakpoint-md) { @content; }
   } @else if $breakpoint == lg {
-    @media (min-width: v.$breakpoint-lg) { @content; }
+    @media (min-width: variables.$breakpoint-lg) { @content; }
   } @else if $breakpoint == xl {
-    @media (min-width: v.$breakpoint-xl) { @content; }
+    @media (min-width: variables.$breakpoint-xl) { @content; }
   }
 }
 
 @mixin container {
   width: 100%;
-  max-width: v.$container-max;
+  max-width: variables.$container-max;
   margin-inline: auto;
-  padding-inline: v.$space-4;
+  padding-inline: variables.$space-4;
 
   @include respond-to(md) {
-    padding-inline: v.$space-8;
+    padding-inline: variables.$space-8;
   }
 }
 
 @mixin section-padding {
-  padding-block: v.$space-12;
+  padding-block: variables.$space-12;
 
   @include respond-to(md) {
-    padding-block: v.$space-16;
+    padding-block: variables.$space-16;
   }
 
   @include respond-to(lg) {
-    padding-block: v.$space-24;
+    padding-block: variables.$space-24;
   }
 }
 
@@ -53,28 +53,28 @@
 }
 
 @mixin text-display {
-  font-family: v.$font-family-display;
-  font-size: v.$font-size-display;
+  font-family: variables.$font-family-display;
+  font-size: variables.$font-size-display;
   line-height: 1.05;
   font-weight: 500;
 }
 
 @mixin text-heading-lg {
-  font-family: v.$font-family-display;
-  font-size: v.$font-size-4xl;
+  font-family: variables.$font-family-display;
+  font-size: variables.$font-size-4xl;
   line-height: 1.15;
   font-weight: 500;
 }
 
 @mixin text-heading-md {
-  font-family: v.$font-family-display;
-  font-size: v.$font-size-3xl;
+  font-family: variables.$font-family-display;
+  font-size: variables.$font-size-3xl;
   line-height: 1.2;
   font-weight: 500;
 }
 
 @mixin text-label {
-  font-size: v.$font-size-base;
+  font-size: variables.$font-size-base;
   line-height: 1.4;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -82,7 +82,7 @@
 }
 
 @mixin text-mono {
-  font-family: v.$font-family-mono;
-  font-size: v.$font-size-base;
+  font-family: variables.$font-family-mono;
+  font-size: variables.$font-size-base;
   line-height: 1.6;
 }

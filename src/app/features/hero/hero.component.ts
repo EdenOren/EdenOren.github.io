@@ -4,8 +4,8 @@ import { HeroFacade } from './hero.facade';
 
 @Component({
   selector: 'app-hero',
-  standalone: true,
   imports: [RouterLink],
+  providers: [HeroFacade],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
