@@ -1,16 +1,14 @@
 import { Service, Signal, inject } from '@angular/core';
-import { TranslateService } from '../../shared/services/translate.service';
-import { I18nSection } from '../../shared/enums/i18n-section.enum';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Service({ autoProvided: false })
 export class HeroFacade {
-  private readonly translate = inject(TranslateService);
+  private readonly translateService: TranslateService = inject(TranslateService);
 
-  readonly nameFirst:  Signal<string> = this.translate.get(I18nSection.Hero, 'NAME_FIRST');
-  readonly nameLast:   Signal<string> = this.translate.get(I18nSection.Hero, 'NAME_LAST');
-  readonly greeting:   Signal<string> = this.translate.get(I18nSection.Hero, 'GREETING');
-  readonly title:      Signal<string> = this.translate.get(I18nSection.Hero, 'TITLE');
-  readonly tagline:    Signal<string> = this.translate.get(I18nSection.Hero, 'TAGLINE');
-  readonly ctaWork:    Signal<string> = this.translate.get(I18nSection.Hero, 'CTA_WORK');
-  readonly ctaContact: Signal<string> = this.translate.get(I18nSection.Hero, 'CTA_CONTACT');
+  readonly translation: Signal<Record<string, string>> = toSignal(
+    this.translateService.stream('HERO') as Observable<Record<string, string>>,
+    { initialValue: {} as Record<string, string> }
+  );
 }

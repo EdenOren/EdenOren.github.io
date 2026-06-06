@@ -1,5 +1,5 @@
 export enum SkillGroupKey {
-  Frontend = 'frontend',
-  Tools = 'tools',
-  Other = 'other',
+  Frontend = 'FRONTEND',
+  Tools = 'TOOLS',
+  Other = 'OTHER',
 }

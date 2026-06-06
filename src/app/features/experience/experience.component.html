@@ -1,9 +1,10 @@
 <section class="experience">
   <div class="experience__inner">
 
+    @let t = facade.translation();
     <div class="experience__header">
       <p class="experience__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
-      <h2 class="experience__heading no-select">{{ facade.heading() }}</h2>
+      <h2 class="experience__heading no-select">{{ t['HEADING'] }}</h2>
     </div>
 
     <ol class="experience__timeline" role="list">
@@ -22,7 +23,7 @@
               <h3 class="experience__entry-role">{{ entry.role }}</h3>
               <span class="experience__entry-company">{{ entry.company }}</span>
               @if (entry.current) {
-                <span class="experience__entry-badge no-select">{{ facade.present() }}</span>
+                <span class="experience__entry-badge no-select">{{ t['PRESENT'] }}</span>
               }
             </div>
             <p class="experience__entry-description">{{ entry.description }}</p>

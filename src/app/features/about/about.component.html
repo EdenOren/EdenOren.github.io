@@ -26,14 +26,15 @@
       </ul>
     </div>
 
+    @let t = facade.translation();
     <div class="about__text-col">
       <p class="about__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
-      <h2 class="about__heading no-select">{{ facade.heading() }}</h2>
+      <h2 class="about__heading no-select">{{ t['HEADING'] }}</h2>
 
       <div class="about__bio">
-        @for (paragraph of facade.BIO; track $index) {
-          <p class="about__bio-paragraph">{{ paragraph() }}</p>
-        }
+        <p class="about__bio-paragraph">{{ t['BIO_1'] }}</p>
+        <p class="about__bio-paragraph">{{ t['BIO_2'] }}</p>
+        <p class="about__bio-paragraph">{{ t['BIO_3'] }}</p>
       </div>
     </div>
 

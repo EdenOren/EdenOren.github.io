@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { SkillsFacade, SkillGroup } from './skills.facade';
-import { SkillGroupKey } from './skills.enums';
+import { SkillsFacade } from './skills.facade';
 
 @Component({
   selector: 'app-skills',
@@ -12,14 +11,4 @@ import { SkillGroupKey } from './skills.enums';
 })
 export class SkillsComponent {
   protected readonly facade = inject(SkillsFacade);
-
-  protected groupLabel(group: SkillGroup): string {
-    if (group.labelKey === SkillGroupKey.Frontend) {
-      return this.facade.frontendLabel();
-    }
-    if (group.labelKey === SkillGroupKey.Tools) {
-      return this.facade.toolsLabel();
-    }
-    return this.facade.otherLabel();
-  }
 }
