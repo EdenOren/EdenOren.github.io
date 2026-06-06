@@ -23,6 +23,18 @@
   }
 }
 
+@mixin section-padding {
+  padding-block: v.$space-12;
+
+  @include respond-to(md) {
+    padding-block: v.$space-16;
+  }
+
+  @include respond-to(lg) {
+    padding-block: v.$space-24;
+  }
+}
+
 @mixin visually-hidden {
   position: absolute;
   width: 1px;

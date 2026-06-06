@@ -3,10 +3,11 @@ import {
   Component,
   DestroyRef,
   afterNextRender,
+  effect,
   inject,
   signal,
 } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateService } from '../../services/translate.service';
 import { NAVBAR_SCROLL_THRESHOLD_PX } from './navbar.constants';
 
@@ -21,8 +22,10 @@ import { NAVBAR_SCROLL_THRESHOLD_PX } from './navbar.constants';
 export class NavbarComponent {
   private readonly translate = inject(TranslateService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
 
   protected readonly isScrolled = signal(false);
+  protected readonly isMenuOpen = signal(false);
 
   protected readonly navLinks = [
     { path: '/about',      label: this.translate.t('nav', 'about') },
@@ -40,5 +43,22 @@ export class NavbarComponent {
       window.addEventListener('scroll', onScroll, { passive: true });
       this.destroyRef.onDestroy(() => window.removeEventListener('scroll', onScroll));
     });
+
+    effect(() => {
+      document.body.style.overflow = this.isMenuOpen() ? 'hidden' : '';
+    });
+
+    const sub = this.router.events.subscribe(e => {
+      if (e instanceof NavigationStart) this.isMenuOpen.set(false);
+    });
+    this.destroyRef.onDestroy(() => sub.unsubscribe());
+  }
+
+  protected toggleMenu(): void {
+    this.isMenuOpen.update(v => !v);
+  }
+
+  protected closeMenu(): void {
+    this.isMenuOpen.set(false);
   }
 }

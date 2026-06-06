@@ -19,6 +19,7 @@
 }
 
 .hero {
+  @include mixins.section-padding;
   position: relative;
   min-height: 100vh;
   display: flex;
@@ -53,7 +54,6 @@
     @include mixins.container;
     position: relative;
     z-index: 1;
-    padding-block: variables.$space-24;
     display: flex;
     flex-direction: column;
     gap: variables.$space-4;
