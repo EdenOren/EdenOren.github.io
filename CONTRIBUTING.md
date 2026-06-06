@@ -8,7 +8,8 @@
 | `development` | Integration — all PRs target this branch. |
 | `feature/name` | New features (e.g. `feature/hero`, `feature/dark-light-mode`) |
 | `bugfix/name` | Bug fixes (e.g. `bugfix/navbar-scroll`) |
-| `refactor/name` | Optional — code restructuring with no behaviour change |
+| `docs/name` | Documentation updates. **No sequential number** (e.g. `docs/claude-commit-policy`). |
+| `refactor/name` | Optional — code restructuring with no behaviour change. **No sequential number** (e.g. `refactor/angular22-standards`). |
 
 ## Workflow
 
