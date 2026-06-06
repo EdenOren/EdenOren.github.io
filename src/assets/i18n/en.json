@@ -19,7 +19,11 @@
   "about": {
     "heading": "About Me",
     "github_label": "GitHub Profile",
-    "linkedin_label": "LinkedIn Profile"
+    "linkedin_label": "LinkedIn Profile",
+    "email_label": "Send an Email",
+    "bio_1": "I'm a frontend developer who cares deeply about the craft — clean architecture, thoughtful interactions, and interfaces that feel as good as they look.",
+    "bio_2": "I work primarily with Angular, TypeScript, and modern CSS. I enjoy the challenge of translating complex requirements into simple, elegant solutions.",
+    "bio_3": "When I'm not building products, I'm exploring design systems, contributing to open source, and obsessing over typographic details."
   },
   "experience": {
     "heading": "Experience",

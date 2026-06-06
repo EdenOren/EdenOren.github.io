@@ -20,6 +20,7 @@ export class ProjectsFacade {
   readonly sectionNumber = PROJECTS_SECTION_NUMBER;
   readonly githubLabel = this.translate.t('projects', 'github_label');
   readonly liveLabel = this.translate.t('projects', 'live_label');
+  readonly noProjects = this.translate.t('projects', 'no_projects');
 
   readonly projects: Project[] = [
     {

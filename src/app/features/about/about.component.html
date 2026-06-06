@@ -17,7 +17,7 @@
               [href]="link.href"
               target="_blank"
               rel="noopener noreferrer"
-              [attr.aria-label]="link.label">
+              [attr.aria-label]="link.ariaLabel()">
               <span class="about__social-icon" [attr.data-icon]="link.icon" aria-hidden="true"></span>
               <span class="about__social-label">{{ link.label }}</span>
             </a>
@@ -32,7 +32,7 @@
 
       <div class="about__bio">
         @for (paragraph of facade.bio; track $index) {
-          <p class="about__bio-paragraph">{{ paragraph }}</p>
+          <p class="about__bio-paragraph">{{ paragraph() }}</p>
         }
       </div>
     </div>
