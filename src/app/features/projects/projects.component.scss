@@ -1,3 +1,160 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
 .projects {
-  // BEM styles go here
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-block: variables.$space-24;
+
+  &__inner {
+    @include mixins.container;
+  }
+
+  &__header {
+    position: relative;
+    margin-bottom: variables.$space-16;
+  }
+
+  &__section-number {
+    @include mixins.text-display;
+    position: absolute;
+    top: -3.5rem;
+    left: -1rem;
+    font-size: clamp(5rem, 12vw, 10rem);
+    color: colors.$color-surface-hover;
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__heading {
+    @include mixins.text-heading-lg;
+    position: relative;
+    z-index: 1;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 2px;
+      background-color: colors.$color-accent;
+      margin-top: variables.$space-4;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: variables.$space-6;
+
+    @include mixins.respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__card {
+    background-color: colors.$color-surface;
+    border: 1px solid colors.$color-border;
+    border-bottom: 2px solid colors.$color-border;
+    display: flex;
+    flex-direction: column;
+    padding: variables.$space-8;
+    transition:
+      transform variables.$transition-base,
+      border-color variables.$transition-base,
+      box-shadow variables.$transition-base;
+
+    &:hover {
+      transform: translateY(-4px);
+      border-bottom-color: colors.$color-accent;
+      box-shadow: 0 12px 40px rgb(0 0 0 / 40%);
+    }
+
+    &--featured {
+      border-left: 2px solid colors.$color-accent;
+    }
+  }
+
+  &__card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$space-4;
+  }
+
+  &__card-title {
+    @include mixins.text-heading-md;
+    font-size: variables.$font-size-2xl;
+    margin: 0;
+  }
+
+  &__card-description {
+    color: colors.$color-text-muted;
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  &__card-tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: variables.$space-2;
+  }
+
+  &__card-tag {
+    @include mixins.text-mono;
+    font-size: 0.75rem;
+    color: colors.$color-text-muted;
+    background-color: colors.$color-bg;
+    border: 1px solid colors.$color-border;
+    padding: 2px variables.$space-3;
+    border-radius: 2px;
+  }
+
+  &__card-footer {
+    display: flex;
+    gap: variables.$space-4;
+    margin-top: variables.$space-6;
+    padding-top: variables.$space-6;
+    border-top: 1px solid colors.$color-border;
+  }
+
+  &__card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: variables.$space-1;
+    color: colors.$color-text-muted;
+    text-decoration: none;
+    font-size: variables.$font-size-sm;
+    letter-spacing: 0.03em;
+    transition: color variables.$transition-fast;
+
+    &:hover,
+    &:focus-visible {
+      color: colors.$color-text;
+      @include mixins.focus-ring;
+    }
+
+    &--accent {
+      color: colors.$color-accent;
+
+      &:hover,
+      &:focus-visible {
+        color: colors.$color-text;
+      }
+    }
+  }
+
+  &__card-link-icon {
+    font-style: normal;
+    transition: transform variables.$transition-fast;
+
+    .projects__card-link:hover & {
+      transform: translate(2px, -2px);
+    }
+  }
 }
