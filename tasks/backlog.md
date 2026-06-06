@@ -3,18 +3,15 @@
 Planned feature branches — each maps to a PR into `development`.
 
 ## In Progress
-<!-- Move items here when a branch is open -->
+- `feature/12-ghost-section-numbers` — 01–06 Cormorant watermarks
 
 ## Up Next
-
-- [ ] `feature/18-scroll-reveal-directive` — IntersectionObserver → `.is-visible` class
+- [ ] `feature/16-scroll-reveal-directive` — IntersectionObserver → `.is-visible` class
 
 ## Future
-- [ ] `feature/12-ghost-section-numbers` — 01–06 Cormorant watermarks
 - [ ] `feature/13-seo-open-graph`
 - [ ] `feature/14-skeleton-loaders`
 - [ ] `feature/15-admin-panel`
-- [ ] `feature/16-cv-download`
 
 ## Done
 - [x] `feature/1-design-tokens` — palette, Cormorant + Geist fonts, base font size
