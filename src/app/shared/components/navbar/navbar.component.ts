@@ -7,10 +7,11 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavbarFacade } from './facades/navbar.facade';
+import { SocialShareComponent } from '../../../features/share/share.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink],
+  imports: [RouterLink, SocialShareComponent],
   providers: [NavbarFacade],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',

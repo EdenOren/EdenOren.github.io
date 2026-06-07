@@ -1,0 +1,114 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+.share {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: variables.$space-2;
+    padding: variables.$space-2 variables.$space-4;
+    border: 1px solid colors.$color-border;
+    background: transparent;
+    color: colors.$color-text-muted;
+    font-family: variables.$font-family-base;
+    font-size: variables.$font-size-sm;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: color variables.$transition-fast, border-color variables.$transition-fast;
+
+    &:hover {
+      color: colors.$color-text;
+      border-color: colors.$color-accent;
+    }
+
+    &:focus-visible {
+      color: colors.$color-text;
+      border-color: colors.$color-accent;
+      @include mixins.focus-ring;
+    }
+  }
+
+  &__icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + variables.$space-2);
+    right: 0;
+    min-width: 180px;
+    background: colors.$color-surface;
+    border: 1px solid colors.$color-border;
+    z-index: variables.$z-above;
+    overflow: hidden;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: variables.$space-3;
+    width: 100%;
+    padding: variables.$space-3 variables.$space-4;
+    background: transparent;
+    border: none;
+    border-left: 2px solid transparent;
+    color: colors.$color-text-muted;
+    font-family: variables.$font-family-base;
+    font-size: variables.$font-size-sm;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color variables.$transition-fast,
+      background-color variables.$transition-fast,
+      border-left-color variables.$transition-fast;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid colors.$color-border;
+    }
+
+    &:hover {
+      color: colors.$color-text;
+      background-color: colors.$color-surface-hover;
+      border-left-color: colors.$color-accent;
+    }
+
+    &:focus-visible {
+      color: colors.$color-text;
+      background-color: colors.$color-surface-hover;
+      border-left-color: colors.$color-accent;
+      @include mixins.focus-ring;
+    }
+  }
+
+  &__item-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  &__live-region {
+    @include mixins.visually-hidden;
+  }
+}
+
+@keyframes share-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.share-panel-enter {
+  animation: share-panel-enter 180ms ease-out forwards;
+}

@@ -1,0 +1,65 @@
+@let t = translation();
+
+<div class="share">
+  @if (canUseNativeShare) {
+    <button class="share__trigger" type="button" (click)="onTriggerClick()">
+      <img class="share__icon" ngSrc="assets/icons/share.svg" width="14" height="14" alt="" aria-hidden="true">
+      <span>{{ t['BUTTON_LABEL'] }}</span>
+    </button>
+  } @else {
+    <button
+      class="share__trigger"
+      type="button"
+      [attr.aria-expanded]="isPanelOpen()"
+      aria-haspopup="true"
+      (click)="onTriggerClick()">
+      <img class="share__icon" ngSrc="assets/icons/share.svg" width="14" height="14" alt="" aria-hidden="true">
+      <span>{{ t['BUTTON_LABEL'] }}</span>
+    </button>
+
+    @if (isPanelOpen()) {
+      <div class="share__panel" role="menu" [attr.aria-label]="t['PANEL_LABEL']" animate.enter="share-panel-enter">
+
+        <a
+          class="share__item"
+          role="menuitem"
+          [href]="whatsappUrl"
+          target="_blank"
+          rel="noopener noreferrer">
+          <img class="share__item-icon" ngSrc="assets/icons/whatsapp.svg" width="16" height="16" alt="" aria-hidden="true">
+          <span>{{ t['WHATSAPP'] }}</span>
+        </a>
+
+        <a
+          class="share__item"
+          role="menuitem"
+          [href]="emailUrl">
+          <img class="share__item-icon" ngSrc="assets/icons/mail.svg" width="16" height="16" alt="" aria-hidden="true">
+          <span>{{ t['EMAIL'] }}</span>
+        </a>
+
+        <button
+          class="share__item"
+          role="menuitem"
+          type="button"
+          (click)="copyLink()">
+          <img class="share__item-icon" ngSrc="assets/icons/link.svg" width="16" height="16" alt="" aria-hidden="true">
+          <span>
+            @if (isCopied()) {
+              {{ t['COPIED'] }}
+            } @else {
+              {{ t['COPY_LINK'] }}
+            }
+          </span>
+        </button>
+
+      </div>
+    }
+
+    <span class="share__live-region" aria-live="polite" aria-atomic="true">
+      @if (isCopied()) {
+        {{ t['COPIED'] }}
+      }
+    </span>
+  }
+</div>

@@ -186,6 +186,17 @@
     }
   }
 
+  &__share {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: #{variables.$breakpoint-md - 1px}) {
+      margin-top: variables.$space-6;
+      padding-top: variables.$space-6;
+      border-top: 1px solid colors.$color-border;
+    }
+  }
+
   &__link {
     @include mixins.text-label;
     position: relative;

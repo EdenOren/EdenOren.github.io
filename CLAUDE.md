@@ -55,6 +55,15 @@ This document defines mandatory standards for all code generation, refactoring, 
   import {Component, inject} from '@angular/core';
   ```
 - **No single-letter or abbreviated identifiers** — method names, variables, and SCSS aliases must be fully descriptive: `get()` not `t()`, `as colors` not `as c`.
+- **No alignment padding** — never pad spaces before `=` to vertically align a group of assignments. Use a single space before `=` always:
+  ```ts
+  // correct
+  protected readonly isPanelOpen = this.socialShareFacade.isPanelOpen;
+  protected readonly isCopied = this.socialShareFacade.isCopied;
+  // wrong
+  protected readonly isPanelOpen  = this.socialShareFacade.isPanelOpen;
+  protected readonly isCopied     = this.socialShareFacade.isCopied;
+  ```
 
 ### Naming Conventions (class properties)
 - **Static `readonly` properties** (primitives, data arrays, constants) → `CAPITAL_SNAKE_CASE`
