@@ -1,13 +1,12 @@
 <section class="projects" appScrollReveal id="projects">
   <div class="projects__inner">
 
-    @let t = facade.translation();
+    @let t = translation();
     <div class="projects__header">
-      <p class="projects__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
-      <h2 class="projects__heading no-select">{{ t['HEADING'] }}</h2>
+      <app-section-header [heading]="t['HEADING']" />
     </div>
 
-    @if (facade.isLoading()) {
+    @if (isLoading()) {
       <app-skeleton-loader
         [type]="SkeletonType.Card"
         [count]="4"
@@ -15,8 +14,8 @@
       />
     } @else {
       <div class="projects__grid" animate.enter="content-reveal">
-        @for (project of facade.PROJECTS; track project.id) {
-          <article class="projects__card" [class.projects__card--featured]="project.featured">
+        @for (project of projects(); track project.id) {
+          <article class="projects__card">
             <div class="projects__card-body">
               <h3 class="projects__card-title">{{ project.title }}</h3>
               <p class="projects__card-description">{{ project.description }}</p>

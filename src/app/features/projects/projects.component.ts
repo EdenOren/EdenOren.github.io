@@ -1,18 +1,23 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { SkeletonType } from '../../shared/enums/shared.enums';
-import { ProjectsFacade } from './facades/projects.facade';
+import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header.component';
+import { ProjectViewModel, ProjectsFacade } from './facades/projects.facade';
 
 @Component({
   selector: 'app-projects',
-  imports: [SkeletonLoaderComponent, ScrollRevealDirective],
+  imports: [SkeletonLoaderComponent, ScrollRevealDirective, SectionHeaderComponent],
   providers: [ProjectsFacade],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsComponent {
-  protected readonly facade = inject(ProjectsFacade);
+  private readonly projectsFacade: ProjectsFacade = inject(ProjectsFacade);
+
+  protected readonly translation: Signal<Record<string, string>> = this.projectsFacade.translation;
+  protected readonly isLoading: Signal<boolean> = this.projectsFacade.isLoading;
+  protected readonly projects: Signal<ProjectViewModel[]> = this.projectsFacade.projects;
   protected readonly SkeletonType: typeof SkeletonType = SkeletonType;
 }

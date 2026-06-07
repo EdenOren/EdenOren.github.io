@@ -1,3 +1,10 @@
+export enum ApiPath {
+  Experience = 'experience',
+  Projects = 'projects',
+  Skills = 'skills',
+  About = 'about',
+}
+
 export enum LocalStorageKeys {
   AdminToken = 'eo:admin:token',
 }
