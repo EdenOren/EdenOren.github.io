@@ -2,7 +2,7 @@ import { Service, Signal, WritableSignal, computed, inject, signal } from '@angu
 import { FieldTree, email, form, minLength, required, submit } from '@angular/forms/signals';
 import { ContactService } from '../../../core/services/data/contact.service';
 import { SubmitState } from '../enums/contact.enums';
-import { CONTACT_MIN_MESSAGE_LENGTH, CONTACT_SECTION_NUMBER } from '../utils/contact.constants';
+import { CONTACT_MIN_MESSAGE_LENGTH } from '../utils/contact.constants';
 
 interface ContactData {
   name: string;
@@ -13,8 +13,6 @@ interface ContactData {
 @Service({ autoProvided: false })
 export class ContactFacade {
   private readonly contactService: ContactService = inject(ContactService);
-
-  readonly SECTION_NUMBER: string = CONTACT_SECTION_NUMBER;
 
   private readonly model: WritableSignal<ContactData> = signal<ContactData>({
     name: '',
@@ -46,6 +44,7 @@ export class ContactFacade {
         });
         this.model.set({ name: '', email: '', message: '' });
         this._result.set(SubmitState.Success);
+        return;
       } catch {
         this._result.set(SubmitState.Error);
         return { kind: 'serverError', message: 'CONTACT.ERROR' };

@@ -14,21 +14,7 @@
   }
 
   &__header {
-    position: relative;
     margin-bottom: variables.$space-16;
-  }
-
-  &__section-number {
-    @include mixins.ghost-section-number;
-    top: -3.5rem;
-    left: -1rem;
-  }
-
-  &__heading {
-    @include mixins.text-heading-lg;
-    @include mixins.heading-accent-bar;
-    position: relative;
-    z-index: 1;
   }
 
   &__form {
@@ -38,9 +24,11 @@
   }
 
   &__field {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: variables.$space-2;
+    padding-bottom: variables.$space-6;
 
     &:has(.contact__field-error) {
       .contact__input,
@@ -56,14 +44,15 @@
     color: colors.$color-text-muted;
   }
 
-  &__label--required::after {
-    content: ' *';
-    color: colors.$color-accent;
-  }
-
   &__field-error {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     color: colors.$color-error;
     font-size: variables.$font-size-sm;
+    line-height: 1.25;
+    margin: 0;
   }
 
   &__input,
@@ -109,6 +98,10 @@
     font-size: variables.$font-size-sm;
   }
 
+  &__form-submit {
+    align-self: flex-end;
+  }
+
   &__success {
     color: colors.$color-accent;
     font-size: variables.$font-size-base;
@@ -118,26 +111,4 @@
     background-color: rgb(26 158 101 / 6%);
   }
 
-  &__submit {
-    @include mixins.btn-filled;
-    align-self: flex-start;
-    gap: variables.$space-2;
-
-    &--loading {
-      pointer-events: none;
-    }
-  }
-
-  &__submit-spinner {
-    width: 14px;
-    height: 14px;
-    border: 2px solid currentColor;
-    border-top-color: transparent;
-    border-radius: 50%;
-    animation: contact-spin 0.6s linear infinite;
-  }
-}
-
-@keyframes contact-spin {
-  to { transform: rotate(360deg); }
 }

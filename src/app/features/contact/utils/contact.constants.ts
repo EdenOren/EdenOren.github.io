@@ -1,3 +1,2 @@
-export const CONTACT_SECTION_NUMBER = '05';
 export const CONTACT_MIN_MESSAGE_LENGTH = 10;
 export const CONTACT_TEXTAREA_ROWS = 5;
