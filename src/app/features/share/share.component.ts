@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Signal, WritableSignal, inject } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { IconButtonComponent } from '../../shared/ui/icon-button/icon-button.component';
 import { SocialShareFacade } from './facades/share.facade';
 
 @Component({
   selector: 'app-social-share',
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, IconButtonComponent],
   providers: [SocialShareFacade],
   templateUrl: './share.component.html',
   styleUrl: './share.component.scss',

@@ -8,38 +8,6 @@
   flex-direction: column;
   align-items: center;
 
-  &__trigger {
-    display: inline-flex;
-    align-items: center;
-    gap: variables.$space-2;
-    padding: variables.$space-2 variables.$space-4;
-    border: 1px solid colors.$color-border;
-    background: transparent;
-    color: colors.$color-text-muted;
-    font-family: variables.$font-family-base;
-    font-size: variables.$font-size-sm;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: color variables.$transition-fast, border-color variables.$transition-fast;
-
-    &:hover {
-      color: colors.$color-text;
-      border-color: colors.$color-accent;
-    }
-
-    &:focus-visible {
-      color: colors.$color-text;
-      border-color: colors.$color-accent;
-      @include mixins.focus-ring;
-    }
-  }
-
-  &__icon {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-  }
-
   &__panel {
     position: absolute;
     top: calc(100% + variables.$space-2);
