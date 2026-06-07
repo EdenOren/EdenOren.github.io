@@ -1,71 +1,71 @@
 <div class="admin-projects">
   <div class="admin-projects__header">
     <h2 class="admin-projects__title">Projects</h2>
-    @if (!facade.isFormOpen()) {
-      <button class="admin-projects__add-btn" type="button" (click)="facade.openAdd()">
+    @if (!isFormOpen()) {
+      <button class="admin-projects__add-btn" type="button" (click)="openAdd()">
         + Add Project
       </button>
     }
   </div>
 
-  @if (facade.isFormOpen()) {
+  @if (isFormOpen()) {
     <div class="admin-projects__form">
       <h3 class="admin-projects__form-title">
-        {{ facade.isEditing() ? 'Edit Project' : 'New Project' }}
+        {{ isEditing() ? 'Edit Project' : 'New Project' }}
       </h3>
       <div class="admin-projects__form-grid">
         <div class="admin-projects__field admin-projects__field--full">
           <label class="admin-projects__label">Title *</label>
           <input class="admin-projects__input" type="text"
-                 [value]="facade.titleField()"
-                 (input)="facade.titleField.set($any($event.target).value)"
+                 [value]="titleField()"
+                 (input)="titleField.set($any($event.target).value)"
                  placeholder="Project name" />
         </div>
         <div class="admin-projects__field admin-projects__field--full">
           <label class="admin-projects__label">Description</label>
           <textarea class="admin-projects__input admin-projects__input--textarea"
                     rows="3"
-                    [value]="facade.descriptionField()"
-                    (input)="facade.descriptionField.set($any($event.target).value)"
+                    [value]="descriptionField()"
+                    (input)="descriptionField.set($any($event.target).value)"
                     placeholder="What this project is about…"></textarea>
         </div>
         <div class="admin-projects__field admin-projects__field--full">
           <label class="admin-projects__label">Tags (comma-separated)</label>
           <input class="admin-projects__input" type="text"
-                 [value]="facade.tagsField()"
-                 (input)="facade.tagsField.set($any($event.target).value)"
+                 [value]="tagsField()"
+                 (input)="tagsField.set($any($event.target).value)"
                  placeholder="Angular, TypeScript, SCSS" />
         </div>
         <div class="admin-projects__field">
           <label class="admin-projects__label">GitHub URL</label>
           <input class="admin-projects__input" type="url"
-                 [value]="facade.githubUrlField()"
-                 (input)="facade.githubUrlField.set($any($event.target).value)"
+                 [value]="githubUrlField()"
+                 (input)="githubUrlField.set($any($event.target).value)"
                  placeholder="https://github.com/…" />
         </div>
         <div class="admin-projects__field">
           <label class="admin-projects__label">Live URL</label>
           <input class="admin-projects__input" type="url"
-                 [value]="facade.liveUrlField()"
-                 (input)="facade.liveUrlField.set($any($event.target).value)"
+                 [value]="liveUrlField()"
+                 (input)="liveUrlField.set($any($event.target).value)"
                  placeholder="https://…" />
         </div>
         <div class="admin-projects__field admin-projects__field--checkbox">
           <label class="admin-projects__checkbox-label">
             <input type="checkbox"
-                   [checked]="facade.featuredField()"
-                   (change)="facade.featuredField.set($any($event.target).checked)" />
+                   [checked]="featuredField()"
+                   (change)="featuredField.set($any($event.target).checked)" />
             Featured project
           </label>
         </div>
       </div>
       <div class="admin-projects__form-actions">
         <button class="admin-projects__save-btn" type="button"
-                [disabled]="!facade.isFormValid()"
-                (click)="facade.save()">
-          {{ facade.isEditing() ? 'Save' : 'Add' }}
+                [disabled]="!isFormValid()"
+                (click)="save()">
+          {{ isEditing() ? 'Save' : 'Add' }}
         </button>
-        <button class="admin-projects__cancel-btn" type="button" (click)="facade.closeForm()">
+        <button class="admin-projects__cancel-btn" type="button" (click)="closeForm()">
           Cancel
         </button>
       </div>
@@ -73,7 +73,7 @@
   }
 
   <ul class="admin-projects__list">
-    @for (project of facade.projects(); track project.id) {
+    @for (project of projects(); track project.id) {
       <li class="admin-projects__item">
         <div class="admin-projects__item-header">
           <div class="admin-projects__item-meta">
@@ -83,10 +83,10 @@
             }
           </div>
           <div class="admin-projects__item-actions">
-            <button class="admin-projects__edit-btn" type="button" (click)="facade.openEdit(project)">
+            <button class="admin-projects__edit-btn" type="button" (click)="openEdit(project)">
               Edit
             </button>
-            <button class="admin-projects__delete-btn" type="button" (click)="facade.remove(project.id)">
+            <button class="admin-projects__delete-btn" type="button" (click)="remove(project.id)">
               Delete
             </button>
           </div>

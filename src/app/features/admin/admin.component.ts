@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  Signal,
   effect,
   inject,
   viewChild,
@@ -18,15 +19,21 @@ import { AdminFacade } from './facades/admin.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminComponent {
-  protected readonly facade: AdminFacade = inject(AdminFacade);
+  private readonly adminFacade: AdminFacade = inject(AdminFacade);
   private readonly googleBtnEl = viewChild<ElementRef<HTMLElement>>('googleBtn');
+
+  protected readonly isAuthenticated: Signal<boolean> = this.adminFacade.isAuthenticated;
 
   constructor() {
     effect(() => {
       const el = this.googleBtnEl();
       if (el) {
-        this.facade.initGoogleSignIn(el.nativeElement);
+        this.adminFacade.initGoogleSignIn(el.nativeElement);
       }
     });
+  }
+
+  protected logout(): void {
+    this.adminFacade.logout();
   }
 }

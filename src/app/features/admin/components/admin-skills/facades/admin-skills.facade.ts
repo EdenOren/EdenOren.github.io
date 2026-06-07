@@ -1,5 +1,6 @@
 import { Service, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { AdminSkillGroup } from '../../../models/admin.models';
+import { AdminCrudFacade } from '../../../facades/admin-crud.facade';
 
 const SEED_GROUPS: AdminSkillGroup[] = [
   {
@@ -20,38 +21,29 @@ const SEED_GROUPS: AdminSkillGroup[] = [
 ];
 
 @Service({ autoProvided: false })
-export class AdminSkillsFacade {
-  readonly groups: WritableSignal<AdminSkillGroup[]> = signal([...SEED_GROUPS]);
+export class AdminSkillsFacade extends AdminCrudFacade<AdminSkillGroup> {
+  override readonly items: WritableSignal<AdminSkillGroup[]> = signal([...SEED_GROUPS]);
 
-  readonly isFormOpen: WritableSignal<boolean> = signal(false);
-  readonly editingId: WritableSignal<string | null> = signal(null);
   readonly labelField: WritableSignal<string> = signal('');
   readonly skillsField: WritableSignal<string> = signal('');
 
-  readonly isEditing: Signal<boolean> = computed(() => this.editingId() !== null);
-  readonly isFormValid: Signal<boolean> = computed(
+  override readonly isFormValid: Signal<boolean> = computed(
     () => this.labelField().trim().length > 0
   );
 
-  openAdd(): void {
-    this.editingId.set(null);
+  override openAdd(): void {
     this.labelField.set('');
     this.skillsField.set('');
-    this.isFormOpen.set(true);
+    this.beginAdd();
   }
 
-  openEdit(group: AdminSkillGroup): void {
-    this.editingId.set(group.id);
+  override openEdit(group: AdminSkillGroup): void {
     this.labelField.set(group.label);
     this.skillsField.set(group.skills.join(', '));
-    this.isFormOpen.set(true);
+    this.beginEdit(group.id);
   }
 
-  closeForm(): void {
-    this.isFormOpen.set(false);
-  }
-
-  save(): void {
+  override save(): void {
     if (!this.isFormValid()) {
       return;
     }
@@ -63,15 +55,6 @@ export class AdminSkillsFacade {
         .map(skill => skill.trim())
         .filter(skill => skill.length > 0),
     };
-    if (this.isEditing()) {
-      this.groups.update(list => list.map(g => (g.id === group.id ? group : g)));
-    } else {
-      this.groups.update(list => [...list, group]);
-    }
-    this.closeForm();
-  }
-
-  remove(id: string): void {
-    this.groups.update(list => list.filter(g => g.id !== id));
+    this.applyChange(group);
   }
 }

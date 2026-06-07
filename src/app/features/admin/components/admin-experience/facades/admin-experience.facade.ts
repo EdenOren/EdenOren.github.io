@@ -1,5 +1,6 @@
 import { Service, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { ExperienceEntry } from '../../../models/admin.models';
+import { AdminCrudFacade } from '../../../facades/admin-crud.facade';
 
 const SEED_ENTRIES: ExperienceEntry[] = [
   {
@@ -32,11 +33,9 @@ const SEED_ENTRIES: ExperienceEntry[] = [
 ];
 
 @Service({ autoProvided: false })
-export class AdminExperienceFacade {
-  readonly entries: WritableSignal<ExperienceEntry[]> = signal([...SEED_ENTRIES]);
+export class AdminExperienceFacade extends AdminCrudFacade<ExperienceEntry> {
+  override readonly items: WritableSignal<ExperienceEntry[]> = signal([...SEED_ENTRIES]);
 
-  readonly isFormOpen: WritableSignal<boolean> = signal(false);
-  readonly editingId: WritableSignal<string | null> = signal(null);
   readonly roleField: WritableSignal<string> = signal('');
   readonly companyField: WritableSignal<string> = signal('');
   readonly periodField: WritableSignal<string> = signal('');
@@ -44,41 +43,34 @@ export class AdminExperienceFacade {
   readonly descriptionField: WritableSignal<string> = signal('');
   readonly tagsField: WritableSignal<string> = signal('');
 
-  readonly isEditing: Signal<boolean> = computed(() => this.editingId() !== null);
-  readonly isFormValid: Signal<boolean> = computed(
+  override readonly isFormValid: Signal<boolean> = computed(
     () =>
       this.roleField().trim().length > 0 &&
       this.companyField().trim().length > 0 &&
       this.periodField().trim().length > 0
   );
 
-  openAdd(): void {
-    this.editingId.set(null);
+  override openAdd(): void {
     this.roleField.set('');
     this.companyField.set('');
     this.periodField.set('');
     this.currentField.set(false);
     this.descriptionField.set('');
     this.tagsField.set('');
-    this.isFormOpen.set(true);
+    this.beginAdd();
   }
 
-  openEdit(entry: ExperienceEntry): void {
-    this.editingId.set(entry.id);
+  override openEdit(entry: ExperienceEntry): void {
     this.roleField.set(entry.role);
     this.companyField.set(entry.company);
     this.periodField.set(entry.period);
     this.currentField.set(entry.current);
     this.descriptionField.set(entry.description);
     this.tagsField.set(entry.tags.join(', '));
-    this.isFormOpen.set(true);
+    this.beginEdit(entry.id);
   }
 
-  closeForm(): void {
-    this.isFormOpen.set(false);
-  }
-
-  save(): void {
+  override save(): void {
     if (!this.isFormValid()) {
       return;
     }
@@ -94,15 +86,6 @@ export class AdminExperienceFacade {
         .map(tag => tag.trim())
         .filter(tag => tag.length > 0),
     };
-    if (this.isEditing()) {
-      this.entries.update(list => list.map(e => (e.id === entry.id ? entry : e)));
-    } else {
-      this.entries.update(list => [...list, entry]);
-    }
-    this.closeForm();
-  }
-
-  remove(id: string): void {
-    this.entries.update(list => list.filter(e => e.id !== id));
+    this.applyChange(entry);
   }
 }
