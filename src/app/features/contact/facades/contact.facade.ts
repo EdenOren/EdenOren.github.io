@@ -2,11 +2,11 @@ import { Service, Signal, WritableSignal, computed, inject, signal } from '@angu
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { ContactService } from '../../../core/services/data/contact.service';
 import { SubmitState } from '../enums/contact.enums';
 import {
   CONTACT_MIN_MESSAGE_LENGTH,
   CONTACT_SECTION_NUMBER,
-  CONTACT_SUBMIT_DELAY_MS,
 } from '../utils/contact.constants';
 
 export { SubmitState };
@@ -14,6 +14,7 @@ export { SubmitState };
 @Service({ autoProvided: false })
 export class ContactFacade {
   private readonly translateService: TranslateService = inject(TranslateService);
+  private readonly contactService: ContactService = inject(ContactService);
 
   readonly translation: Signal<Record<string, string>> = toSignal(
     this.translateService.stream('CONTACT') as Observable<Record<string, string>>,
@@ -44,11 +45,18 @@ export class ContactFacade {
 
     this.submitState.set(SubmitState.Loading);
 
-    await new Promise<void>(resolve => setTimeout(resolve, CONTACT_SUBMIT_DELAY_MS));
-
-    this.submitState.set(SubmitState.Success);
-    this.name.set('');
-    this.email.set('');
-    this.message.set('');
+    try {
+      await this.contactService.send({
+        name: this.name().trim(),
+        email: this.email().trim(),
+        message: this.message().trim(),
+      });
+      this.submitState.set(SubmitState.Success);
+      this.name.set('');
+      this.email.set('');
+      this.message.set('');
+    } catch {
+      this.submitState.set(SubmitState.Error);
+    }
   }
 }
