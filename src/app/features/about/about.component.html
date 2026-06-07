@@ -10,7 +10,7 @@
       </div>
 
       <ul class="about__social" role="list" aria-label="Social links">
-        @for (link of facade.SOCIAL_LINKS; track link.key) {
+        @for (link of SOCIAL_LINKS; track link.key) {
           <li class="about__social-item">
             <a
               class="about__social-link no-select"
@@ -26,9 +26,8 @@
       </ul>
     </div>
 
-    @let t = facade.translation();
+    @let t = translation();
     <div class="about__text-col">
-      <p class="about__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
       <h2 class="about__heading no-select">{{ t['HEADING'] }}</h2>
 
       <div class="about__bio">

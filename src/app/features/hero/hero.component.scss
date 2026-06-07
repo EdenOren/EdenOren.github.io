@@ -107,13 +107,4 @@
     animation-delay: 0.8s;
   }
 
-  &__cta {
-    &--filled {
-      @include mixins.btn-filled;
-    }
-
-    &--outline {
-      @include mixins.btn-outline;
-    }
-  }
 }

@@ -1,18 +1,23 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { SkeletonType } from '../../shared/enums/shared.enums';
-import { ExperienceFacade } from './facades/experience.facade';
+import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header.component';
+import { ExperienceEntryView, ExperienceFacade } from './facades/experience.facade';
 
 @Component({
   selector: 'app-experience',
-  imports: [SkeletonLoaderComponent, ScrollRevealDirective],
+  imports: [SkeletonLoaderComponent, ScrollRevealDirective, SectionHeaderComponent],
   providers: [ExperienceFacade],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExperienceComponent {
-  protected readonly facade = inject(ExperienceFacade);
+  private readonly experienceFacade: ExperienceFacade = inject(ExperienceFacade);
+
+  protected readonly translation: Signal<Record<string, string>> = this.experienceFacade.translation;
+  protected readonly isLoading: Signal<boolean> = this.experienceFacade.isLoading;
+  protected readonly entries: Signal<ExperienceEntryView[]> = this.experienceFacade.entries;
   protected readonly SkeletonType: typeof SkeletonType = SkeletonType;
 }

@@ -11,7 +11,7 @@ import { NotFoundFacade } from './facades/not-found.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFoundComponent {
-  private readonly facade: NotFoundFacade = inject(NotFoundFacade);
+  private readonly notFoundFacade: NotFoundFacade = inject(NotFoundFacade);
 
-  protected readonly translation: Signal<Record<string, string>> = this.facade.translation;
+  protected readonly translation: Signal<Record<string, string>> = this.notFoundFacade.translation;
 }
