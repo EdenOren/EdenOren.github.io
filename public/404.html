@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/EdenOren.github.io2/">
+  <title>404 — Page not found · Eden Oren</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #0A0A0A;
+      color: #F2F0EB;
+      font-family: 'Geist', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .page {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .page__code {
+      font-family: 'Cormorant', Georgia, serif;
+      font-size: clamp(8rem, 20vw, 16rem);
+      font-weight: 500;
+      line-height: 1;
+      color: #1C1C1C;
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .page__title {
+      font-family: 'Cormorant', Georgia, serif;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 500;
+      position: relative;
+    }
+
+    .page__subtitle {
+      font-size: 0.875rem;
+      color: #7A7870;
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .page__cta {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1A9E65;
+      border: 1px solid #1A9E65;
+      text-decoration: none;
+      padding: 0.75rem 2rem;
+      position: relative;
+      transition: background-color 150ms ease, color 150ms ease;
+    }
+
+    .page__cta:hover {
+      background-color: #1A9E65;
+      color: #0A0A0A;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="page__code" aria-hidden="true">404</p>
+    <h1 class="page__title">Page not found</h1>
+    <p class="page__subtitle">The page you're looking for doesn't exist.</p>
+    <a class="page__cta" href="./">Back to home</a>
+  </div>
+</body>
+</html>

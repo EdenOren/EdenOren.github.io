@@ -1,0 +1,67 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 4rem);
+  text-align: center;
+  padding: variables.$space-16 variables.$space-8;
+  position: relative;
+  overflow: hidden;
+
+  &__code {
+    font-family: variables.$font-family-display;
+    font-size: clamp(8rem, 20vw, 16rem);
+    font-weight: 500;
+    line-height: 1;
+    color: colors.$color-surface-hover;
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  &__title {
+    @include mixins.text-heading-lg;
+    color: colors.$color-text;
+    margin-bottom: variables.$space-4;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__subtitle {
+    font-size: variables.$font-size-sm;
+    color: colors.$color-text-muted;
+    margin-bottom: variables.$space-8;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__cta {
+    @include mixins.text-label;
+    display: inline-flex;
+    align-items: center;
+    padding: variables.$space-3 variables.$space-8;
+    color: colors.$color-accent;
+    border: 1px solid colors.$color-accent;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    transition:
+      background-color variables.$transition-fast,
+      color variables.$transition-fast;
+
+    &:hover {
+      background-color: colors.$color-accent;
+      color: colors.$color-bg;
+    }
+
+    &:focus-visible {
+      @include mixins.focus-ring;
+    }
+  }
+}
