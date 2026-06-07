@@ -2,14 +2,11 @@ import { Service, Signal, WritableSignal, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { SHARE_EMAIL_URL, SHARE_TEXT, SHARE_TITLE, SHARE_URL, SHARE_WHATSAPP_URL } from '../utils/share.constants';
 
 @Service({ autoProvided: false })
-export class ShareFacade {
+export class SocialShareFacade {
   private readonly translateService: TranslateService = inject(TranslateService);
-
-  private static readonly SHARE_URL: string = 'https://edenoren.github.io/EdenOren.github.io2/';
-  private static readonly SHARE_TITLE: string = 'Eden Oren — Frontend Developer';
-  private static readonly SHARE_TEXT: string = "Check out Eden Oren's portfolio";
 
   readonly translation: Signal<Record<string, string>> = toSignal(
     this.translateService.stream('SHARE') as Observable<Record<string, string>>,
@@ -22,13 +19,8 @@ export class ShareFacade {
   readonly isPanelOpen: WritableSignal<boolean> = signal(false);
   readonly isCopied: WritableSignal<boolean> = signal(false);
 
-  readonly whatsappUrl: string = `https://api.whatsapp.com/send?text=${encodeURIComponent(
-    ShareFacade.SHARE_TEXT + ' ' + ShareFacade.SHARE_URL
-  )}`;
-
-  readonly emailUrl: string = `mailto:?subject=${encodeURIComponent(
-    ShareFacade.SHARE_TITLE
-  )}&body=${encodeURIComponent(ShareFacade.SHARE_TEXT + ' ' + ShareFacade.SHARE_URL)}`;
+  readonly whatsappUrl: string = SHARE_WHATSAPP_URL;
+  readonly emailUrl: string = SHARE_EMAIL_URL;
 
   togglePanel(): void {
     this.isPanelOpen.update(open => !open);
@@ -43,11 +35,7 @@ export class ShareFacade {
       return;
     }
     try {
-      await navigator.share({
-        title: ShareFacade.SHARE_TITLE,
-        text: ShareFacade.SHARE_TEXT,
-        url: ShareFacade.SHARE_URL,
-      });
+      await navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL });
     } catch {
       // User dismissed or share failed — no action needed
     }
@@ -55,7 +43,7 @@ export class ShareFacade {
 
   async copyLink(): Promise<void> {
     try {
-      await navigator.clipboard.writeText(ShareFacade.SHARE_URL);
+      await navigator.clipboard.writeText(SHARE_URL);
       this.isCopied.set(true);
       setTimeout(() => this.isCopied.set(false), 2000); // UI feedback timer — not reactive state
     } catch {

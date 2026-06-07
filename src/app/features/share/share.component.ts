@@ -1,33 +1,50 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject } from '@angular/core';
-import { ShareFacade } from './facades/share.facade';
+import { ChangeDetectionStrategy, Component, ElementRef, Signal, WritableSignal, inject } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { SocialShareFacade } from './facades/share.facade';
 
 @Component({
-  selector: 'app-share',
-  providers: [ShareFacade],
+  selector: 'app-social-share',
+  imports: [NgOptimizedImage],
+  providers: [SocialShareFacade],
   templateUrl: './share.component.html',
   styleUrl: './share.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(document:click)': 'onDocumentClick($event)',
-    '(document:keydown.escape)': 'facade.closePanel()',
+    '(document:keydown.escape)': 'closePanel()',
   },
 })
-export class ShareComponent {
-  protected readonly facade: ShareFacade = inject(ShareFacade);
+export class SocialShareComponent {
+  private readonly socialShareFacade: SocialShareFacade = inject(SocialShareFacade);
   private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
+  protected readonly translation: Signal<Record<string, string>> = this.socialShareFacade.translation;
+  protected readonly canUseNativeShare: boolean = this.socialShareFacade.canUseNativeShare;
+  protected readonly isPanelOpen: WritableSignal<boolean> = this.socialShareFacade.isPanelOpen;
+  protected readonly isCopied: WritableSignal<boolean> = this.socialShareFacade.isCopied;
+  protected readonly whatsappUrl: string = this.socialShareFacade.whatsappUrl;
+  protected readonly emailUrl: string = this.socialShareFacade.emailUrl;
+
   protected onTriggerClick(): void {
-    if (this.facade.canUseNativeShare) {
-      void this.facade.nativeShare();
+    if (this.canUseNativeShare) {
+      void this.socialShareFacade.nativeShare();
     } else {
-      this.facade.togglePanel();
+      this.socialShareFacade.togglePanel();
     }
+  }
+
+  protected closePanel(): void {
+    this.socialShareFacade.closePanel();
+  }
+
+  protected copyLink(): void {
+    void this.socialShareFacade.copyLink();
   }
 
   protected onDocumentClick(event: MouseEvent): void {
     const target = event.target;
     if (target instanceof Node && !this.elementRef.nativeElement.contains(target)) {
-      this.facade.closePanel();
+      this.socialShareFacade.closePanel();
     }
   }
 }
