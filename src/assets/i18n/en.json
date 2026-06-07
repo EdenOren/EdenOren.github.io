@@ -53,10 +53,12 @@
     "MESSAGE_LABEL": "Message",
     "MESSAGE_PLACEHOLDER": "What's on your mind?",
     "SUBMIT": "Send Message",
+    "SUBMIT_LOADING": "Sending…",
     "SUCCESS": "Message sent! I'll get back to you soon.",
     "ERROR": "Something went wrong. Please try again.",
     "FIELD_REQUIRED": "This field is required",
-    "EMAIL_INVALID": "Please enter a valid email address"
+    "EMAIL_INVALID": "Please enter a valid email address",
+    "MESSAGE_TOO_SHORT": "Message must be at least 10 characters"
   },
   "ADMIN": {
     "HEADING": "Admin Panel",

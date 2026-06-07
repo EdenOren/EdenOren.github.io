@@ -42,12 +42,7 @@
     flex-direction: column;
     gap: variables.$space-2;
 
-    &:has(.contact__input:user-invalid),
-    &:has(.contact__textarea:user-invalid) {
-      .contact__field-error {
-        display: block;
-      }
-
+    &:has(.contact__field-error) {
       .contact__input,
       .contact__textarea {
         border-color: colors.$color-error;
@@ -64,6 +59,11 @@
   &__label--required::after {
     content: ' *';
     color: colors.$color-accent;
+  }
+
+  &__field-error {
+    color: colors.$color-error;
+    font-size: variables.$font-size-sm;
   }
 
   &__input,
@@ -102,26 +102,6 @@
     min-height: 140px;
     resize: vertical;
     line-height: 1.6;
-  }
-
-  &__field-error {
-    display: none;
-    color: colors.$color-error;
-    font-size: variables.$font-size-sm;
-  }
-
-  &__form--attempted {
-    .contact__field:has(.contact__input:invalid),
-    .contact__field:has(.contact__textarea:invalid) {
-      .contact__field-error {
-        display: block;
-      }
-
-      .contact__input,
-      .contact__textarea {
-        border-color: colors.$color-error;
-      }
-    }
   }
 
   &__error {
