@@ -1,0 +1,39 @@
+@if (!facade.isAuthenticated()) {
+  <div class="admin-login">
+    <p class="admin-login__eyebrow">Portfolio</p>
+    <h1 class="admin-login__title">Admin</h1>
+    <p class="admin-login__subtitle">Sign in with your Google account to continue.</p>
+    <div #googleBtn class="admin-login__button"></div>
+  </div>
+}
+
+@if (facade.isAuthenticated()) {
+  <div class="admin-panel">
+    <aside class="admin-panel__sidebar">
+      <p class="admin-panel__brand">Admin</p>
+      <nav class="admin-panel__nav">
+        <a class="admin-panel__nav-link"
+           routerLink="/admin/experience"
+           routerLinkActive="admin-panel__nav-link--active">
+          Experience
+        </a>
+        <a class="admin-panel__nav-link"
+           routerLink="/admin/projects"
+           routerLinkActive="admin-panel__nav-link--active">
+          Projects
+        </a>
+        <a class="admin-panel__nav-link"
+           routerLink="/admin/skills"
+           routerLinkActive="admin-panel__nav-link--active">
+          Skills
+        </a>
+      </nav>
+      <button class="admin-panel__logout" type="button" (click)="facade.logout()">
+        Log out
+      </button>
+    </aside>
+    <main class="admin-panel__content">
+      <router-outlet />
+    </main>
+  </div>
+}

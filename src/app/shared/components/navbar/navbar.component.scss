@@ -155,6 +155,37 @@
     }
   }
 
+  &__admin-link {
+    @include mixins.text-label;
+    color: colors.$color-accent;
+    text-decoration: none;
+    padding: variables.$space-1 variables.$space-3;
+    border: 1px solid rgba(colors.$color-accent, 0.4);
+    border-radius: 4px;
+    transition: color variables.$transition-fast, border-color variables.$transition-fast, background-color variables.$transition-fast;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    &:hover {
+      background-color: rgba(colors.$color-accent, 0.08);
+      border-color: colors.$color-accent;
+    }
+
+    &:focus-visible {
+      @include mixins.focus-ring;
+    }
+
+    @media (max-width: #{variables.$breakpoint-md - 1px}) {
+      margin-top: variables.$space-6;
+      padding: variables.$space-4 variables.$space-3;
+      border-left: none;
+      border-right: none;
+      border-top: 1px solid rgba(colors.$color-accent, 0.3);
+      border-bottom: none;
+      border-radius: 0;
+    }
+  }
+
   &__link {
     @include mixins.text-label;
     position: relative;
