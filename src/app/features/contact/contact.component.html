@@ -2,17 +2,16 @@
   <div class="contact__inner">
 
     <div class="contact__header">
-      <p class="contact__section-number no-select" aria-hidden="true">{{ SECTION_NUMBER }}</p>
+      <p class="contact__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
       <h2 class="contact__heading no-select">{{ 'CONTACT.HEADING' | translate }}</h2>
     </div>
 
-    @if (isSuccess()) {
+    @if (facade.isSuccess()) {
       <p class="contact__success" role="status" aria-live="polite">{{ 'CONTACT.SUCCESS' | translate }}</p>
     } @else {
       <form
         class="contact__form"
-        [class.contact__form--attempted]="attempted()"
-        (submit)="$event.preventDefault(); submit()"
+        (submit)="$event.preventDefault(); facade.submit()"
         novalidate>
 
         <div class="contact__field">
@@ -22,13 +21,15 @@
             id="contact-name"
             type="text"
             autocomplete="name"
-            required
             aria-required="true"
             [placeholder]="'CONTACT.NAME_PLACEHOLDER' | translate"
-            [value]="name()"
-            (input)="name.set($any($event.target).value)"
-            [disabled]="isLoading()" />
-          <p class="contact__field-error" role="alert">{{ 'CONTACT.FIELD_REQUIRED' | translate }}</p>
+            [formField]="facade.contactForm.name"
+            [disabled]="facade.isLoading()" />
+          @if (facade.contactForm.name().touched() && facade.contactForm.name().invalid()) {
+            @for (err of facade.contactForm.name().errors(); track err.kind) {
+              <p class="contact__field-error" role="alert">{{ err.message | translate }}</p>
+            }
+          }
         </div>
 
         <div class="contact__field">
@@ -38,13 +39,15 @@
             id="contact-email"
             type="email"
             autocomplete="email"
-            required
             aria-required="true"
             [placeholder]="'CONTACT.EMAIL_PLACEHOLDER' | translate"
-            [value]="email()"
-            (input)="email.set($any($event.target).value)"
-            [disabled]="isLoading()" />
-          <p class="contact__field-error" role="alert">{{ 'CONTACT.EMAIL_INVALID' | translate }}</p>
+            [formField]="facade.contactForm.email"
+            [disabled]="facade.isLoading()" />
+          @if (facade.contactForm.email().touched() && facade.contactForm.email().invalid()) {
+            @for (err of facade.contactForm.email().errors(); track err.kind) {
+              <p class="contact__field-error" role="alert">{{ err.message | translate }}</p>
+            }
+          }
         </div>
 
         <div class="contact__field">
@@ -52,29 +55,31 @@
           <textarea
             class="contact__textarea"
             id="contact-message"
-            [rows]="TEXTAREA_ROWS"
-            required
+            [attr.rows]="TEXTAREA_ROWS"
             aria-required="true"
             [placeholder]="'CONTACT.MESSAGE_PLACEHOLDER' | translate"
-            [value]="message()"
-            (input)="message.set($any($event.target).value)"
-            [disabled]="isLoading()"></textarea>
-          <p class="contact__field-error" role="alert">{{ 'CONTACT.FIELD_REQUIRED' | translate }}</p>
+            [formField]="facade.contactForm.message"
+            [disabled]="facade.isLoading()"></textarea>
+          @if (facade.contactForm.message().touched() && facade.contactForm.message().invalid()) {
+            @for (err of facade.contactForm.message().errors(); track err.kind) {
+              <p class="contact__field-error" role="alert">{{ err.message | translate }}</p>
+            }
+          }
         </div>
 
-        @if (isError()) {
+        @if (facade.isError()) {
           <p class="contact__error" role="alert" aria-live="assertive">{{ 'CONTACT.ERROR' | translate }}</p>
         }
 
         <button
           class="contact__submit no-select"
           type="submit"
-          [disabled]="isLoading()"
-          [class.contact__submit--loading]="isLoading()">
-          @if (isLoading()) {
+          [disabled]="facade.isLoading()"
+          [class.contact__submit--loading]="facade.isLoading()">
+          @if (facade.isLoading()) {
             <span class="contact__submit-spinner" aria-hidden="true"></span>
           }
-          {{ 'CONTACT.SUBMIT' | translate }}
+          {{ (facade.isLoading() ? 'CONTACT.SUBMIT_LOADING' : 'CONTACT.SUBMIT') | translate }}
         </button>
 
       </form>
