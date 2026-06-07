@@ -106,7 +106,7 @@
     letter-spacing: 0.05em;
     border-radius: 2px;
     transition: color variables.$transition-fast;
-    width: 100%;
+    width: fit-content;
 
     &:hover,
     &:focus-visible {
@@ -151,23 +151,10 @@
     }
   }
 
-  &__section-number {
-    @include mixins.ghost-section-number;
-    top: -3rem;
-    left: -1rem;
-
-    @include mixins.respond-to(lg) {
-      top: -4rem;
-      left: -2rem;
-    }
-  }
-
   &__heading {
     @include mixins.text-heading-lg;
     @include mixins.heading-accent-bar;
     margin-bottom: variables.$space-8;
-    position: relative;
-    z-index: 1;
   }
 
   &__bio {

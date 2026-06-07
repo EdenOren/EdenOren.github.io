@@ -8,6 +8,10 @@ Planned feature branches — each maps to a PR into `development`.
 - [ ] `feature/18-404-page` — NotFoundComponent for unknown hash routes + static 404.html for GitHub Pages
 
 ## Future
+- [ ] `feature/20-backend-tidb` — Stage 1: TiDB Cloud cluster + schema + seed data (see plans/be-tidb-vercel.md)
+- [ ] `feature/21-backend-api` — Stage 2: Vercel API project (Node.js/TS, mysql2, auth middleware, CRUD routes)
+- [ ] `feature/22-backend-angular` — Stage 3: Angular httpResource() integration, environment files, update facades
+- [ ] `feature/23-backend-admin` — Stage 4: Wire admin panel CRUD to live API
 - [ ] `feature/12-share-button` — share portfolio URL (Web Share API with clipboard fallback)
 - [ ] `feature/13-og-image-final` — replace placeholder og-image.png with final 1200×630 Signal Luxe dark card (Cormorant name, emerald accent, role label)
 - [ ] `feature/19-contact-form-connect` — wire contact form to a real email service (EmailJS / Formspree)

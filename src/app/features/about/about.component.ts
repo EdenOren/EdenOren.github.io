@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
-import { AboutFacade } from './facades/about.facade';
+import { AboutFacade, SocialLink } from './facades/about.facade';
 
 @Component({
   selector: 'app-about',
@@ -11,5 +11,8 @@ import { AboutFacade } from './facades/about.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent {
-  protected readonly facade = inject(AboutFacade);
+  private readonly aboutFacade: AboutFacade = inject(AboutFacade);
+
+  protected readonly translation: Signal<Record<string, string>> = this.aboutFacade.translation;
+  protected readonly SOCIAL_LINKS: SocialLink[] = this.aboutFacade.SOCIAL_LINKS;
 }

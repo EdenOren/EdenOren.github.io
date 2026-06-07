@@ -1,1 +1,1 @@
-export const EXPERIENCE_SECTION_NUMBER = '02';
+export {};

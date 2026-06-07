@@ -2,7 +2,6 @@ import { Service, Signal, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { ABOUT_SECTION_NUMBER } from '../utils/about.constants';
 import { SocialIcon, SocialLinkKey } from '../enums/about.enums';
 
 export interface SocialLink {
@@ -21,8 +20,6 @@ export class AboutFacade {
     this.translateService.stream('ABOUT') as Observable<Record<string, string>>,
     { initialValue: {} as Record<string, string> }
   );
-
-  readonly SECTION_NUMBER: string = ABOUT_SECTION_NUMBER;
 
   readonly SOCIAL_LINKS: SocialLink[] = [
     {
