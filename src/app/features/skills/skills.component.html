@@ -1,13 +1,12 @@
 <section class="skills" appScrollReveal id="skills">
   <div class="skills__inner">
 
-    @let t = facade.translation();
+    @let t = translation();
     <div class="skills__header">
-      <p class="skills__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
-      <h2 class="skills__heading no-select">{{ t['HEADING'] }}</h2>
+      <app-section-header [heading]="t['HEADING']" />
     </div>
 
-    @if (facade.isLoading()) {
+    @if (isLoading()) {
       <app-skeleton-loader
         [type]="SkeletonType.Pill"
         [count]="3"
@@ -15,7 +14,7 @@
       />
     } @else {
       <div class="skills__groups" animate.enter="content-reveal">
-        @for (group of facade.GROUPS; track group.id) {
+        @for (group of groups(); track group.id) {
           <div class="skills__group">
             <h3 class="skills__group-label no-select">{{ t[group.labelKey] }}</h3>
             <ul class="skills__tag-list" role="list">

@@ -13,21 +13,7 @@
   }
 
   &__header {
-    position: relative;
     margin-bottom: variables.$space-16;
-  }
-
-  &__section-number {
-    @include mixins.ghost-section-number;
-    top: -3.5rem;
-    left: -1rem;
-  }
-
-  &__heading {
-    @include mixins.text-heading-lg;
-    @include mixins.heading-accent-bar;
-    position: relative;
-    z-index: 1;
   }
 
   &__groups {
