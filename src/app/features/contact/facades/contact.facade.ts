@@ -1,55 +1,54 @@
 import { Service, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
-import { FieldTree, email, form, minLength, required, submit } from '@angular/forms/signals';
-import { ContactService } from '../../../core/services/data/contact.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import { SubmitState } from '../enums/contact.enums';
-import { CONTACT_MIN_MESSAGE_LENGTH, CONTACT_SECTION_NUMBER } from '../utils/contact.constants';
+import {
+  CONTACT_MIN_MESSAGE_LENGTH,
+  CONTACT_SECTION_NUMBER,
+  CONTACT_SUBMIT_DELAY_MS,
+} from '../utils/contact.constants';
 
-interface ContactData {
-  name: string;
-  email: string;
-  message: string;
-}
+export { SubmitState };
 
 @Service({ autoProvided: false })
 export class ContactFacade {
-  private readonly contactService: ContactService = inject(ContactService);
+  private readonly translateService: TranslateService = inject(TranslateService);
+
+  readonly translation: Signal<Record<string, string>> = toSignal(
+    this.translateService.stream('CONTACT') as Observable<Record<string, string>>,
+    { initialValue: {} as Record<string, string> }
+  );
 
   readonly SECTION_NUMBER: string = CONTACT_SECTION_NUMBER;
 
-  private readonly model: WritableSignal<ContactData> = signal<ContactData>({
-    name: '',
-    email: '',
-    message: '',
-  });
+  readonly name: WritableSignal<string> = signal('');
+  readonly email: WritableSignal<string> = signal('');
+  readonly message: WritableSignal<string> = signal('');
+  readonly submitState: WritableSignal<SubmitState> = signal<SubmitState>(SubmitState.Idle);
 
-  readonly contactForm: FieldTree<ContactData> = form(this.model, (schemaPath) => {
-    required(schemaPath.name, { message: 'CONTACT.FIELD_REQUIRED' });
-    required(schemaPath.email, { message: 'CONTACT.FIELD_REQUIRED' });
-    email(schemaPath.email, { message: 'CONTACT.EMAIL_INVALID' });
-    required(schemaPath.message, { message: 'CONTACT.FIELD_REQUIRED' });
-    minLength(schemaPath.message, CONTACT_MIN_MESSAGE_LENGTH, { message: 'CONTACT.MESSAGE_TOO_SHORT' });
-  });
+  readonly isValid: Signal<boolean> = computed(() =>
+    this.name().trim().length > 0 &&
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email().trim()) &&
+    this.message().trim().length > CONTACT_MIN_MESSAGE_LENGTH
+  );
 
-  private readonly _result: WritableSignal<SubmitState> = signal<SubmitState>(SubmitState.Idle);
-
-  readonly isLoading: Signal<boolean> = computed(() => this.contactForm().submitting());
-  readonly isSuccess: Signal<boolean> = computed(() => this._result() === SubmitState.Success);
-  readonly isError: Signal<boolean> = computed(() => this._result() === SubmitState.Error);
+  readonly isLoading: Signal<boolean> = computed(() => this.submitState() === SubmitState.Loading);
+  readonly isSuccess: Signal<boolean> = computed(() => this.submitState() === SubmitState.Success);
+  readonly isError: Signal<boolean> = computed(() => this.submitState() === SubmitState.Error);
 
   async submit(): Promise<void> {
-    await submit(this.contactForm, async (field) => {
-      try {
-        await this.contactService.send({
-          name: field().value().name.trim(),
-          email: field().value().email.trim(),
-          message: field().value().message.trim(),
-        });
-        this.model.set({ name: '', email: '', message: '' });
-        this._result.set(SubmitState.Success);
-      } catch {
-        this._result.set(SubmitState.Error);
-        return { kind: 'serverError', message: 'CONTACT.ERROR' };
-      }
-    });
+    if (!this.isValid() || this.isLoading()) {
+      return;
+    }
+
+    this.submitState.set(SubmitState.Loading);
+
+    await new Promise<void>(resolve => setTimeout(resolve, CONTACT_SUBMIT_DELAY_MS));
+
+    this.submitState.set(SubmitState.Success);
+    this.name.set('');
+    this.email.set('');
+    this.message.set('');
   }
 }
