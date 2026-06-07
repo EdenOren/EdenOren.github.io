@@ -1,5 +1,6 @@
 import { Service, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { Project } from '../../../models/admin.models';
+import { AdminCrudFacade } from '../../../facades/admin-crud.facade';
 
 const SEED_PROJECTS: Project[] = [
   {
@@ -38,11 +39,9 @@ const SEED_PROJECTS: Project[] = [
 ];
 
 @Service({ autoProvided: false })
-export class AdminProjectsFacade {
-  readonly projects: WritableSignal<Project[]> = signal([...SEED_PROJECTS]);
+export class AdminProjectsFacade extends AdminCrudFacade<Project> {
+  override readonly items: WritableSignal<Project[]> = signal([...SEED_PROJECTS]);
 
-  readonly isFormOpen: WritableSignal<boolean> = signal(false);
-  readonly editingId: WritableSignal<string | null> = signal(null);
   readonly titleField: WritableSignal<string> = signal('');
   readonly descriptionField: WritableSignal<string> = signal('');
   readonly tagsField: WritableSignal<string> = signal('');
@@ -50,38 +49,31 @@ export class AdminProjectsFacade {
   readonly liveUrlField: WritableSignal<string> = signal('');
   readonly featuredField: WritableSignal<boolean> = signal(false);
 
-  readonly isEditing: Signal<boolean> = computed(() => this.editingId() !== null);
-  readonly isFormValid: Signal<boolean> = computed(
+  override readonly isFormValid: Signal<boolean> = computed(
     () => this.titleField().trim().length > 0
   );
 
-  openAdd(): void {
-    this.editingId.set(null);
+  override openAdd(): void {
     this.titleField.set('');
     this.descriptionField.set('');
     this.tagsField.set('');
     this.githubUrlField.set('');
     this.liveUrlField.set('');
     this.featuredField.set(false);
-    this.isFormOpen.set(true);
+    this.beginAdd();
   }
 
-  openEdit(project: Project): void {
-    this.editingId.set(project.id);
+  override openEdit(project: Project): void {
     this.titleField.set(project.title);
     this.descriptionField.set(project.description);
     this.tagsField.set(project.tags.join(', '));
     this.githubUrlField.set(project.githubUrl ?? '');
     this.liveUrlField.set(project.liveUrl ?? '');
     this.featuredField.set(project.featured);
-    this.isFormOpen.set(true);
+    this.beginEdit(project.id);
   }
 
-  closeForm(): void {
-    this.isFormOpen.set(false);
-  }
-
-  save(): void {
+  override save(): void {
     if (!this.isFormValid()) {
       return;
     }
@@ -97,15 +89,6 @@ export class AdminProjectsFacade {
       liveUrl: this.liveUrlField().trim() || undefined,
       featured: this.featuredField(),
     };
-    if (this.isEditing()) {
-      this.projects.update(list => list.map(p => (p.id === project.id ? project : p)));
-    } else {
-      this.projects.update(list => [...list, project]);
-    }
-    this.closeForm();
-  }
-
-  remove(id: string): void {
-    this.projects.update(list => list.filter(p => p.id !== id));
+    this.applyChange(project);
   }
 }

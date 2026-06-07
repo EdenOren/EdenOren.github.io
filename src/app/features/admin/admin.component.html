@@ -1,4 +1,4 @@
-@if (!facade.isAuthenticated()) {
+@if (!isAuthenticated()) {
   <div class="admin-login">
     <p class="admin-login__eyebrow">Portfolio</p>
     <h1 class="admin-login__title">Admin</h1>
@@ -7,7 +7,7 @@
   </div>
 }
 
-@if (facade.isAuthenticated()) {
+@if (isAuthenticated()) {
   <div class="admin-panel">
     <aside class="admin-panel__sidebar">
       <p class="admin-panel__brand">Admin</p>
@@ -28,7 +28,7 @@
           Skills
         </a>
       </nav>
-      <button class="admin-panel__logout" type="button" (click)="facade.logout()">
+      <button class="admin-panel__logout" type="button" (click)="logout()">
         Log out
       </button>
     </aside>

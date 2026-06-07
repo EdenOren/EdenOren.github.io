@@ -1,45 +1,45 @@
 <div class="admin-experience">
   <div class="admin-experience__header">
     <h2 class="admin-experience__title">Experience</h2>
-    @if (!facade.isFormOpen()) {
-      <button class="admin-experience__add-btn" type="button" (click)="facade.openAdd()">
+    @if (!isFormOpen()) {
+      <button class="admin-experience__add-btn" type="button" (click)="openAdd()">
         + Add Entry
       </button>
     }
   </div>
 
-  @if (facade.isFormOpen()) {
+  @if (isFormOpen()) {
     <div class="admin-experience__form">
       <h3 class="admin-experience__form-title">
-        {{ facade.isEditing() ? 'Edit Entry' : 'New Entry' }}
+        {{ isEditing() ? 'Edit Entry' : 'New Entry' }}
       </h3>
       <div class="admin-experience__form-grid">
         <div class="admin-experience__field">
           <label class="admin-experience__label">Role *</label>
           <input class="admin-experience__input" type="text"
-                 [value]="facade.roleField()"
-                 (input)="facade.roleField.set($any($event.target).value)"
+                 [value]="roleField()"
+                 (input)="roleField.set($any($event.target).value)"
                  placeholder="e.g. Frontend Developer" />
         </div>
         <div class="admin-experience__field">
           <label class="admin-experience__label">Company *</label>
           <input class="admin-experience__input" type="text"
-                 [value]="facade.companyField()"
-                 (input)="facade.companyField.set($any($event.target).value)"
+                 [value]="companyField()"
+                 (input)="companyField.set($any($event.target).value)"
                  placeholder="e.g. Acme Corp" />
         </div>
         <div class="admin-experience__field">
           <label class="admin-experience__label">Period *</label>
           <input class="admin-experience__input" type="text"
-                 [value]="facade.periodField()"
-                 (input)="facade.periodField.set($any($event.target).value)"
+                 [value]="periodField()"
+                 (input)="periodField.set($any($event.target).value)"
                  placeholder="e.g. 2023" />
         </div>
         <div class="admin-experience__field admin-experience__field--checkbox">
           <label class="admin-experience__checkbox-label">
             <input type="checkbox"
-                   [checked]="facade.currentField()"
-                   (change)="facade.currentField.set($any($event.target).checked)" />
+                   [checked]="currentField()"
+                   (change)="currentField.set($any($event.target).checked)" />
             Current role
           </label>
         </div>
@@ -47,25 +47,25 @@
           <label class="admin-experience__label">Description</label>
           <textarea class="admin-experience__input admin-experience__input--textarea"
                     rows="3"
-                    [value]="facade.descriptionField()"
-                    (input)="facade.descriptionField.set($any($event.target).value)"
+                    [value]="descriptionField()"
+                    (input)="descriptionField.set($any($event.target).value)"
                     placeholder="Role summary…"></textarea>
         </div>
         <div class="admin-experience__field admin-experience__field--full">
           <label class="admin-experience__label">Tags (comma-separated)</label>
           <input class="admin-experience__input" type="text"
-                 [value]="facade.tagsField()"
-                 (input)="facade.tagsField.set($any($event.target).value)"
+                 [value]="tagsField()"
+                 (input)="tagsField.set($any($event.target).value)"
                  placeholder="Angular, TypeScript, SCSS" />
         </div>
       </div>
       <div class="admin-experience__form-actions">
         <button class="admin-experience__save-btn" type="button"
-                [disabled]="!facade.isFormValid()"
-                (click)="facade.save()">
-          {{ facade.isEditing() ? 'Save' : 'Add' }}
+                [disabled]="!isFormValid()"
+                (click)="save()">
+          {{ isEditing() ? 'Save' : 'Add' }}
         </button>
-        <button class="admin-experience__cancel-btn" type="button" (click)="facade.closeForm()">
+        <button class="admin-experience__cancel-btn" type="button" (click)="closeForm()">
           Cancel
         </button>
       </div>
@@ -73,7 +73,7 @@
   }
 
   <ul class="admin-experience__list">
-    @for (entry of facade.entries(); track entry.id) {
+    @for (entry of entries(); track entry.id) {
       <li class="admin-experience__item">
         <div class="admin-experience__item-header">
           <div class="admin-experience__item-meta">
@@ -84,10 +84,10 @@
             }
           </div>
           <div class="admin-experience__item-actions">
-            <button class="admin-experience__edit-btn" type="button" (click)="facade.openEdit(entry)">
+            <button class="admin-experience__edit-btn" type="button" (click)="openEdit(entry)">
               Edit
             </button>
-            <button class="admin-experience__delete-btn" type="button" (click)="facade.remove(entry.id)">
+            <button class="admin-experience__delete-btn" type="button" (click)="remove(entry.id)">
               Delete
             </button>
           </div>
