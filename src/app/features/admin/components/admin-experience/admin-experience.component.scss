@@ -1,0 +1,260 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+
+.admin-experience {
+  max-width: 800px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: variables.$space-8;
+  }
+
+  &__title {
+    font-family: variables.$font-family-display;
+    font-size: variables.$font-size-3xl;
+    font-weight: 500;
+    color: colors.$color-text;
+  }
+
+  &__add-btn {
+    padding: variables.$space-2 variables.$space-4;
+    font-size: variables.$font-size-sm;
+    font-family: variables.$font-family-base;
+    color: colors.$color-accent;
+    background: rgba(colors.$color-accent, 0.08);
+    border: 1px solid rgba(colors.$color-accent, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background variables.$transition-fast, border-color variables.$transition-fast;
+
+    &:hover {
+      background: rgba(colors.$color-accent, 0.14);
+      border-color: colors.$color-accent;
+    }
+  }
+
+  &__form {
+    background: colors.$color-surface;
+    border: 1px solid colors.$color-border;
+    border-radius: 6px;
+    padding: variables.$space-6;
+    margin-bottom: variables.$space-8;
+  }
+
+  &__form-title {
+    font-family: variables.$font-family-display;
+    font-size: variables.$font-size-2xl;
+    font-weight: 500;
+    color: colors.$color-text;
+    margin-bottom: variables.$space-6;
+  }
+
+  &__form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: variables.$space-4;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$space-2;
+
+    &--full {
+      grid-column: 1 / -1;
+    }
+
+    &--checkbox {
+      justify-content: flex-end;
+    }
+  }
+
+  &__label {
+    font-size: variables.$font-size-sm;
+    color: colors.$color-text-muted;
+  }
+
+  &__checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: variables.$space-2;
+    font-size: variables.$font-size-sm;
+    color: colors.$color-text-muted;
+    cursor: pointer;
+  }
+
+  &__input {
+    padding: variables.$space-2 variables.$space-3;
+    font-size: variables.$font-size-sm;
+    font-family: variables.$font-family-base;
+    color: colors.$color-text;
+    background: colors.$color-bg;
+    border: 1px solid colors.$color-border;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color variables.$transition-fast;
+
+    &:focus {
+      border-color: colors.$color-accent;
+    }
+
+    &--textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+  }
+
+  &__form-actions {
+    display: flex;
+    gap: variables.$space-3;
+    margin-top: variables.$space-6;
+  }
+
+  &__save-btn {
+    padding: variables.$space-2 variables.$space-6;
+    font-size: variables.$font-size-sm;
+    font-family: variables.$font-family-base;
+    color: colors.$color-bg;
+    background: colors.$color-accent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity variables.$transition-fast;
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &__cancel-btn {
+    padding: variables.$space-2 variables.$space-6;
+    font-size: variables.$font-size-sm;
+    font-family: variables.$font-family-base;
+    color: colors.$color-text-muted;
+    background: transparent;
+    border: 1px solid colors.$color-border;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color variables.$transition-fast, border-color variables.$transition-fast;
+
+    &:hover {
+      color: colors.$color-text;
+      border-color: colors.$color-text-muted;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$space-4;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    background: colors.$color-surface;
+    border: 1px solid colors.$color-border;
+    border-radius: 6px;
+    padding: variables.$space-6;
+  }
+
+  &__item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: variables.$space-3;
+  }
+
+  &__item-meta {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$space-1;
+  }
+
+  &__role {
+    font-size: variables.$font-size-base;
+    font-weight: 600;
+    color: colors.$color-text;
+  }
+
+  &__company {
+    font-size: variables.$font-size-sm;
+    color: colors.$color-text-muted;
+  }
+
+  &__badge {
+    display: inline-block;
+    padding: variables.$space-1 variables.$space-2;
+    font-size: 0.75rem;
+    color: colors.$color-accent;
+    background: rgba(colors.$color-accent, 0.08);
+    border: 1px solid rgba(colors.$color-accent, 0.3);
+    border-radius: 3px;
+    font-family: variables.$font-family-mono;
+    width: fit-content;
+  }
+
+  &__item-actions {
+    display: flex;
+    gap: variables.$space-2;
+  }
+
+  &__edit-btn,
+  &__delete-btn {
+    padding: variables.$space-1 variables.$space-3;
+    font-size: variables.$font-size-sm;
+    font-family: variables.$font-family-base;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all variables.$transition-fast;
+  }
+
+  &__edit-btn {
+    color: colors.$color-text-muted;
+    background: transparent;
+    border: 1px solid colors.$color-border;
+
+    &:hover {
+      color: colors.$color-text;
+      border-color: colors.$color-text-muted;
+    }
+  }
+
+  &__delete-btn {
+    color: colors.$color-error;
+    background: transparent;
+    border: 1px solid rgba(colors.$color-error, 0.3);
+
+    &:hover {
+      background: rgba(colors.$color-error, 0.08);
+      border-color: colors.$color-error;
+    }
+  }
+
+  &__description {
+    font-size: variables.$font-size-sm;
+    color: colors.$color-text-muted;
+    line-height: 1.6;
+    margin-bottom: variables.$space-3;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: variables.$space-2;
+  }
+
+  &__tag {
+    padding: variables.$space-1 variables.$space-2;
+    font-size: 0.75rem;
+    font-family: variables.$font-family-mono;
+    color: colors.$color-text-muted;
+    background: colors.$color-bg;
+    border: 1px solid colors.$color-border;
+    border-radius: 3px;
+  }
+}

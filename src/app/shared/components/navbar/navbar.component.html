@@ -41,6 +41,15 @@
         }
       </ul>
 
+      @if (isAuthenticated()) {
+        <a
+          class="navbar__admin-link"
+          routerLink="/admin/experience"
+          (click)="closeMenu()"
+        >
+          Admin
+        </a>
+      }
     </div>
   </div>
 </nav>
