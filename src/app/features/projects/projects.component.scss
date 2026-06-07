@@ -25,17 +25,9 @@
 
   &__heading {
     @include mixins.text-heading-lg;
+    @include mixins.heading-accent-bar;
     position: relative;
     z-index: 1;
-
-    &::after {
-      content: '';
-      display: block;
-      width: 2.5rem;
-      height: 2px;
-      background-color: colors.$color-accent;
-      margin-top: variables.$space-4;
-    }
   }
 
   &__grid {
@@ -100,13 +92,8 @@
   }
 
   &__card-tag {
-    @include mixins.text-mono;
-    font-size: 0.75rem;
-    color: colors.$color-text-muted;
+    @include mixins.pill-tag;
     background-color: colors.$color-bg;
-    border: 1px solid colors.$color-border;
-    padding: 2px variables.$space-3;
-    border-radius: 2px;
   }
 
   &__card-footer {
@@ -151,13 +138,4 @@
       transform: translate(2px, -2px);
     }
   }
-}
-
-@keyframes content-reveal {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.content-reveal {
-  animation: content-reveal 250ms ease-out both;
 }

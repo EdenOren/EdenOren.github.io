@@ -26,17 +26,9 @@
 
   &__heading {
     @include mixins.text-heading-lg;
+    @include mixins.heading-accent-bar;
     position: relative;
     z-index: 1;
-
-    &::after {
-      content: '';
-      display: block;
-      width: 2.5rem;
-      height: 2px;
-      background-color: colors.$color-accent;
-      margin-top: variables.$space-4;
-    }
   }
 
   &__form {
