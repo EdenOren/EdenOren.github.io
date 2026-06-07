@@ -108,40 +108,12 @@
   }
 
   &__cta {
-    @include mixins.text-label;
-    display: inline-flex;
-    align-items: center;
-    padding: variables.$space-3 variables.$space-8;
-    text-decoration: none;
-    transition:
-      background-color variables.$transition-fast,
-      color variables.$transition-fast,
-      border-color variables.$transition-fast;
-
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
-
     &--filled {
-      background-color: colors.$color-accent;
-      color: colors.$color-bg;
-      border: 1px solid colors.$color-accent;
-
-      &:hover {
-        background-color: transparent;
-        color: colors.$color-accent;
-      }
+      @include mixins.btn-filled;
     }
 
     &--outline {
-      background-color: transparent;
-      color: colors.$color-accent;
-      border: 1px solid colors.$color-accent;
-
-      &:hover {
-        background-color: colors.$color-accent;
-        color: colors.$color-bg;
-      }
+      @include mixins.btn-outline;
     }
   }
 }

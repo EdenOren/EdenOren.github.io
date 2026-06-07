@@ -1,71 +1,80 @@
 <section class="contact" appScrollReveal id="contact">
   <div class="contact__inner">
 
-    @let t = facade.translation();
     <div class="contact__header">
-      <p class="contact__section-number no-select" aria-hidden="true">{{ facade.SECTION_NUMBER }}</p>
-      <h2 class="contact__heading no-select">{{ t['HEADING'] }}</h2>
+      <p class="contact__section-number no-select" aria-hidden="true">{{ SECTION_NUMBER }}</p>
+      <h2 class="contact__heading no-select">{{ 'CONTACT.HEADING' | translate }}</h2>
     </div>
 
-    @if (facade.isSuccess()) {
-      <p class="contact__success" role="status" aria-live="polite">{{ t['SUCCESS'] }}</p>
+    @if (isSuccess()) {
+      <p class="contact__success" role="status" aria-live="polite">{{ 'CONTACT.SUCCESS' | translate }}</p>
     } @else {
       <form
         class="contact__form"
-        (submit)="$event.preventDefault(); facade.submit()"
+        [class.contact__form--attempted]="attempted()"
+        (submit)="$event.preventDefault(); submit()"
         novalidate>
 
         <div class="contact__field">
-          <label class="contact__label" for="contact-name">{{ t['NAME_LABEL'] }}</label>
+          <label class="contact__label contact__label--required" for="contact-name">{{ 'CONTACT.NAME_LABEL' | translate }}</label>
           <input
             class="contact__input"
             id="contact-name"
             type="text"
             autocomplete="name"
-            [placeholder]="t['NAME_PLACEHOLDER']"
-            [value]="facade.name()"
-            (input)="facade.name.set($any($event.target).value)"
-            [disabled]="facade.isLoading()" />
+            required
+            aria-required="true"
+            [placeholder]="'CONTACT.NAME_PLACEHOLDER' | translate"
+            [value]="name()"
+            (input)="name.set($any($event.target).value)"
+            [disabled]="isLoading()" />
+          <p class="contact__field-error" role="alert">{{ 'CONTACT.FIELD_REQUIRED' | translate }}</p>
         </div>
 
         <div class="contact__field">
-          <label class="contact__label" for="contact-email">{{ t['EMAIL_LABEL'] }}</label>
+          <label class="contact__label contact__label--required" for="contact-email">{{ 'CONTACT.EMAIL_LABEL' | translate }}</label>
           <input
             class="contact__input"
             id="contact-email"
             type="email"
             autocomplete="email"
-            [placeholder]="t['EMAIL_PLACEHOLDER']"
-            [value]="facade.email()"
-            (input)="facade.email.set($any($event.target).value)"
-            [disabled]="facade.isLoading()" />
+            required
+            aria-required="true"
+            [placeholder]="'CONTACT.EMAIL_PLACEHOLDER' | translate"
+            [value]="email()"
+            (input)="email.set($any($event.target).value)"
+            [disabled]="isLoading()" />
+          <p class="contact__field-error" role="alert">{{ 'CONTACT.EMAIL_INVALID' | translate }}</p>
         </div>
 
         <div class="contact__field">
-          <label class="contact__label" for="contact-message">{{ t['MESSAGE_LABEL'] }}</label>
+          <label class="contact__label contact__label--required" for="contact-message">{{ 'CONTACT.MESSAGE_LABEL' | translate }}</label>
           <textarea
             class="contact__textarea"
             id="contact-message"
-            [attr.rows]="TEXTAREA_ROWS"
-            [placeholder]="t['MESSAGE_PLACEHOLDER']"
-            [value]="facade.message()"
-            (input)="facade.message.set($any($event.target).value)"
-            [disabled]="facade.isLoading()"></textarea>
+            [rows]="TEXTAREA_ROWS"
+            required
+            aria-required="true"
+            [placeholder]="'CONTACT.MESSAGE_PLACEHOLDER' | translate"
+            [value]="message()"
+            (input)="message.set($any($event.target).value)"
+            [disabled]="isLoading()"></textarea>
+          <p class="contact__field-error" role="alert">{{ 'CONTACT.FIELD_REQUIRED' | translate }}</p>
         </div>
 
-        @if (facade.isError()) {
-          <p class="contact__error" role="alert" aria-live="assertive">{{ t['ERROR'] }}</p>
+        @if (isError()) {
+          <p class="contact__error" role="alert" aria-live="assertive">{{ 'CONTACT.ERROR' | translate }}</p>
         }
 
         <button
           class="contact__submit no-select"
           type="submit"
-          [disabled]="!facade.isValid() || facade.isLoading()"
-          [class.contact__submit--loading]="facade.isLoading()">
-          @if (facade.isLoading()) {
+          [disabled]="isLoading()"
+          [class.contact__submit--loading]="isLoading()">
+          @if (isLoading()) {
             <span class="contact__submit-spinner" aria-hidden="true"></span>
           }
-          {{ t['SUBMIT'] }}
+          {{ 'CONTACT.SUBMIT' | translate }}
         </button>
 
       </form>

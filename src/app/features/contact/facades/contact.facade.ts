@@ -1,24 +1,15 @@
 import { Service, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { ContactService } from '../../../core/services/data/contact.service';
 import { SubmitState } from '../enums/contact.enums';
-import {
-  CONTACT_MIN_MESSAGE_LENGTH,
-  CONTACT_SECTION_NUMBER,
-  CONTACT_SUBMIT_DELAY_MS,
-} from '../utils/contact.constants';
+import { CONTACT_SECTION_NUMBER } from '../utils/contact.constants';
 
 export { SubmitState };
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 @Service({ autoProvided: false })
 export class ContactFacade {
-  private readonly translateService: TranslateService = inject(TranslateService);
-
-  readonly translation: Signal<Record<string, string>> = toSignal(
-    this.translateService.stream('CONTACT') as Observable<Record<string, string>>,
-    { initialValue: {} as Record<string, string> }
-  );
+  private readonly contactService: ContactService = inject(ContactService);
 
   readonly SECTION_NUMBER: string = CONTACT_SECTION_NUMBER;
 
@@ -26,11 +17,12 @@ export class ContactFacade {
   readonly email: WritableSignal<string> = signal('');
   readonly message: WritableSignal<string> = signal('');
   readonly submitState: WritableSignal<SubmitState> = signal<SubmitState>(SubmitState.Idle);
+  readonly attempted: WritableSignal<boolean> = signal(false);
 
   readonly isValid: Signal<boolean> = computed(() =>
     this.name().trim().length > 0 &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email().trim()) &&
-    this.message().trim().length > CONTACT_MIN_MESSAGE_LENGTH
+    EMAIL_REGEX.test(this.email().trim()) &&
+    this.message().trim().length > 0
   );
 
   readonly isLoading: Signal<boolean> = computed(() => this.submitState() === SubmitState.Loading);
@@ -38,17 +30,27 @@ export class ContactFacade {
   readonly isError: Signal<boolean> = computed(() => this.submitState() === SubmitState.Error);
 
   async submit(): Promise<void> {
+    this.attempted.set(true);
+
     if (!this.isValid() || this.isLoading()) {
       return;
     }
 
     this.submitState.set(SubmitState.Loading);
 
-    await new Promise<void>(resolve => setTimeout(resolve, CONTACT_SUBMIT_DELAY_MS));
-
-    this.submitState.set(SubmitState.Success);
-    this.name.set('');
-    this.email.set('');
-    this.message.set('');
+    try {
+      await this.contactService.send({
+        name: this.name().trim(),
+        email: this.email().trim(),
+        message: this.message().trim(),
+      });
+      this.submitState.set(SubmitState.Success);
+      this.name.set('');
+      this.email.set('');
+      this.message.set('');
+      this.attempted.set(false);
+    } catch {
+      this.submitState.set(SubmitState.Error);
+    }
   }
 }

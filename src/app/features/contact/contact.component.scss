@@ -41,12 +41,29 @@
     display: flex;
     flex-direction: column;
     gap: variables.$space-2;
+
+    &:has(.contact__input:user-invalid),
+    &:has(.contact__textarea:user-invalid) {
+      .contact__field-error {
+        display: block;
+      }
+
+      .contact__input,
+      .contact__textarea {
+        border-color: colors.$color-error;
+      }
+    }
   }
 
   &__label {
     @include mixins.text-label;
     font-size: variables.$font-size-sm;
     color: colors.$color-text-muted;
+  }
+
+  &__label--required::after {
+    content: ' *';
+    color: colors.$color-accent;
   }
 
   &__input,
@@ -87,6 +104,26 @@
     line-height: 1.6;
   }
 
+  &__field-error {
+    display: none;
+    color: colors.$color-error;
+    font-size: variables.$font-size-sm;
+  }
+
+  &__form--attempted {
+    .contact__field:has(.contact__input:invalid),
+    .contact__field:has(.contact__textarea:invalid) {
+      .contact__field-error {
+        display: block;
+      }
+
+      .contact__input,
+      .contact__textarea {
+        border-color: colors.$color-error;
+      }
+    }
+  }
+
   &__error {
     color: colors.$color-error;
     font-size: variables.$font-size-sm;
@@ -102,38 +139,9 @@
   }
 
   &__submit {
+    @include mixins.btn-filled;
     align-self: flex-start;
-    display: inline-flex;
-    align-items: center;
     gap: variables.$space-2;
-    padding: variables.$space-3 variables.$space-8;
-    background-color: colors.$color-accent;
-    color: colors.$color-bg;
-    font-family: variables.$font-family-base;
-    font-size: variables.$font-size-base;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    border: 1px solid colors.$color-accent;
-    border-radius: 2px;
-    cursor: pointer;
-    transition:
-      background-color variables.$transition-fast,
-      color variables.$transition-fast,
-      opacity variables.$transition-fast;
-
-    &:hover:not(:disabled) {
-      background-color: transparent;
-      color: colors.$color-accent;
-    }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
-
-    &:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
 
     &--loading {
       pointer-events: none;

@@ -42,26 +42,8 @@
   }
 
   &__cta {
-    @include mixins.text-label;
-    display: inline-flex;
-    align-items: center;
-    padding: variables.$space-3 variables.$space-8;
-    color: colors.$color-accent;
-    border: 1px solid colors.$color-accent;
-    text-decoration: none;
+    @include mixins.btn-outline;
     position: relative;
     z-index: 1;
-    transition:
-      background-color variables.$transition-fast,
-      color variables.$transition-fast;
-
-    &:hover {
-      background-color: colors.$color-accent;
-      color: colors.$color-bg;
-    }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
   }
 }
