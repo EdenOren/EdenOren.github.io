@@ -54,7 +54,9 @@
     "MESSAGE_PLACEHOLDER": "What's on your mind?",
     "SUBMIT": "Send Message",
     "SUCCESS": "Message sent! I'll get back to you soon.",
-    "ERROR": "Something went wrong. Please try again."
+    "ERROR": "Something went wrong. Please try again.",
+    "FIELD_REQUIRED": "This field is required",
+    "EMAIL_INVALID": "Please enter a valid email address"
   },
   "ADMIN": {
     "HEADING": "Admin Panel",
@@ -70,6 +72,14 @@
     "TITLE": "Page not found",
     "SUBTITLE": "The page you're looking for doesn't exist.",
     "CTA": "Back to home"
+  },
+  "SHARE": {
+    "BUTTON_LABEL": "Share",
+    "PANEL_LABEL": "Share this portfolio",
+    "WHATSAPP": "WhatsApp",
+    "EMAIL": "Email",
+    "COPY_LINK": "Copy link",
+    "COPIED": "Copied!"
   },
   "COMMON": {
     "LOADING": "Loading...",

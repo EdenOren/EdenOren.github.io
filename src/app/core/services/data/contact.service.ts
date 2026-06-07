@@ -1,4 +1,6 @@
-import { Service } from '@angular/core';
+import { Service, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 const FORMSPREE_URL = 'https://formspree.io/f/xyzkybnl';
 
@@ -10,14 +12,13 @@ interface ContactPayload {
 
 @Service()
 export class ContactService {
+  private readonly http = inject(HttpClient);
+
   async send(payload: ContactPayload): Promise<void> {
-    const response = await fetch(FORMSPREE_URL, {
-      method: 'POST',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!response.ok) {
-      throw new Error('Formspree request failed');
-    }
+    await firstValueFrom(
+      this.http.post(FORMSPREE_URL, payload, {
+        headers: new HttpHeaders({ 'Accept': 'application/json' }),
+      })
+    );
   }
 }

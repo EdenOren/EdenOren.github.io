@@ -88,6 +88,59 @@
   line-height: 1.6;
 }
 
+@mixin btn-filled {
+  @include text-label;
+  display: inline-flex;
+  align-items: center;
+  padding: variables.$space-3 variables.$space-8;
+  background-color: colors.$color-accent;
+  color: colors.$color-bg;
+  border: 1px solid colors.$color-accent;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color variables.$transition-fast,
+    color variables.$transition-fast;
+
+  &:hover:not(:disabled) {
+    background-color: transparent;
+    color: colors.$color-accent;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+@mixin btn-outline {
+  @include text-label;
+  display: inline-flex;
+  align-items: center;
+  padding: variables.$space-3 variables.$space-8;
+  background-color: transparent;
+  color: colors.$color-accent;
+  border: 1px solid colors.$color-accent;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color variables.$transition-fast,
+    color variables.$transition-fast;
+
+  &:hover:not(:disabled) {
+    background-color: colors.$color-accent;
+    color: colors.$color-bg;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
 @mixin heading-accent-bar {
   &::after {
     content: '';
