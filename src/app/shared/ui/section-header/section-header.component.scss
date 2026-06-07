@@ -1,0 +1,9 @@
+@use 'abstract/mixins' as mixins;
+
+.section-header {
+  &__heading {
+    @include mixins.text-heading-lg;
+    @include mixins.heading-accent-bar;
+    user-select: none;
+  }
+}
