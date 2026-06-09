@@ -1,57 +1,57 @@
-<div class="admin-projects">
-  <div class="admin-projects__header">
-    <h2 class="admin-projects__title">Projects</h2>
+<div class="admin-crud">
+  <div class="admin-crud__header">
+    <h2 class="admin-crud__title">Projects</h2>
     @if (!isFormOpen()) {
-      <button class="admin-projects__add-btn" type="button" (click)="openAdd()">
+      <button class="admin-crud__add-btn" type="button" (click)="openAdd()">
         + Add Project
       </button>
     }
   </div>
 
   @if (isFormOpen()) {
-    <div class="admin-projects__form">
-      <h3 class="admin-projects__form-title">
+    <div class="admin-crud__form">
+      <h3 class="admin-crud__form-title">
         {{ isEditing() ? 'Edit Project' : 'New Project' }}
       </h3>
-      <div class="admin-projects__form-grid">
-        <div class="admin-projects__field admin-projects__field--full">
-          <label class="admin-projects__label">Title *</label>
-          <input class="admin-projects__input" type="text"
+      <div class="admin-crud__form-grid">
+        <div class="admin-crud__field admin-crud__field--full">
+          <label class="admin-crud__label">Title *</label>
+          <input class="admin-crud__input" type="text"
                  [value]="titleField()"
                  (input)="titleField.set($any($event.target).value)"
                  placeholder="Project name" />
         </div>
-        <div class="admin-projects__field admin-projects__field--full">
-          <label class="admin-projects__label">Description</label>
-          <textarea class="admin-projects__input admin-projects__input--textarea"
+        <div class="admin-crud__field admin-crud__field--full">
+          <label class="admin-crud__label">Description</label>
+          <textarea class="admin-crud__input admin-crud__input--textarea"
                     rows="3"
                     [value]="descriptionField()"
                     (input)="descriptionField.set($any($event.target).value)"
                     placeholder="What this project is about…"></textarea>
         </div>
-        <div class="admin-projects__field admin-projects__field--full">
-          <label class="admin-projects__label">Tags (comma-separated)</label>
-          <input class="admin-projects__input" type="text"
+        <div class="admin-crud__field admin-crud__field--full">
+          <label class="admin-crud__label">Tags (comma-separated)</label>
+          <input class="admin-crud__input" type="text"
                  [value]="tagsField()"
                  (input)="tagsField.set($any($event.target).value)"
                  placeholder="Angular, TypeScript, SCSS" />
         </div>
-        <div class="admin-projects__field">
-          <label class="admin-projects__label">GitHub URL</label>
-          <input class="admin-projects__input" type="url"
+        <div class="admin-crud__field">
+          <label class="admin-crud__label">GitHub URL</label>
+          <input class="admin-crud__input" type="url"
                  [value]="githubUrlField()"
                  (input)="githubUrlField.set($any($event.target).value)"
                  placeholder="https://github.com/…" />
         </div>
-        <div class="admin-projects__field">
-          <label class="admin-projects__label">Live URL</label>
-          <input class="admin-projects__input" type="url"
+        <div class="admin-crud__field">
+          <label class="admin-crud__label">Live URL</label>
+          <input class="admin-crud__input" type="url"
                  [value]="liveUrlField()"
                  (input)="liveUrlField.set($any($event.target).value)"
                  placeholder="https://…" />
         </div>
-        <div class="admin-projects__field admin-projects__field--checkbox">
-          <label class="admin-projects__checkbox-label">
+        <div class="admin-crud__field admin-crud__field--checkbox">
+          <label class="admin-crud__checkbox-label">
             <input type="checkbox"
                    [checked]="featuredField()"
                    (change)="featuredField.set($any($event.target).checked)" />
@@ -59,57 +59,57 @@
           </label>
         </div>
       </div>
-      <div class="admin-projects__form-actions">
-        <button class="admin-projects__save-btn" type="button"
+      <div class="admin-crud__form-actions">
+        <button class="admin-crud__save-btn" type="button"
                 [disabled]="!isFormValid()"
                 (click)="save()">
           {{ isEditing() ? 'Save' : 'Add' }}
         </button>
-        <button class="admin-projects__cancel-btn" type="button" (click)="closeForm()">
+        <button class="admin-crud__cancel-btn" type="button" (click)="closeForm()">
           Cancel
         </button>
       </div>
     </div>
   }
 
-  <ul class="admin-projects__list">
+  <ul class="admin-crud__list">
     @for (project of projects(); track project.id) {
-      <li class="admin-projects__item">
-        <div class="admin-projects__item-header">
-          <div class="admin-projects__item-meta">
-            <span class="admin-projects__name">{{ project.title }}</span>
+      <li class="admin-crud__item">
+        <div class="admin-crud__item-header">
+          <div class="admin-crud__item-meta">
+            <span class="admin-crud__name">{{ project.title }}</span>
             @if (project.featured) {
-              <span class="admin-projects__badge">Featured</span>
+              <span class="admin-crud__badge">Featured</span>
             }
           </div>
-          <div class="admin-projects__item-actions">
-            <button class="admin-projects__edit-btn" type="button" (click)="openEdit(project)">
+          <div class="admin-crud__item-actions">
+            <button class="admin-crud__edit-btn" type="button" (click)="openEdit(project)">
               Edit
             </button>
-            <button class="admin-projects__delete-btn" type="button" (click)="remove(project.id)">
+            <button class="admin-crud__delete-btn" type="button" (click)="remove(project.id)">
               Delete
             </button>
           </div>
         </div>
         @if (project.description) {
-          <p class="admin-projects__description">{{ project.description }}</p>
+          <p class="admin-crud__description">{{ project.description }}</p>
         }
-        <div class="admin-projects__links">
+        <div class="admin-crud__links">
           @if (project.githubUrl) {
-            <a class="admin-projects__link" [href]="project.githubUrl" target="_blank" rel="noopener">
+            <a class="admin-crud__link" [href]="project.githubUrl" target="_blank" rel="noopener">
               GitHub
             </a>
           }
           @if (project.liveUrl) {
-            <a class="admin-projects__link" [href]="project.liveUrl" target="_blank" rel="noopener">
+            <a class="admin-crud__link" [href]="project.liveUrl" target="_blank" rel="noopener">
               Live
             </a>
           }
         </div>
         @if (project.tags.length > 0) {
-          <div class="admin-projects__tags">
+          <div class="admin-crud__tags">
             @for (tag of project.tags; track tag) {
-              <span class="admin-projects__tag">{{ tag }}</span>
+              <span class="admin-crud__tag">{{ tag }}</span>
             }
           </div>
         }
