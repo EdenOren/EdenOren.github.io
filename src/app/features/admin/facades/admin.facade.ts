@@ -1,38 +1,48 @@
-import { Service, Signal, inject } from '@angular/core';
+import { DestroyRef, Service, Signal, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { GOOGLE_CLIENT_ID } from '../../../core/constants/core.constants';
 import { AuthService } from '../../../core/services/platform/auth.service';
+import { AdminService } from '../../../core/services/data/admin.service';
+import { GoogleIdentityResponse } from '../../../core/models/core.models';
 
 declare const google: {
   accounts: {
     id: {
       initialize: (config: {
         client_id: string;
-        callback: (response: { credential: string }) => void;
+        callback: (response: GoogleIdentityResponse) => void;
       }) => void;
       renderButton: (element: HTMLElement, options: Record<string, unknown>) => void;
+      disableAutoSelect: () => void;
     };
   };
 };
-
-const ADMIN_EMAIL = 'edenoren@gmail.com';
-const GOOGLE_CLIENT_ID = '596502613850-03b6m23dr2tjor3mi9o08n8lau9s3s9u.apps.googleusercontent.com';
 
 @Service({ autoProvided: false })
 export class AdminFacade {
   private readonly router: Router = inject(Router);
   private readonly authService: AuthService = inject(AuthService);
+  private readonly adminService: AdminService = inject(AdminService);
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   readonly isAuthenticated: Signal<boolean> = this.authService.isAuthenticated;
 
   initGoogleSignIn(buttonEl: HTMLElement): void {
     google.accounts.id.initialize({
       client_id: GOOGLE_CLIENT_ID,
-      callback: (response: { credential: string }) => {
-        const base64 = response.credential.split('.')[1]
-          .replace(/-/g, '+')
-          .replace(/_/g, '/');
-        const payload = JSON.parse(atob(base64)) as Record<string, unknown>;
-        this.onCredential(response.credential, payload['email'] as string);
+      callback: (response: GoogleIdentityResponse): void => {
+        this.authService.login(response.credential);
+        this.adminService.verify()
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: () => this.router.navigate(['/admin/experience']),
+            error: () => {
+              this.authService.logout();
+              google.accounts.id.disableAutoSelect();
+              this.router.navigate(['/']);
+            },
+          });
       },
     });
     google.accounts.id.renderButton(buttonEl, {
@@ -42,15 +52,6 @@ export class AdminFacade {
       text: 'signin_with',
       width: 280,
     });
-  }
-
-  private onCredential(credential: string, email: string): void {
-    if (email !== ADMIN_EMAIL) {
-      this.router.navigate(['/']);
-      return;
-    }
-    this.authService.login(credential);
-    this.router.navigate(['/admin/experience']);
   }
 
   logout(): void {
