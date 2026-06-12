@@ -126,15 +126,6 @@
     font-size: variables.$font-size-sm;
   }
 
-  &__entry-badge {
-    @include mixins.text-label;
-    font-size: 0.625rem;
-    color: colors.$color-accent;
-    border: 1px solid colors.$color-accent;
-    padding: 1px variables.$space-2;
-    border-radius: 2px;
-  }
-
   &__entry-description {
     color: colors.$color-text-muted;
     line-height: 1.75;
@@ -151,13 +142,4 @@
     gap: variables.$space-2;
   }
 
-  &__entry-tag {
-    @include mixins.pill-tag;
-    transition: border-color variables.$transition-fast, color variables.$transition-fast;
-
-    &:hover {
-      border-color: colors.$color-accent;
-      color: colors.$color-text;
-    }
-  }
 }

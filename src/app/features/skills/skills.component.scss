@@ -50,19 +50,4 @@
     gap: variables.$space-2;
   }
 
-  &__tag {
-    @include mixins.pill-tag;
-    font-size: 0.875rem;
-    cursor: default;
-    transition:
-      border-color variables.$transition-fast,
-      color variables.$transition-fast,
-      background-color variables.$transition-fast;
-
-    &:hover {
-      border-color: colors.$color-accent;
-      color: colors.$color-text;
-      background-color: rgb(26 158 101 / 6%);
-    }
-  }
 }

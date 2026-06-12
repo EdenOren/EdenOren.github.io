@@ -1,0 +1,41 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  font-family: variables.$font-family-mono;
+  font-size: 0.75rem;
+  color: colors.$color-text-muted;
+  background-color: colors.$color-surface;
+  border: 1px solid colors.$color-border;
+  padding: 2px variables.$space-3;
+  border-radius: 2px;
+  user-select: none;
+}
+
+:host(.tag--accent) {
+  font-family: variables.$font-family-base;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: colors.$color-accent;
+  background-color: transparent;
+  border-color: colors.$color-accent;
+  padding: 1px variables.$space-2;
+}
+
+:host(.tag--hoverable) {
+  transition:
+    border-color variables.$transition-fast,
+    color variables.$transition-fast,
+    background-color variables.$transition-fast;
+  cursor: default;
+
+  &:hover {
+    border-color: colors.$color-accent;
+    color: colors.$color-text;
+    background-color: rgb(26 158 101 / 6%);
+  }
+}

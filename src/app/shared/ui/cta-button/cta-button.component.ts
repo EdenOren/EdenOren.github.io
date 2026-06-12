@@ -1,14 +1,17 @@
 import { ChangeDetectionStrategy, Component, InputSignal, Signal, computed, input } from '@angular/core';
-import { ButtonType, ButtonVariant } from '../../enums/button.enums';
+import { ButtonSize, ButtonType, ButtonVariant } from '../../enums/button.enums';
 
 @Component({
-  selector: 'app-cta-button',
+  selector: 'app-button',
   imports: [],
   template: `
     <button
       class="cta-button"
       [class.cta-button--filled]="isFilledVariant()"
       [class.cta-button--outline]="isOutlineVariant()"
+      [class.cta-button--ghost]="isGhostVariant()"
+      [class.cta-button--danger]="isDangerVariant()"
+      [class.cta-button--compact]="isCompactSize()"
       [class.cta-button--loading]="loading()"
       [type]="buttonType()"
       [disabled]="loading() || disabled()">
@@ -23,10 +26,14 @@ import { ButtonType, ButtonVariant } from '../../enums/button.enums';
 })
 export class CtaButtonComponent {
   readonly variant: InputSignal<ButtonVariant> = input<ButtonVariant>(ButtonVariant.Filled);
+  readonly size: InputSignal<ButtonSize> = input<ButtonSize>(ButtonSize.Default);
   readonly loading: InputSignal<boolean> = input<boolean>(false);
   readonly disabled: InputSignal<boolean> = input<boolean>(false);
   readonly buttonType: InputSignal<ButtonType> = input<ButtonType>(ButtonType.Button);
 
   protected readonly isFilledVariant: Signal<boolean> = computed(() => this.variant() === ButtonVariant.Filled);
   protected readonly isOutlineVariant: Signal<boolean> = computed(() => this.variant() === ButtonVariant.Outline);
+  protected readonly isGhostVariant: Signal<boolean> = computed(() => this.variant() === ButtonVariant.Ghost);
+  protected readonly isDangerVariant: Signal<boolean> = computed(() => this.variant() === ButtonVariant.Danger);
+  protected readonly isCompactSize: Signal<boolean> = computed(() => this.size() === ButtonSize.Compact);
 }

@@ -3,11 +3,12 @@ import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { SkeletonType } from '../../shared/enums/shared.enums';
 import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header.component';
+import { TagComponent } from '../../shared/ui/tag/tag.component';
 import { SkillGroup, SkillsFacade } from './facades/skills.facade';
 
 @Component({
   selector: 'app-skills',
-  imports: [SkeletonLoaderComponent, ScrollRevealDirective, SectionHeaderComponent],
+  imports: [SkeletonLoaderComponent, ScrollRevealDirective, SectionHeaderComponent, TagComponent],
   providers: [SkillsFacade],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss',

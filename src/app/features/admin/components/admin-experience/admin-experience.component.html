@@ -2,9 +2,9 @@
   <div class="admin-crud__header">
     <h2 class="admin-crud__title">Experience</h2>
     @if (!isFormOpen()) {
-      <button class="admin-crud__add-btn" type="button" (click)="openAdd()">
+      <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="openAdd()">
         + Add Entry
-      </button>
+      </app-button>
     }
   </div>
 
@@ -53,14 +53,12 @@
         </div>
       </div>
       <div class="admin-crud__form-actions">
-        <button class="admin-crud__save-btn" type="button"
-                [disabled]="!isFormValid()"
-                (click)="save()">
+        <app-button [variant]="buttonVariant.Filled" [size]="buttonSize.Compact" [disabled]="!isFormValid()" (click)="save()">
           {{ isEditing() ? 'Save' : 'Add' }}
-        </button>
-        <button class="admin-crud__cancel-btn" type="button" (click)="closeForm()">
+        </app-button>
+        <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="closeForm()">
           Cancel
-        </button>
+        </app-button>
       </div>
     </div>
   }
@@ -73,16 +71,16 @@
             <span class="admin-crud__role">{{ entry.role }}</span>
             <span class="admin-crud__company">{{ entry.company }} · {{ entry.period }}</span>
             @if (entry.is_current) {
-              <span class="admin-crud__badge">Current</span>
+              <app-tag [variant]="tagVariant.Accent">Current</app-tag>
             }
           </div>
           <div class="admin-crud__item-actions">
-            <button class="admin-crud__edit-btn" type="button" (click)="openEdit(entry)">
+            <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="openEdit(entry)">
               Edit
-            </button>
-            <button class="admin-crud__delete-btn" type="button" (click)="onDeleteClick(entry.id)">
+            </app-button>
+            <app-button [variant]="buttonVariant.Danger" [size]="buttonSize.Compact" (click)="onDeleteClick(entry.id)">
               Delete
-            </button>
+            </app-button>
           </div>
         </div>
         @if (entry.description) {
@@ -91,7 +89,7 @@
         @if (entry.tags.length > 0) {
           <div class="admin-crud__tags">
             @for (tag of entry.tags; track tag) {
-              <span class="admin-crud__tag">{{ tag }}</span>
+              <app-tag>{{ tag }}</app-tag>
             }
           </div>
         }
