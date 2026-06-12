@@ -10,9 +10,11 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FieldTree, form, required } from '@angular/forms/signals';
-import { Observable, forkJoin, of, switchMap } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable, filter, forkJoin, of, switchMap } from 'rxjs';
 import { Skill } from '../../../../../features/skills/models/skills.models';
 import { SkillsService } from '../../../../../core/services/data/skills.service';
+import { ConfirmDialogService } from '../../../../../core/services/platform/confirm-dialog.service';
 import { AdminSkillGroup } from '../../../models/admin.models';
 import { AdminCrudFacade } from '../../../facades/admin-crud.facade';
 
@@ -24,6 +26,8 @@ interface SkillGroupFormModel {
 @Service({ autoProvided: false })
 export class AdminSkillsFacade extends AdminCrudFacade<AdminSkillGroup> {
   private readonly skillsService: SkillsService = inject(SkillsService);
+  private readonly confirmDialogService: ConfirmDialogService = inject(ConfirmDialogService);
+  private readonly translateService: TranslateService = inject(TranslateService);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   override readonly items: WritableSignal<AdminSkillGroup[]> = linkedSignal(() =>
@@ -113,6 +117,16 @@ export class AdminSkillsFacade extends AdminCrudFacade<AdminSkillGroup> {
     forkJoin(skillsToDelete.map(skill => this.skillsService.delete(skill.id)))
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({ next: () => this.skillsService.reload() });
+  }
+
+  requestDelete(id: string): void {
+    const group: AdminSkillGroup | undefined = this.items().find(g => g.id === id);
+    const message: string = group
+      ? this.translateService.instant('ADMIN.CONFIRM_DELETE_NAMED', { name: group.label })
+      : this.translateService.instant('ADMIN.CONFIRM_DELETE');
+    this.confirmDialogService.open(message)
+      .pipe(filter(confirmed => confirmed), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.remove(id));
   }
 
   private groupByCategory(skills: Skill[]): AdminSkillGroup[] {

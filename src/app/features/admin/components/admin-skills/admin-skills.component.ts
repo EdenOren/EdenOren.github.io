@@ -1,11 +1,7 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, Signal, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
 import { FieldTree, FormField } from '@angular/forms/signals';
-import { TranslateService } from '@ngx-translate/core';
-import { filter } from 'rxjs';
 import { AdminSkillGroup } from '../../models/admin.models';
 import { AdminSkillsFacade } from './facades/admin-skills.facade';
-import { ConfirmDialogService } from '../../../../core/services/platform/confirm-dialog.service';
 import { ButtonSize, ButtonVariant } from '../../../../shared/enums/button.enums';
 import { CtaButtonComponent } from '../../../../shared/ui/cta-button/cta-button.component';
 import { TagComponent } from '../../../../shared/ui/tag/tag.component';
@@ -20,9 +16,6 @@ import { TagComponent } from '../../../../shared/ui/tag/tag.component';
 })
 export class AdminSkillsComponent {
   private readonly adminSkillsFacade: AdminSkillsFacade = inject(AdminSkillsFacade);
-  private readonly confirmDialogService: ConfirmDialogService = inject(ConfirmDialogService);
-  private readonly translateService: TranslateService = inject(TranslateService);
-  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   protected readonly buttonVariant: typeof ButtonVariant = ButtonVariant;
   protected readonly buttonSize: typeof ButtonSize = ButtonSize;
@@ -51,12 +44,6 @@ export class AdminSkillsComponent {
   }
 
   protected onDeleteClick(id: string): void {
-    const group: AdminSkillGroup | undefined = this.groups().find(g => g.id === id);
-    const message: string = group
-      ? this.translateService.instant('ADMIN.CONFIRM_DELETE_NAMED', { name: group.label })
-      : this.translateService.instant('ADMIN.CONFIRM_DELETE');
-    this.confirmDialogService.open(message)
-      .pipe(filter(confirmed => confirmed), takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => this.adminSkillsFacade.remove(id));
+    this.adminSkillsFacade.requestDelete(id);
   }
 }
