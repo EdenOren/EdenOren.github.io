@@ -9,9 +9,11 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
 import { FieldTree, form, required } from '@angular/forms/signals';
 import { Project } from '../../../../../features/projects/models/projects.models';
 import { ProjectsService } from '../../../../../core/services/data/projects.service';
+import { UploadService } from '../../../../../core/services/data/upload.service';
 import { AdminCrudFacade } from '../../../facades/admin-crud.facade';
 
 interface ProjectFormModel {
@@ -24,6 +26,7 @@ interface ProjectFormModel {
 @Service({ autoProvided: false })
 export class AdminProjectsFacade extends AdminCrudFacade<Project> {
   private readonly projectsService: ProjectsService = inject(ProjectsService);
+  private readonly uploadService: UploadService = inject(UploadService);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   override readonly items: WritableSignal<Project[]> = linkedSignal(() =>
@@ -44,6 +47,8 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
     }
   );
 
+  private readonly selectedFile: WritableSignal<File | null> = signal(null);
+
   readonly nameField: FieldTree<string> = this.formTree.name;
   readonly descriptionField: FieldTree<string> = this.formTree.description;
   readonly tagsField: FieldTree<string> = this.formTree.tags;
@@ -51,8 +56,13 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
 
   override readonly isFormValid: Signal<boolean> = computed(() => this.formTree().valid());
 
+  setSelectedFile(file: File | null): void {
+    this.selectedFile.set(file);
+  }
+
   override openAdd(): void {
     this.formModel.set({ name: '', description: '', tags: '', githubUrl: '' });
+    this.selectedFile.set(null);
     this.beginAdd();
   }
 
@@ -63,6 +73,7 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
       tags: project.tags.join(', '),
       githubUrl: project.github_url ?? '',
     });
+    this.selectedFile.set(null);
     this.beginEdit(project.id);
   }
 
@@ -70,22 +81,33 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
     if (!this.isFormValid()) {
       return;
     }
+
     const value = this.formModel();
     const existing = this.items().find(item => item.id === this.editingId());
-    const project: Project = {
+    const file = this.selectedFile();
+
+    const buildProject = (imageUrl: string | null): Project => ({
       id: this.editingId() ?? crypto.randomUUID(),
       name: value.name.trim(),
       description: value.description.trim(),
       tags: value.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0),
       github_url: value.githubUrl.trim() || null,
+      image_url: imageUrl,
       sort_order: existing?.sort_order ?? this.items().length,
+    });
+
+    const persist = (imageUrl: string | null) => {
+      const project = buildProject(imageUrl);
+      return this.isEditing()
+        ? this.projectsService.update(project.id, project)
+        : this.projectsService.create(project);
     };
 
-    const call$ = this.isEditing()
-      ? this.projectsService.update(project.id, project)
-      : this.projectsService.create(project);
+    const save$ = file
+      ? this.uploadService.upload(file).pipe(switchMap(({ url }) => persist(url)))
+      : persist(existing?.image_url ?? null);
 
-    call$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    save$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
         this.projectsService.reload();
         this.closeForm();

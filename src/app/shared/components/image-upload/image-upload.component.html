@@ -1,0 +1,20 @@
+<div class="image-upload__zone"
+     [class.image-upload__zone--dragging]="isDragging()"
+     (click)="onZoneClick()"
+     (dragover)="onDragOver($event)"
+     (dragleave)="onDragLeave()"
+     (drop)="onDrop($event)">
+  @if (displayUrl()) {
+    <img class="image-upload__preview" [src]="displayUrl()" alt="Image preview" />
+    <button class="image-upload__clear" type="button" (click)="clearSelection($event)">
+      ×
+    </button>
+  } @else {
+    <div class="image-upload__placeholder">
+      <span class="image-upload__icon">↑</span>
+      <span class="image-upload__hint">Click or drag to upload</span>
+    </div>
+  }
+</div>
+<input #fileInput class="image-upload__input" type="file" accept="image/*"
+       (change)="onFileChange($event)" />

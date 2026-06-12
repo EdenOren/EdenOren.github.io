@@ -80,7 +80,7 @@
             <button class="admin-crud__edit-btn" type="button" (click)="openEdit(entry)">
               Edit
             </button>
-            <button class="admin-crud__delete-btn" type="button" (click)="remove(entry.id)">
+            <button class="admin-crud__delete-btn" type="button" (click)="onDeleteClick(entry.id)">
               Delete
             </button>
           </div>
@@ -98,4 +98,5 @@
       </li>
     }
   </ul>
+
 </div>

@@ -1,0 +1,70 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+
+.confirm-dialog {
+  &__backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: variables.$z-modal;
+    background: rgb(0 0 0 / 60%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__card {
+    background: colors.$color-surface;
+    border: 1px solid colors.$color-border;
+    border-radius: 8px;
+    padding: variables.$space-6;
+    min-width: 320px;
+    max-width: 480px;
+    width: 90%;
+  }
+
+  &__message {
+    font-size: variables.$font-size-base;
+    font-family: variables.$font-family-base;
+    color: colors.$color-text;
+    margin-bottom: variables.$space-6;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: variables.$space-3;
+  }
+
+  &__cancel-btn {
+    padding: variables.$space-2 variables.$space-6;
+    font-size: variables.$font-size-sm;
+    font-family: variables.$font-family-base;
+    color: colors.$color-text-muted;
+    background: transparent;
+    border: 1px solid colors.$color-border;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color variables.$transition-fast, border-color variables.$transition-fast;
+
+    &:hover {
+      color: colors.$color-text;
+      border-color: colors.$color-text-muted;
+    }
+  }
+
+  &__confirm-btn {
+    padding: variables.$space-2 variables.$space-6;
+    font-size: variables.$font-size-sm;
+    font-family: variables.$font-family-base;
+    color: #fff;
+    background: colors.$color-error;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity variables.$transition-fast;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+}
