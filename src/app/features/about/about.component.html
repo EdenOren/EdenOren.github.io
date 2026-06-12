@@ -2,16 +2,17 @@
   <div class="about__inner">
 
     <div class="about__portrait-col">
-      @if (portraitUrl()) {
-        <img class="about__portrait" [src]="portraitUrl()" alt="Eden Oren" />
-      } @else {
-        <div class="about__frame" aria-hidden="true">
-          <div class="about__frame-inner">
+      <div class="about__frame">
+        <div class="about__frame-inner" aria-hidden="true">
+          @if (!portraitUrl()) {
             <div class="about__initials no-select">EO</div>
-          </div>
-          <div class="about__frame-accent"></div>
+          }
         </div>
-      }
+        <div class="about__frame-accent" aria-hidden="true"></div>
+        @if (portraitUrl()) {
+          <img class="about__portrait" [src]="portraitUrl()" alt="Eden Oren" />
+        }
+      </div>
 
       <ul class="about__social" role="list" aria-label="Social links">
         @for (link of SOCIAL_LINKS; track link.key) {

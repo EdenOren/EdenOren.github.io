@@ -16,7 +16,7 @@
 
     @include mixins.respond-to(lg) {
       grid-template-columns: 5fr 7fr;
-      gap: variables.$space-16;
+      gap: variables.$space-8;
       align-items: start;
     }
   }
@@ -35,18 +35,21 @@
   }
 
   &__portrait {
-    width: min(280px, 75vw);
-    aspect-ratio: 280 / 340;
-    flex-shrink: 0;
+    display: block;
+    position: relative;
+    z-index: 1;
+    width: min(260px, 75vw);
+    aspect-ratio: 280 / 250;
     object-fit: cover;
+    object-position: top;
     border-radius: 4px;
     border: 1px solid colors.$color-border;
   }
 
   &__frame {
     position: relative;
-    width: min(280px, 75vw);
-    aspect-ratio: 280 / 340;
+    width: min(260px, 75vw);
+    aspect-ratio: 280 / 250;
     flex-shrink: 0;
   }
 
