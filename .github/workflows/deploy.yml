@@ -7,8 +7,8 @@ on:
 
 permissions:
   contents: read
-  pages: write      # Required for official deployment
-  id-token: write   # Required for official deployment
+  pages: write
+  id-token: write
 
 jobs:
   build:
