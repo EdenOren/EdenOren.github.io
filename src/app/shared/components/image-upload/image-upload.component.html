@@ -5,14 +5,16 @@
      (dragleave)="onDragLeave()"
      (drop)="onDrop($event)">
   @if (displayUrl()) {
-    <img class="image-upload__preview" [src]="displayUrl()" alt="Image preview" />
-    <button class="image-upload__clear" type="button" (click)="clearSelection($event)">
+    <img class="image-upload__preview" [src]="displayUrl()" [alt]="'IMAGE_UPLOAD.PREVIEW_ALT' | translate" />
+    <button class="image-upload__clear" type="button"
+            [attr.aria-label]="'IMAGE_UPLOAD.CLEAR' | translate"
+            (click)="clearSelection($event)">
       ×
     </button>
   } @else {
     <div class="image-upload__placeholder">
       <span class="image-upload__icon">↑</span>
-      <span class="image-upload__hint">Click or drag to upload</span>
+      <span class="image-upload__hint">{{ 'IMAGE_UPLOAD.HINT' | translate }}</span>
     </div>
   }
 </div>

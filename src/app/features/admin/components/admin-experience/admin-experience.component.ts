@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
 import { FieldTree, FormField } from '@angular/forms/signals';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ExperienceEntry } from '../../../experience/models/experience.models';
 import { AdminExperienceFacade } from './facades/admin-experience.facade';
 import { ButtonSize, ButtonVariant } from '../../../../shared/enums/button.enums';
@@ -9,7 +10,7 @@ import { TagComponent } from '../../../../shared/ui/tag/tag.component';
 
 @Component({
   selector: 'app-admin-experience',
-  imports: [FormField, CtaButtonComponent, TagComponent],
+  imports: [FormField, CtaButtonComponent, TagComponent, TranslatePipe],
   providers: [AdminExperienceFacade],
   templateUrl: './admin-experience.component.html',
   styleUrl: './admin-experience.component.scss',

@@ -1,8 +1,8 @@
 @if (!isAuthenticated()) {
   <div class="admin-login">
-    <p class="admin-login__eyebrow">Portfolio</p>
-    <h1 class="admin-login__title">Admin</h1>
-    <p class="admin-login__subtitle">Sign in with your Google account to continue.</p>
+    <p class="admin-login__eyebrow">{{ 'ADMIN.LOGIN_EYEBROW' | translate }}</p>
+    <h1 class="admin-login__title">{{ 'ADMIN.LOGIN_TITLE' | translate }}</h1>
+    <p class="admin-login__subtitle">{{ 'ADMIN.LOGIN_SUBTITLE' | translate }}</p>
     <div #googleBtn class="admin-login__button"></div>
   </div>
 }
@@ -10,7 +10,7 @@
 @if (isAuthenticated()) {
   <div class="admin-panel">
     <aside class="admin-panel__sidebar">
-      <p class="admin-panel__brand">Admin</p>
+      <p class="admin-panel__brand">{{ 'ADMIN.BRAND' | translate }}</p>
       <nav class="admin-panel__nav">
         <a class="admin-panel__nav-link"
            routerLink="/admin/about"
@@ -20,21 +20,21 @@
         <a class="admin-panel__nav-link"
            routerLink="/admin/experience"
            routerLinkActive="admin-panel__nav-link--active">
-          Experience
+          {{ 'ADMIN.NAV_EXPERIENCE' | translate }}
         </a>
         <a class="admin-panel__nav-link"
            routerLink="/admin/projects"
            routerLinkActive="admin-panel__nav-link--active">
-          Projects
+          {{ 'ADMIN.NAV_PROJECTS' | translate }}
         </a>
         <a class="admin-panel__nav-link"
            routerLink="/admin/skills"
            routerLinkActive="admin-panel__nav-link--active">
-          Skills
+          {{ 'ADMIN.NAV_SKILLS' | translate }}
         </a>
       </nav>
       <button class="admin-panel__logout" type="button" (click)="logout()">
-        Log out
+        {{ 'ADMIN.LOGOUT' | translate }}
       </button>
     </aside>
     <main class="admin-panel__content">

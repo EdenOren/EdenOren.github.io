@@ -1,9 +1,9 @@
 <div class="admin-crud">
   <div class="admin-crud__header">
-    <h2 class="admin-crud__title">Projects</h2>
+    <h2 class="admin-crud__title">{{ 'ADMIN.PROJECTS_TITLE' | translate }}</h2>
     @if (!isFormOpen()) {
       <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="openAdd()">
-        + Add Project
+        {{ 'ADMIN.ADD_PROJECT' | translate }}
       </app-button>
     }
   </div>
@@ -11,36 +11,36 @@
   @if (isFormOpen()) {
     <div class="admin-crud__form">
       <h3 class="admin-crud__form-title">
-        {{ isEditing() ? 'Edit Project' : 'New Project' }}
+        {{ isEditing() ? ('ADMIN.EDIT_PROJECT' | translate) : ('ADMIN.NEW_PROJECT' | translate) }}
       </h3>
       <div class="admin-crud__form-grid">
         <div class="admin-crud__field admin-crud__field--full">
-          <label class="admin-crud__label">Name *</label>
+          <label class="admin-crud__label">{{ 'ADMIN.PROJECT_NAME_LABEL' | translate }}</label>
           <input class="admin-crud__input" type="text"
                  [formField]="nameField"
-                 placeholder="Project name" />
+                 [placeholder]="'ADMIN.PROJECT_NAME_PLACEHOLDER' | translate" />
         </div>
         <div class="admin-crud__field admin-crud__field--full">
-          <label class="admin-crud__label">Description</label>
+          <label class="admin-crud__label">{{ 'ADMIN.DESCRIPTION_LABEL' | translate }}</label>
           <textarea class="admin-crud__input admin-crud__input--textarea"
                     rows="3"
                     [formField]="descriptionField"
-                    placeholder="What this project is about…"></textarea>
+                    [placeholder]="'ADMIN.PROJECT_DESCRIPTION_PLACEHOLDER' | translate"></textarea>
         </div>
         <div class="admin-crud__field admin-crud__field--full">
-          <label class="admin-crud__label">Tags (comma-separated)</label>
+          <label class="admin-crud__label">{{ 'ADMIN.TAGS_LABEL' | translate }}</label>
           <input class="admin-crud__input" type="text"
                  [formField]="tagsField"
-                 placeholder="Angular, TypeScript, SCSS" />
+                 [placeholder]="'ADMIN.TAGS_PLACEHOLDER' | translate" />
         </div>
         <div class="admin-crud__field">
-          <label class="admin-crud__label">GitHub URL</label>
+          <label class="admin-crud__label">{{ 'ADMIN.PROJECT_GITHUB_LABEL' | translate }}</label>
           <input class="admin-crud__input" type="url"
                  [formField]="githubUrlField"
-                 placeholder="https://github.com/…" />
+                 [placeholder]="'ADMIN.PROJECT_GITHUB_PLACEHOLDER' | translate" />
         </div>
         <div class="admin-crud__field admin-crud__field--full">
-          <label class="admin-crud__label">Image</label>
+          <label class="admin-crud__label">{{ 'ADMIN.PROJECT_IMAGE_LABEL' | translate }}</label>
           <image-upload
             [currentImageUrl]="currentProjectImageUrl()"
             (fileSelected)="onFileSelected($event)" />
@@ -48,10 +48,10 @@
       </div>
       <div class="admin-crud__form-actions">
         <app-button [variant]="buttonVariant.Filled" [size]="buttonSize.Compact" [disabled]="!isFormValid()" (click)="save()">
-          {{ isEditing() ? 'Save' : 'Add' }}
+          {{ isEditing() ? ('ADMIN.SAVE' | translate) : ('ADMIN.ADD' | translate) }}
         </app-button>
         <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="closeForm()">
-          Cancel
+          {{ 'ADMIN.CANCEL' | translate }}
         </app-button>
       </div>
     </div>
@@ -66,10 +66,10 @@
           </div>
           <div class="admin-crud__item-actions">
             <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="openEdit(project)">
-              Edit
+              {{ 'ADMIN.EDIT' | translate }}
             </app-button>
             <app-button [variant]="buttonVariant.Danger" [size]="buttonSize.Compact" (click)="onDeleteClick(project.id)">
-              Delete
+              {{ 'ADMIN.DELETE' | translate }}
             </app-button>
           </div>
         </div>
@@ -82,7 +82,7 @@
         @if (project.github_url) {
           <div class="admin-crud__links">
             <a class="admin-crud__link" [href]="project.github_url" target="_blank" rel="noopener">
-              GitHub
+              {{ 'ADMIN.PROJECT_GITHUB_LINK' | translate }}
             </a>
           </div>
         }

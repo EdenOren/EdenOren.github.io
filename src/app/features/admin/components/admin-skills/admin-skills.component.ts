@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
 import { FieldTree, FormField } from '@angular/forms/signals';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AdminSkillGroup } from '../../models/admin.models';
 import { AdminSkillsFacade } from './facades/admin-skills.facade';
 import { ButtonSize, ButtonVariant } from '../../../../shared/enums/button.enums';
@@ -8,7 +9,7 @@ import { TagComponent } from '../../../../shared/ui/tag/tag.component';
 
 @Component({
   selector: 'app-admin-skills',
-  imports: [FormField, CtaButtonComponent, TagComponent],
+  imports: [FormField, CtaButtonComponent, TagComponent, TranslatePipe],
   providers: [AdminSkillsFacade],
   templateUrl: './admin-skills.component.html',
   styleUrl: './admin-skills.component.scss',

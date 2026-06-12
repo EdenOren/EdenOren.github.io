@@ -1,9 +1,9 @@
 <div class="admin-crud">
   <div class="admin-crud__header">
-    <h2 class="admin-crud__title">Experience</h2>
+    <h2 class="admin-crud__title">{{ 'ADMIN.EXPERIENCE_TITLE' | translate }}</h2>
     @if (!isFormOpen()) {
       <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="openAdd()">
-        + Add Entry
+        {{ 'ADMIN.ADD_ENTRY' | translate }}
       </app-button>
     }
   </div>
@@ -11,53 +11,53 @@
   @if (isFormOpen()) {
     <div class="admin-crud__form">
       <h3 class="admin-crud__form-title">
-        {{ isEditing() ? 'Edit Entry' : 'New Entry' }}
+        {{ isEditing() ? ('ADMIN.EDIT_ENTRY' | translate) : ('ADMIN.NEW_ENTRY' | translate) }}
       </h3>
       <div class="admin-crud__form-grid">
         <div class="admin-crud__field">
-          <label class="admin-crud__label">Role *</label>
+          <label class="admin-crud__label">{{ 'ADMIN.ROLE_LABEL' | translate }}</label>
           <input class="admin-crud__input" type="text"
                  [formField]="roleField"
-                 placeholder="e.g. Frontend Developer" />
+                 [placeholder]="'ADMIN.ROLE_PLACEHOLDER' | translate" />
         </div>
         <div class="admin-crud__field">
-          <label class="admin-crud__label">Company *</label>
+          <label class="admin-crud__label">{{ 'ADMIN.COMPANY_LABEL' | translate }}</label>
           <input class="admin-crud__input" type="text"
                  [formField]="companyField"
-                 placeholder="e.g. Acme Corp" />
+                 [placeholder]="'ADMIN.COMPANY_PLACEHOLDER' | translate" />
         </div>
         <div class="admin-crud__field">
-          <label class="admin-crud__label">Period *</label>
+          <label class="admin-crud__label">{{ 'ADMIN.PERIOD_LABEL' | translate }}</label>
           <input class="admin-crud__input" type="text"
                  [formField]="periodField"
-                 placeholder="e.g. 2023" />
+                 [placeholder]="'ADMIN.PERIOD_PLACEHOLDER' | translate" />
         </div>
         <div class="admin-crud__field admin-crud__field--checkbox">
           <label class="admin-crud__checkbox-label">
             <input type="checkbox" [formField]="isCurrentField" />
-            Current role
+            {{ 'ADMIN.CURRENT_ROLE_LABEL' | translate }}
           </label>
         </div>
         <div class="admin-crud__field admin-crud__field--full">
-          <label class="admin-crud__label">Description</label>
+          <label class="admin-crud__label">{{ 'ADMIN.DESCRIPTION_LABEL' | translate }}</label>
           <textarea class="admin-crud__input admin-crud__input--textarea"
                     rows="3"
                     [formField]="descriptionField"
-                    placeholder="Role summary…"></textarea>
+                    [placeholder]="'ADMIN.EXPERIENCE_DESCRIPTION_PLACEHOLDER' | translate"></textarea>
         </div>
         <div class="admin-crud__field admin-crud__field--full">
-          <label class="admin-crud__label">Tags (comma-separated)</label>
+          <label class="admin-crud__label">{{ 'ADMIN.TAGS_LABEL' | translate }}</label>
           <input class="admin-crud__input" type="text"
                  [formField]="tagsField"
-                 placeholder="Angular, TypeScript, SCSS" />
+                 [placeholder]="'ADMIN.TAGS_PLACEHOLDER' | translate" />
         </div>
       </div>
       <div class="admin-crud__form-actions">
         <app-button [variant]="buttonVariant.Filled" [size]="buttonSize.Compact" [disabled]="!isFormValid()" (click)="save()">
-          {{ isEditing() ? 'Save' : 'Add' }}
+          {{ isEditing() ? ('ADMIN.SAVE' | translate) : ('ADMIN.ADD' | translate) }}
         </app-button>
         <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="closeForm()">
-          Cancel
+          {{ 'ADMIN.CANCEL' | translate }}
         </app-button>
       </div>
     </div>
@@ -71,15 +71,15 @@
             <span class="admin-crud__role">{{ entry.role }}</span>
             <span class="admin-crud__company">{{ entry.company }} · {{ entry.period }}</span>
             @if (entry.is_current) {
-              <app-tag [variant]="tagVariant.Accent">Current</app-tag>
+              <app-tag [variant]="tagVariant.Accent">{{ 'ADMIN.CURRENT_BADGE' | translate }}</app-tag>
             }
           </div>
           <div class="admin-crud__item-actions">
             <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="openEdit(entry)">
-              Edit
+              {{ 'ADMIN.EDIT' | translate }}
             </app-button>
             <app-button [variant]="buttonVariant.Danger" [size]="buttonSize.Compact" (click)="onDeleteClick(entry.id)">
-              Delete
+              {{ 'ADMIN.DELETE' | translate }}
             </app-button>
           </div>
         </div>

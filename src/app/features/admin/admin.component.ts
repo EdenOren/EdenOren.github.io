@@ -8,11 +8,12 @@ import {
   viewChild,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AdminFacade } from './facades/admin.facade';
 
 @Component({
   selector: 'app-admin',
-  imports: [RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet, TranslatePipe],
   providers: [AdminFacade],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
