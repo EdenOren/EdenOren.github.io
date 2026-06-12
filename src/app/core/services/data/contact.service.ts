@@ -1,8 +1,7 @@
 import { Service, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-
-const FORMSPREE_URL = 'https://formspree.io/f/xyzkybnl';
+import { FORMSPREE_URL } from '../../constants/core.constants';
 
 interface ContactPayload {
   name: string;

@@ -1,11 +1,11 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
-import { LocalStorageKeys } from '../enums/core.enums';
+import { AuthService } from '../services/platform/auth.service';
 
 export const authGuard: CanActivateFn = (): true | UrlTree => {
+  const authService: AuthService = inject(AuthService);
   const router: Router = inject(Router);
-  const token: string | null = localStorage.getItem(LocalStorageKeys.AdminToken);
-  if (token) {
+  if (authService.isAuthenticated()) {
     return true;
   }
   return router.parseUrl('/');
