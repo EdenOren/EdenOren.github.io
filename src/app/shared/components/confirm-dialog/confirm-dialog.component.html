@@ -7,10 +7,10 @@
     <p class="confirm-dialog__message">{{ message() }}</p>
     <div class="confirm-dialog__actions">
       <button class="confirm-dialog__cancel-btn" type="button" (click)="onCancel()">
-        Cancel
+        {{ 'ADMIN.CANCEL' | translate }}
       </button>
       <button class="confirm-dialog__confirm-btn" type="button" (click)="onConfirm()">
-        Delete
+        {{ 'ADMIN.DELETE' | translate }}
       </button>
     </div>
   </div>

@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
 import { FieldTree, FormField } from '@angular/forms/signals';
+import { TranslateService } from '@ngx-translate/core';
 import { ExperienceEntry } from '../../../experience/models/experience.models';
 import { AdminExperienceFacade } from './facades/admin-experience.facade';
-import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from '../../../../core/services/platform/confirm-dialog.service';
 
 @Component({
   selector: 'app-admin-experience',
-  imports: [FormField, ConfirmDialogComponent],
+  imports: [FormField],
   providers: [AdminExperienceFacade],
   templateUrl: './admin-experience.component.html',
   styleUrl: './admin-experience.component.scss',
@@ -14,9 +15,11 @@ import { ConfirmDialogComponent } from '../../../../shared/components/confirm-di
 })
 export class AdminExperienceComponent {
   private readonly adminExperienceFacade: AdminExperienceFacade = inject(AdminExperienceFacade);
+  private readonly confirmDialogService: ConfirmDialogService = inject(ConfirmDialogService);
+  private readonly translateService: TranslateService = inject(TranslateService);
 
-  protected readonly entries: WritableSignal<ExperienceEntry[]> = this.adminExperienceFacade.items;
-  protected readonly isFormOpen: WritableSignal<boolean> = this.adminExperienceFacade.isFormOpen;
+  protected readonly entries: Signal<ExperienceEntry[]> = this.adminExperienceFacade.items;
+  protected readonly isFormOpen: Signal<boolean> = this.adminExperienceFacade.isFormOpen;
   protected readonly isEditing: Signal<boolean> = this.adminExperienceFacade.isEditing;
   protected readonly isFormValid: Signal<boolean> = this.adminExperienceFacade.isFormValid;
   protected readonly roleField: FieldTree<string> = this.adminExperienceFacade.roleField;
@@ -25,15 +28,6 @@ export class AdminExperienceComponent {
   protected readonly isCurrentField: FieldTree<boolean> = this.adminExperienceFacade.isCurrentField;
   protected readonly descriptionField: FieldTree<string> = this.adminExperienceFacade.descriptionField;
   protected readonly tagsField: FieldTree<string> = this.adminExperienceFacade.tagsField;
-
-  private readonly deletingId: WritableSignal<string | null> = signal(null);
-  protected readonly isDeleteDialogOpen: Signal<boolean> = computed(() => this.deletingId() !== null);
-  protected readonly deleteDialogMessage: Signal<string> = computed(() => {
-    const id = this.deletingId();
-    if (id === null) { return ''; }
-    const entry = this.entries().find(e => e.id === id);
-    return entry ? `Delete "${entry.role}"?` : 'Delete this item?';
-  });
 
   protected openAdd(): void {
     this.adminExperienceFacade.openAdd();
@@ -51,18 +45,11 @@ export class AdminExperienceComponent {
     this.adminExperienceFacade.save();
   }
 
-  protected openDeleteFor(id: string): void {
-    this.deletingId.set(id);
-  }
-
-  protected confirmDelete(): void {
-    const id = this.deletingId();
-    if (id === null) { return; }
-    this.deletingId.set(null);
-    this.adminExperienceFacade.remove(id);
-  }
-
-  protected cancelDelete(): void {
-    this.deletingId.set(null);
+  protected onDeleteClick(id: string): void {
+    const entry = this.entries().find(e => e.id === id);
+    const message = entry
+      ? this.translateService.instant('ADMIN.CONFIRM_DELETE_NAMED', { name: entry.role })
+      : this.translateService.instant('ADMIN.CONFIRM_DELETE');
+    this.confirmDialogService.open(message, () => this.adminExperienceFacade.remove(id));
   }
 }

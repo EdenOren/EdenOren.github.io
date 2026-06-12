@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, computed, inject } from '@angular/core';
 import { FieldTree, FormField } from '@angular/forms/signals';
+import { TranslateService } from '@ngx-translate/core';
 import { Project } from '../../../projects/models/projects.models';
 import { AdminProjectsFacade } from './facades/admin-projects.facade';
-import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogService } from '../../../../core/services/platform/confirm-dialog.service';
 import { ImageUploadComponent } from '../../../../shared/components/image-upload/image-upload.component';
 
 @Component({
   selector: 'app-admin-projects',
-  imports: [FormField, ConfirmDialogComponent, ImageUploadComponent],
+  imports: [FormField, ImageUploadComponent],
   providers: [AdminProjectsFacade],
   templateUrl: './admin-projects.component.html',
   styleUrl: './admin-projects.component.scss',
@@ -15,9 +16,11 @@ import { ImageUploadComponent } from '../../../../shared/components/image-upload
 })
 export class AdminProjectsComponent {
   private readonly adminProjectsFacade: AdminProjectsFacade = inject(AdminProjectsFacade);
+  private readonly confirmDialogService: ConfirmDialogService = inject(ConfirmDialogService);
+  private readonly translateService: TranslateService = inject(TranslateService);
 
-  protected readonly projects: WritableSignal<Project[]> = this.adminProjectsFacade.items;
-  protected readonly isFormOpen: WritableSignal<boolean> = this.adminProjectsFacade.isFormOpen;
+  protected readonly projects: Signal<Project[]> = this.adminProjectsFacade.items;
+  protected readonly isFormOpen: Signal<boolean> = this.adminProjectsFacade.isFormOpen;
   protected readonly isEditing: Signal<boolean> = this.adminProjectsFacade.isEditing;
   protected readonly isFormValid: Signal<boolean> = this.adminProjectsFacade.isFormValid;
   protected readonly nameField: FieldTree<string> = this.adminProjectsFacade.nameField;
@@ -28,17 +31,10 @@ export class AdminProjectsComponent {
   protected readonly editingId: Signal<string | null> = this.adminProjectsFacade.editingId;
   protected readonly currentProjectImageUrl: Signal<string | null> = computed(() => {
     const id = this.editingId();
-    if (id === null) { return null; }
+    if (id === null) {
+      return null;
+    }
     return this.projects().find(p => p.id === id)?.image_url ?? null;
-  });
-
-  private readonly deletingId: WritableSignal<string | null> = signal(null);
-  protected readonly isDeleteDialogOpen: Signal<boolean> = computed(() => this.deletingId() !== null);
-  protected readonly deleteDialogMessage: Signal<string> = computed(() => {
-    const id = this.deletingId();
-    if (id === null) { return ''; }
-    const project = this.projects().find(p => p.id === id);
-    return project ? `Delete "${project.name}"?` : 'Delete this item?';
   });
 
   protected openAdd(): void {
@@ -61,18 +57,11 @@ export class AdminProjectsComponent {
     this.adminProjectsFacade.setSelectedFile(file);
   }
 
-  protected openDeleteFor(id: string): void {
-    this.deletingId.set(id);
-  }
-
-  protected confirmDelete(): void {
-    const id = this.deletingId();
-    if (id === null) { return; }
-    this.deletingId.set(null);
-    this.adminProjectsFacade.remove(id);
-  }
-
-  protected cancelDelete(): void {
-    this.deletingId.set(null);
+  protected onDeleteClick(id: string): void {
+    const project = this.projects().find(p => p.id === id);
+    const message = project
+      ? this.translateService.instant('ADMIN.CONFIRM_DELETE_NAMED', { name: project.name })
+      : this.translateService.instant('ADMIN.CONFIRM_DELETE');
+    this.confirmDialogService.open(message, () => this.adminProjectsFacade.remove(id));
   }
 }
