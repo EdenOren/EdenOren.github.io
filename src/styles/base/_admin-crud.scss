@@ -108,6 +108,7 @@
 
   &__form-actions {
     display: flex;
+    justify-content: flex-end;
     gap: variables.$space-3;
     margin-top: variables.$space-6;
   }
