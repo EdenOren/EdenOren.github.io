@@ -1,4 +1,4 @@
-export const SHARE_URL = 'https://edenoren.github.io/EdenOren.github.io2/';
+export const SHARE_URL = 'https://edenoren.github.io/EdenOren.github.io/';
 export const SHARE_TITLE = 'Eden Oren — Frontend Developer';
 export const SHARE_TEXT = "Check out Eden Oren's portfolio";
 
