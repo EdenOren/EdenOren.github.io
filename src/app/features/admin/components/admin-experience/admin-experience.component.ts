@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, Signal, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FieldTree, FormField } from '@angular/forms/signals';
 import { TranslateService } from '@ngx-translate/core';
+import { filter } from 'rxjs';
 import { ExperienceEntry } from '../../../experience/models/experience.models';
 import { AdminExperienceFacade } from './facades/admin-experience.facade';
 import { ConfirmDialogService } from '../../../../core/services/platform/confirm-dialog.service';
@@ -17,6 +19,7 @@ export class AdminExperienceComponent {
   private readonly adminExperienceFacade: AdminExperienceFacade = inject(AdminExperienceFacade);
   private readonly confirmDialogService: ConfirmDialogService = inject(ConfirmDialogService);
   private readonly translateService: TranslateService = inject(TranslateService);
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   protected readonly entries: Signal<ExperienceEntry[]> = this.adminExperienceFacade.items;
   protected readonly isFormOpen: Signal<boolean> = this.adminExperienceFacade.isFormOpen;
@@ -46,10 +49,12 @@ export class AdminExperienceComponent {
   }
 
   protected onDeleteClick(id: string): void {
-    const entry = this.entries().find(e => e.id === id);
-    const message = entry
+    const entry: ExperienceEntry | undefined = this.entries().find(e => e.id === id);
+    const message: string = entry
       ? this.translateService.instant('ADMIN.CONFIRM_DELETE_NAMED', { name: entry.role })
       : this.translateService.instant('ADMIN.CONFIRM_DELETE');
-    this.confirmDialogService.open(message, () => this.adminExperienceFacade.remove(id));
+    this.confirmDialogService.open(message)
+      .pipe(filter(confirmed => confirmed), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.adminExperienceFacade.remove(id));
   }
 }

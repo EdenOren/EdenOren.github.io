@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, Signal, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, Signal, computed, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FieldTree, FormField } from '@angular/forms/signals';
 import { TranslateService } from '@ngx-translate/core';
+import { filter } from 'rxjs';
 import { Project } from '../../../projects/models/projects.models';
 import { AdminProjectsFacade } from './facades/admin-projects.facade';
 import { ConfirmDialogService } from '../../../../core/services/platform/confirm-dialog.service';
@@ -18,6 +20,7 @@ export class AdminProjectsComponent {
   private readonly adminProjectsFacade: AdminProjectsFacade = inject(AdminProjectsFacade);
   private readonly confirmDialogService: ConfirmDialogService = inject(ConfirmDialogService);
   private readonly translateService: TranslateService = inject(TranslateService);
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   protected readonly projects: Signal<Project[]> = this.adminProjectsFacade.items;
   protected readonly isFormOpen: Signal<boolean> = this.adminProjectsFacade.isFormOpen;
@@ -58,10 +61,12 @@ export class AdminProjectsComponent {
   }
 
   protected onDeleteClick(id: string): void {
-    const project = this.projects().find(p => p.id === id);
-    const message = project
+    const project: Project | undefined = this.projects().find(p => p.id === id);
+    const message: string = project
       ? this.translateService.instant('ADMIN.CONFIRM_DELETE_NAMED', { name: project.name })
       : this.translateService.instant('ADMIN.CONFIRM_DELETE');
-    this.confirmDialogService.open(message, () => this.adminProjectsFacade.remove(id));
+    this.confirmDialogService.open(message)
+      .pipe(filter(confirmed => confirmed), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.adminProjectsFacade.remove(id));
   }
 }
