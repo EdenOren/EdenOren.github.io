@@ -9,11 +9,13 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { filter, switchMap } from 'rxjs';
 import { FieldTree, form, required } from '@angular/forms/signals';
 import { Project } from '../../../../../features/projects/models/projects.models';
 import { ProjectsService } from '../../../../../core/services/data/projects.service';
 import { UploadService } from '../../../../../core/services/data/upload.service';
+import { ConfirmDialogService } from '../../../../../core/services/platform/confirm-dialog.service';
 import { AdminCrudFacade } from '../../../facades/admin-crud.facade';
 
 interface ProjectFormModel {
@@ -27,6 +29,8 @@ interface ProjectFormModel {
 export class AdminProjectsFacade extends AdminCrudFacade<Project> {
   private readonly projectsService: ProjectsService = inject(ProjectsService);
   private readonly uploadService: UploadService = inject(UploadService);
+  private readonly confirmDialogService: ConfirmDialogService = inject(ConfirmDialogService);
+  private readonly translateService: TranslateService = inject(TranslateService);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   override readonly items: WritableSignal<Project[]> = linkedSignal(() =>
@@ -120,5 +124,15 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
       .delete(id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({ next: () => this.projectsService.reload() });
+  }
+
+  requestDelete(id: string): void {
+    const project: Project | undefined = this.items().find(p => p.id === id);
+    const message: string = project
+      ? this.translateService.instant('ADMIN.CONFIRM_DELETE_NAMED', { name: project.name })
+      : this.translateService.instant('ADMIN.CONFIRM_DELETE');
+    this.confirmDialogService.open(message)
+      .pipe(filter(confirmed => confirmed), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.remove(id));
   }
 }
