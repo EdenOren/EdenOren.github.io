@@ -1,9 +1,9 @@
 <div class="admin-crud">
   <div class="admin-crud__header">
-    <h2 class="admin-crud__title">Skills</h2>
+    <h2 class="admin-crud__title">{{ 'ADMIN.SKILLS_TITLE' | translate }}</h2>
     @if (!isFormOpen()) {
       <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="openAdd()">
-        + Add Group
+        {{ 'ADMIN.ADD_GROUP' | translate }}
       </app-button>
     }
   </div>
@@ -11,29 +11,29 @@
   @if (isFormOpen()) {
     <div class="admin-crud__form">
       <h3 class="admin-crud__form-title">
-        {{ isEditing() ? 'Edit Group' : 'New Group' }}
+        {{ isEditing() ? ('ADMIN.EDIT_GROUP' | translate) : ('ADMIN.NEW_GROUP' | translate) }}
       </h3>
       <div class="admin-crud__form-fields">
         <div class="admin-crud__field">
-          <label class="admin-crud__label">Label *</label>
+          <label class="admin-crud__label">{{ 'ADMIN.SKILL_LABEL_LABEL' | translate }}</label>
           <input class="admin-crud__input" type="text"
                  [formField]="labelField"
-                 placeholder="e.g. Frontend" />
+                 [placeholder]="'ADMIN.SKILL_LABEL_PLACEHOLDER' | translate" />
         </div>
         <div class="admin-crud__field">
-          <label class="admin-crud__label">Skills (comma-separated)</label>
+          <label class="admin-crud__label">{{ 'ADMIN.SKILL_NAMES_LABEL' | translate }}</label>
           <textarea class="admin-crud__input admin-crud__input--textarea"
                     rows="3"
                     [formField]="skillsField"
-                    placeholder="Angular, TypeScript, SCSS"></textarea>
+                    [placeholder]="'ADMIN.SKILL_NAMES_PLACEHOLDER' | translate"></textarea>
         </div>
       </div>
       <div class="admin-crud__form-actions">
         <app-button [variant]="buttonVariant.Filled" [size]="buttonSize.Compact" [disabled]="!isFormValid()" (click)="save()">
-          {{ isEditing() ? 'Save' : 'Add' }}
+          {{ isEditing() ? ('ADMIN.SAVE' | translate) : ('ADMIN.ADD' | translate) }}
         </app-button>
         <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="closeForm()">
-          Cancel
+          {{ 'ADMIN.CANCEL' | translate }}
         </app-button>
       </div>
     </div>
@@ -46,10 +46,10 @@
           <span class="admin-crud__group-label">{{ group.label }}</span>
           <div class="admin-crud__item-actions">
             <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="openEdit(group)">
-              Edit
+              {{ 'ADMIN.EDIT' | translate }}
             </app-button>
             <app-button [variant]="buttonVariant.Danger" [size]="buttonSize.Compact" (click)="onDeleteClick(group.id)">
-              Delete
+              {{ 'ADMIN.DELETE' | translate }}
             </app-button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Signal, computed, inject } from '@angular/core';
 import { FieldTree, FormField } from '@angular/forms/signals';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Project } from '../../../projects/models/projects.models';
 import { AdminProjectsFacade } from './facades/admin-projects.facade';
 import { ImageUploadComponent } from '../../../../shared/components/image-upload/image-upload.component';
@@ -9,7 +10,7 @@ import { TagComponent } from '../../../../shared/ui/tag/tag.component';
 
 @Component({
   selector: 'app-admin-projects',
-  imports: [FormField, ImageUploadComponent, CtaButtonComponent, TagComponent],
+  imports: [FormField, ImageUploadComponent, CtaButtonComponent, TagComponent, TranslatePipe],
   providers: [AdminProjectsFacade],
   templateUrl: './admin-projects.component.html',
   styleUrl: './admin-projects.component.scss',
