@@ -25,10 +25,15 @@ export class NavbarComponent {
   protected readonly isMenuOpen: WritableSignal<boolean> = this.navbarFacade.isMenuOpen;
   protected readonly activeSection: WritableSignal<string> = this.navbarFacade.activeSection;
   protected readonly isAuthenticated: Signal<boolean> = this.navbarFacade.isAuthenticated;
+  protected readonly isDark: Signal<boolean> = this.navbarFacade.isDark;
   protected readonly NAV_LINKS: { labelKey: string; sectionId: string }[] = this.navbarFacade.NAV_LINKS;
 
   protected scrollToSection(sectionId: string): void {
     this.navbarFacade.scrollToSection(sectionId);
+  }
+
+  protected toggleTheme(): void {
+    this.navbarFacade.toggleTheme();
   }
 
   protected toggleMenu(): void {

@@ -23,14 +23,14 @@
     font-size: variables.$font-size-sm;
     font-family: variables.$font-family-base;
     color: colors.$color-accent;
-    background: rgba(colors.$color-accent, 0.08);
-    border: 1px solid rgba(colors.$color-accent, 0.3);
+    background: color-mix(in srgb, #{colors.$color-accent} 8%, transparent);
+    border: 1px solid color-mix(in srgb, #{colors.$color-accent} 30%, transparent);
     border-radius: 4px;
     cursor: pointer;
     transition: background variables.$transition-fast, border-color variables.$transition-fast;
 
     &:hover {
-      background: rgba(colors.$color-accent, 0.14);
+      background: color-mix(in srgb, #{colors.$color-accent} 14%, transparent);
       border-color: colors.$color-accent;
     }
   }
@@ -209,10 +209,10 @@
   &__delete-btn {
     color: colors.$color-error;
     background: transparent;
-    border: 1px solid rgba(colors.$color-error, 0.3);
+    border: 1px solid color-mix(in srgb, #{colors.$color-error} 30%, transparent);
 
     &:hover {
-      background: rgba(colors.$color-error, 0.08);
+      background: color-mix(in srgb, #{colors.$color-error} 8%, transparent);
       border-color: colors.$color-error;
     }
   }
@@ -229,8 +229,8 @@
     padding: variables.$space-1 variables.$space-2;
     font-size: 0.75rem;
     color: colors.$color-accent;
-    background: rgba(colors.$color-accent, 0.08);
-    border: 1px solid rgba(colors.$color-accent, 0.3);
+    background: color-mix(in srgb, #{colors.$color-accent} 8%, transparent);
+    border: 1px solid color-mix(in srgb, #{colors.$color-accent} 30%, transparent);
     border-radius: 3px;
     font-family: variables.$font-family-mono;
     width: fit-content;

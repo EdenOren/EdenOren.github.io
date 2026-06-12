@@ -90,7 +90,7 @@
 
     &--active {
       color: colors.$color-accent;
-      background: rgba(colors.$color-accent, 0.08);
+      background: color-mix(in srgb, #{colors.$color-accent} 8%, transparent);
     }
   }
 

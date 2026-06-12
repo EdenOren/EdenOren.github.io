@@ -14,6 +14,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, filter } from 'rxjs';
 import { AuthService } from '../../../../core/services/platform/auth.service';
+import { ThemeService } from '../../../../core/services/platform/theme.service';
 import { NAVBAR_SCROLL_THRESHOLD_PX } from '../navbar.constants';
 
 @Service({ autoProvided: false })
@@ -22,6 +23,7 @@ export class NavbarFacade {
   private readonly router: Router = inject(Router);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
   private readonly authService: AuthService = inject(AuthService);
+  private readonly themeService: ThemeService = inject(ThemeService);
 
   readonly translation: Signal<Record<string, string>> = toSignal(
     this.translateService.stream('NAV') as Observable<Record<string, string>>,
@@ -33,6 +35,7 @@ export class NavbarFacade {
   readonly activeSection: WritableSignal<string> = signal('');
   private readonly pendingScrollSection: WritableSignal<string | null> = signal(null);
   readonly isAuthenticated: Signal<boolean> = this.authService.isAuthenticated;
+  readonly isDark: Signal<boolean> = this.themeService.isDark;
 
   readonly NAV_LINKS: { labelKey: string; sectionId: string }[] = [
     { labelKey: 'ABOUT', sectionId: 'about' },
@@ -97,6 +100,10 @@ export class NavbarFacade {
       this.pendingScrollSection.set(sectionId);
       this.router.navigate(['/']);
     }
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggle();
   }
 
   toggleMenu(): void {
