@@ -3,10 +3,11 @@ import { FieldTree, FormField } from '@angular/forms/signals';
 import { Project } from '../../../projects/models/projects.models';
 import { AdminProjectsFacade } from './facades/admin-projects.facade';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ImageUploadComponent } from '../../../../shared/components/image-upload/image-upload.component';
 
 @Component({
   selector: 'app-admin-projects',
-  imports: [FormField, ConfirmDialogComponent],
+  imports: [FormField, ConfirmDialogComponent, ImageUploadComponent],
   providers: [AdminProjectsFacade],
   templateUrl: './admin-projects.component.html',
   styleUrl: './admin-projects.component.scss',
@@ -23,6 +24,13 @@ export class AdminProjectsComponent {
   protected readonly descriptionField: FieldTree<string> = this.adminProjectsFacade.descriptionField;
   protected readonly tagsField: FieldTree<string> = this.adminProjectsFacade.tagsField;
   protected readonly githubUrlField: FieldTree<string> = this.adminProjectsFacade.githubUrlField;
+
+  protected readonly editingId: Signal<string | null> = this.adminProjectsFacade.editingId;
+  protected readonly currentProjectImageUrl: Signal<string | null> = computed(() => {
+    const id = this.editingId();
+    if (id === null) { return null; }
+    return this.projects().find(p => p.id === id)?.image_url ?? null;
+  });
 
   private readonly deletingId: WritableSignal<string | null> = signal(null);
   protected readonly isDeleteDialogOpen: Signal<boolean> = computed(() => this.deletingId() !== null);
@@ -47,6 +55,10 @@ export class AdminProjectsComponent {
 
   protected save(): void {
     this.adminProjectsFacade.save();
+  }
+
+  protected onFileSelected(file: File | null): void {
+    this.adminProjectsFacade.setSelectedFile(file);
   }
 
   protected openDeleteFor(id: string): void {

@@ -1,0 +1,80 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+
+.image-upload {
+  &__zone {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    border: 2px dashed colors.$color-border;
+    border-radius: 6px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color variables.$transition-fast, background variables.$transition-fast;
+
+    &:hover {
+      border-color: colors.$color-accent;
+      background: color-mix(in srgb, #{colors.$color-accent} 4%, transparent);
+    }
+
+    &--dragging {
+      border-color: colors.$color-accent;
+      background: color-mix(in srgb, #{colors.$color-accent} 8%, transparent);
+    }
+  }
+
+  &__preview {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__clear {
+    position: absolute;
+    top: variables.$space-2;
+    right: variables.$space-2;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(0 0 0 / 60%);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: variables.$font-size-base;
+    line-height: 1;
+    transition: background variables.$transition-fast;
+
+    &:hover {
+      background: rgb(0 0 0 / 85%);
+    }
+  }
+
+  &__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: variables.$space-2;
+    pointer-events: none;
+  }
+
+  &__icon {
+    font-size: variables.$font-size-2xl;
+    color: colors.$color-text-muted;
+  }
+
+  &__hint {
+    font-size: variables.$font-size-sm;
+    font-family: variables.$font-family-base;
+    color: colors.$color-text-muted;
+  }
+
+  &__input {
+    display: none;
+  }
+}

@@ -39,6 +39,12 @@
                  [formField]="githubUrlField"
                  placeholder="https://github.com/…" />
         </div>
+        <div class="admin-crud__field admin-crud__field--full">
+          <label class="admin-crud__label">Image</label>
+          <image-upload
+            [currentImageUrl]="currentProjectImageUrl()"
+            (fileSelected)="onFileSelected($event)" />
+        </div>
       </div>
       <div class="admin-crud__form-actions">
         <button class="admin-crud__save-btn" type="button"
@@ -69,6 +75,9 @@
             </button>
           </div>
         </div>
+        @if (project.image_url) {
+          <img class="admin-crud__item-thumb" [src]="project.image_url" alt="" />
+        }
         @if (project.description) {
           <p class="admin-crud__description">{{ project.description }}</p>
         }

@@ -218,6 +218,16 @@
     }
   }
 
+  &__item-thumb {
+    width: 80px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid colors.$color-border;
+    margin-bottom: variables.$space-3;
+    display: block;
+  }
+
   &__description {
     font-size: variables.$font-size-sm;
     color: colors.$color-text-muted;
