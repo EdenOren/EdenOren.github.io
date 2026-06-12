@@ -7,6 +7,7 @@
   top: 0;
   inset-inline: 0;
   z-index: variables.$z-nav;
+  border-bottom: 1px solid transparent;
   transition:
     background-color variables.$transition-base,
     border-color variables.$transition-base,
@@ -16,7 +17,7 @@
     background-color: rgb(10 10 10 / 85%);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid colors.$color-border;
+    border-bottom-color: colors.$color-border;
   }
 
   &__inner {
@@ -159,7 +160,7 @@
     @include mixins.text-label;
     color: colors.$color-accent;
     text-decoration: none;
-    padding: variables.$space-1 variables.$space-3;
+    padding: variables.$space-2 variables.$space-4;
     border: 1px solid rgba(colors.$color-accent, 0.4);
     border-radius: 4px;
     transition: color variables.$transition-fast, border-color variables.$transition-fast, background-color variables.$transition-fast;

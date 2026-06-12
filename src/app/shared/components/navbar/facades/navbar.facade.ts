@@ -9,10 +9,10 @@ import {
   signal,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, filter } from 'rxjs';
 import { AuthService } from '../../../../core/services/platform/auth.service';
 import { NAVBAR_SCROLL_THRESHOLD_PX } from '../navbar.constants';
 
@@ -31,6 +31,7 @@ export class NavbarFacade {
   readonly isScrolled: WritableSignal<boolean> = signal(false);
   readonly isMenuOpen: WritableSignal<boolean> = signal(false);
   readonly activeSection: WritableSignal<string> = signal('');
+  private readonly pendingScrollSection: WritableSignal<string | null> = signal(null);
   readonly isAuthenticated: Signal<boolean> = this.authService.isAuthenticated;
 
   readonly NAV_LINKS: { labelKey: string; sectionId: string }[] = [
@@ -62,6 +63,29 @@ export class NavbarFacade {
           this.isMenuOpen.set(false);
         }
       });
+
+    this.router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => {
+        const section = this.pendingScrollSection();
+        if (!section) {
+          return;
+        }
+        this.pendingScrollSection.set(null);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const element = document.getElementById(section);
+            if (!element) {
+              return;
+            }
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            element.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
+          });
+        });
+      });
   }
 
   scrollToSection(sectionId: string): void {
@@ -70,7 +94,8 @@ export class NavbarFacade {
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       element.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
     } else {
-      this.router.navigate(['']);
+      this.pendingScrollSection.set(sectionId);
+      this.router.navigate(['/']);
     }
   }
 
