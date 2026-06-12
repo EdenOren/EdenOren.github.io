@@ -7,6 +7,7 @@ export enum ApiPath {
 
 export enum LocalStorageKeys {
   AdminToken = 'eo:admin:token',
+  Theme = 'eo:portfolio:theme',
 }
 
 export enum Language {

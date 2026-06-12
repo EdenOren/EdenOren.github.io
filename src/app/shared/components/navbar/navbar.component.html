@@ -41,6 +41,20 @@
         }
       </ul>
 
+      <button
+        class="navbar__theme-toggle no-select"
+        type="button"
+        [attr.aria-label]="isDark() ? t['TOGGLE_THEME_LIGHT'] : t['TOGGLE_THEME_DARK']"
+        (click)="toggleTheme()"
+      >
+        <span
+          class="navbar__theme-icon"
+          [style.maskImage]="'url(' + themeIconUrl() + ')'"
+          [style.webkitMaskImage]="'url(' + themeIconUrl() + ')'"
+          aria-hidden="true"
+        ></span>
+      </button>
+
       <div class="navbar__share">
         <app-social-share />
       </div>

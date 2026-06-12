@@ -3,14 +3,14 @@
 <div class="share">
   @if (canUseNativeShare) {
     <app-icon-button
-      iconSrc="assets/icons/share.svg"
+      [iconSrc]="Icon.Share"
       [iconWidth]="14"
       [iconHeight]="14"
       [label]="t['BUTTON_LABEL']"
       (click)="onTriggerClick()" />
   } @else {
     <app-icon-button
-      iconSrc="assets/icons/share.svg"
+      [iconSrc]="Icon.Share"
       [iconWidth]="14"
       [iconHeight]="14"
       [label]="t['BUTTON_LABEL']"
@@ -27,7 +27,7 @@
           [href]="whatsappUrl"
           target="_blank"
           rel="noopener noreferrer">
-          <img class="share__item-icon" ngSrc="assets/icons/whatsapp.svg" width="16" height="16" alt="" aria-hidden="true">
+          <img class="share__item-icon" [ngSrc]="Icon.Whatsapp" width="16" height="16" alt="" aria-hidden="true">
           <span>{{ t['WHATSAPP'] }}</span>
         </a>
 
@@ -35,7 +35,7 @@
           class="share__item"
           role="menuitem"
           [href]="emailUrl">
-          <img class="share__item-icon" ngSrc="assets/icons/mail.svg" width="16" height="16" alt="" aria-hidden="true">
+          <img class="share__item-icon" [ngSrc]="Icon.Mail" width="16" height="16" alt="" aria-hidden="true">
           <span>{{ t['EMAIL'] }}</span>
         </a>
 
@@ -44,7 +44,7 @@
           role="menuitem"
           type="button"
           (click)="copyLink()">
-          <img class="share__item-icon" ngSrc="assets/icons/link.svg" width="16" height="16" alt="" aria-hidden="true">
+          <img class="share__item-icon" [ngSrc]="Icon.Link" width="16" height="16" alt="" aria-hidden="true">
           <span>
             @if (isCopied()) {
               {{ t['COPIED'] }}

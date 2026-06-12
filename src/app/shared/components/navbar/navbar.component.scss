@@ -14,7 +14,7 @@
     backdrop-filter variables.$transition-base;
 
   &--scrolled {
-    background-color: rgb(10 10 10 / 85%);
+    background-color: colors.$color-bg-scrolled;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom-color: colors.$color-border;
@@ -161,14 +161,14 @@
     color: colors.$color-accent;
     text-decoration: none;
     padding: variables.$space-2 variables.$space-4;
-    border: 1px solid rgba(colors.$color-accent, 0.4);
+    border: 1px solid color-mix(in srgb, #{colors.$color-accent} 40%, transparent);
     border-radius: 4px;
     transition: color variables.$transition-fast, border-color variables.$transition-fast, background-color variables.$transition-fast;
     white-space: nowrap;
     flex-shrink: 0;
 
     &:hover {
-      background-color: rgba(colors.$color-accent, 0.08);
+      background-color: color-mix(in srgb, #{colors.$color-accent} 8%, transparent);
       border-color: colors.$color-accent;
     }
 
@@ -181,10 +181,50 @@
       padding: variables.$space-4 variables.$space-3;
       border-left: none;
       border-right: none;
-      border-top: 1px solid rgba(colors.$color-accent, 0.3);
+      border-top: 1px solid color-mix(in srgb, #{colors.$color-accent} 30%, transparent);
       border-bottom: none;
       border-radius: 0;
     }
+  }
+
+  &__theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: colors.$color-text-muted;
+    flex-shrink: 0;
+    transition: color variables.$transition-fast;
+
+    &:hover {
+      color: colors.$color-text;
+    }
+
+    &:focus-visible {
+      @include mixins.focus-ring;
+    }
+
+    @media (max-width: #{variables.$breakpoint-md - 1px}) {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  &__theme-icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+    background-color: currentColor;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
   }
 
   &__share {

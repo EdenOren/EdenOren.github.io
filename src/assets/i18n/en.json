@@ -5,7 +5,9 @@
     "SKILLS": "Skills",
     "PROJECTS": "Projects",
     "CONTACT": "Contact",
-    "RESUME": "Resume"
+    "RESUME": "Resume",
+    "TOGGLE_THEME_DARK": "Switch to dark mode",
+    "TOGGLE_THEME_LIGHT": "Switch to light mode"
   },
   "HERO": {
     "NAME_FIRST": "Eden",

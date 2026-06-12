@@ -1,19 +1,61 @@
+// ─── Theme tokens ────────────────────────────────────────────────────────────
+// To change the main accent, update --color-accent (and --color-success if
+// it should track the accent) in :root and [data-theme="light"] below.
+// All components consume var(--color-*) via the $color-* SCSS wrappers.
+
+:root {
+  // Surfaces
+  --color-bg: #0A0A0A;
+  --color-bg-scrolled: rgb(10 10 10 / 85%);
+  --color-surface: #141414;
+  --color-surface-hover: #1C1C1C;
+
+  // Text
+  --color-text: #F2F0EB;
+  --color-text-muted: #7A7870;
+
+  // Accent — one token to retheme the site
+  --color-accent: #1A9E65;
+
+  // Structural
+  --color-border: #242424;
+
+  // Semantic
+  --color-success: #1A9E65;
+  --color-error: #D94F4F;
+  --color-warning: #C68B2E;
+}
+
+[data-theme="light"] {
+  --color-bg: #F5F3EF;
+  --color-bg-scrolled: rgb(245 243 239 / 90%);
+  --color-surface: #EBEBEB;
+  --color-surface-hover: #E1E0DC;
+  --color-text: #111111;
+  --color-text-muted: #6B6865;
+  --color-border: #D4D1CC;
+}
+
+// ─── SCSS variable wrappers ───────────────────────────────────────────────────
+// All existing component SCSS (@use 'abstract/colors' as colors) works unchanged.
+
 // Surfaces
-$color-bg: #0A0A0A;
-$color-surface: #141414;
-$color-surface-hover: #1C1C1C;
+$color-bg: var(--color-bg);
+$color-bg-scrolled: var(--color-bg-scrolled);
+$color-surface: var(--color-surface);
+$color-surface-hover: var(--color-surface-hover);
 
 // Text
-$color-text: #F2F0EB;
-$color-text-muted: #7A7870;
+$color-text: var(--color-text);
+$color-text-muted: var(--color-text-muted);
 
-// Accent — dark emerald
-$color-accent: #1A9E65;
+// Accent
+$color-accent: var(--color-accent);
 
 // Structural
-$color-border: #242424;
+$color-border: var(--color-border);
 
 // Semantic
-$color-success: #1A9E65;
-$color-error: #D94F4F;
-$color-warning: #C68B2E;
+$color-success: var(--color-success);
+$color-error: var(--color-error);
+$color-warning: var(--color-warning);
