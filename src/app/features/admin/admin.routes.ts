@@ -2,6 +2,11 @@ import { Routes } from '@angular/router';
 
 export const adminRoutes: Routes = [
   {
+    path: '',
+    redirectTo: 'experience',
+    pathMatch: 'full',
+  },
+  {
     path: 'experience',
     loadComponent: () =>
       import('./components/admin-experience/admin-experience.component').then(
