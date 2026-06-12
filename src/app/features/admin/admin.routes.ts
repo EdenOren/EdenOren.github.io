@@ -22,4 +22,11 @@ export const adminRoutes: Routes = [
         m => m.AdminSkillsComponent
       ),
   },
+  {
+    path: 'about',
+    loadComponent: () =>
+      import('./components/admin-about/admin-about.component').then(
+        m => m.AdminAboutComponent
+      ),
+  },
 ];
