@@ -5,6 +5,7 @@ import { GOOGLE_CLIENT_ID } from '../../../core/constants/core.constants';
 import { AuthService } from '../../../core/services/platform/auth.service';
 import { AdminService } from '../../../core/services/data/admin.service';
 import { GoogleIdentityResponse } from '../../../core/models/core.models';
+import { AdminRoute } from '../enums/admin-route.enum';
 
 declare const google: {
   accounts: {
@@ -36,7 +37,7 @@ export class AdminFacade {
         this.adminService.verify()
           .pipe(takeUntilDestroyed(this.destroyRef))
           .subscribe({
-            next: () => this.router.navigate(['/admin/experience']),
+            next: () => this.router.navigate(['/admin', AdminRoute.ABOUT]),
             error: () => {
               this.authService.logout();
               google.accounts.id.disableAutoSelect();

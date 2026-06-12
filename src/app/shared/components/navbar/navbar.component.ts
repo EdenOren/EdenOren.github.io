@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../../enums/icon.enum';
+import { AdminRoute } from '../../../features/admin/enums/admin-route.enum';
 import { NavbarFacade } from './facades/navbar.facade';
 import { SocialShareComponent } from '../../../features/share/share.component';
 
@@ -32,6 +33,7 @@ export class NavbarComponent {
     this.isDark() ? Icon.Sun : Icon.Moon
   );
   protected readonly NAV_LINKS: { labelKey: string; sectionId: string }[] = this.navbarFacade.NAV_LINKS;
+  protected readonly ADMIN_ROUTE: typeof AdminRoute = AdminRoute;
 
   protected scrollToSection(sectionId: string): void {
     this.navbarFacade.scrollToSection(sectionId);

@@ -29,6 +29,7 @@ This document defines mandatory standards for all code generation, refactoring, 
 - **Prefer `enum` over union string types** — `type State = 'a' | 'b'` should be `enum State { A = 'a', B = 'b' }`.
 - Use `InputSignal<T>` as the explicit type annotation for `input()` declarations and `InputSignalWithTransform<T, U>` when a transform is applied. Use `OutputEmitterRef<T>` for `output()` declarations.
 - Signal query types: `Signal<T | undefined>` for optional queries, `Signal<T>` for required queries (`.required` variant), and `Signal<readonly T[]>` for `viewChildren()` / `contentChildren()`.
+- **All model interface properties must be `readonly`** — interfaces in `models/` files use `readonly` on every property, e.g. `readonly id: string`.
 
 ### Enums
 - **No literal strings in logic or comparisons** — always define and use an enum.
@@ -82,6 +83,7 @@ This document defines mandatory standards for all code generation, refactoring, 
 - **Static `readonly` properties** (primitives, data arrays, constants) → `CAPITAL_SNAKE_CASE`
 - **Reactive properties** (`Signal`, `WritableSignal`, `computed`) → `camelCase`
 - **Injected dependencies** (via `inject()`) → `camelCase` private field. No leading underscore, no `$` suffix.
+- **Private `WritableSignal` backing a public `Signal<T>`** → prefix with a single underscore: `_name: WritableSignal<T>`. The public surface exposes only a `computed()` — `readonly name: Signal<T> = computed(() => this._name())`. This is the only permitted exception to the no-leading-underscore rule. Use it only when the writability must be hidden from callers (e.g. `AuthService._authenticated`).
 - **RxJS Observables** that must be exposed from a facade for legacy interop → `camelCase$` suffix (e.g. `items$`). Prefer signals over observables for all new state; the `$` suffix signals technical debt.
 
 ### Styling — BEM + SCSS
@@ -103,8 +105,21 @@ This document defines mandatory standards for all code generation, refactoring, 
 ### i18n (Internationalisation)
 - **All static UI text** (labels, buttons, placeholders, toasts, error messages) lives in `src/assets/i18n/en.json`.
 - No hard-coded strings in templates or components.
-- Use the project's `TranslateService` to resolve keys at runtime.
 - **JSON keys are `UPPER_SNAKE_CASE`** at every level — section names and leaf keys alike: `"HERO"`, `"NAME_FIRST"`, `"CTA_WORK"`.
+- **Runtime translation pattern** — inject `TranslateService` from `@ngx-translate/core` in the facade. Create one `translation` signal per facade with `toSignal()`:
+  ```ts
+  private readonly translateService: TranslateService = inject(TranslateService);
+  readonly translation: Signal<Record<string, string>> = toSignal(
+    this.translateService.stream('SECTION') as Observable<Record<string, string>>,
+    { initialValue: {} as Record<string, string> }
+  );
+  ```
+  Derive individual strings with `computed()`:
+  ```ts
+  readonly heading: Signal<string> = computed(() => this.translation()['HEADING']);
+  ```
+  The facade exposes `translation` directly so child components can access any key without a proliferation of individual computed signals. Never use `.get()` (returns a cold `Observable`); always use `.stream()` for reactivity.
+- Do not create an `I18nSection` enum — use literal section-name strings (`'HERO'`, `'ABOUT'`, etc.) directly in `.stream()` calls.
 
 ### Component Library Priority
 1. **Native platform / framework components** — use these first.
@@ -238,14 +253,31 @@ This document defines mandatory standards for all code generation, refactoring, 
 - Use `resource()` for non-HTTP async data sources (e.g. IndexedDB, Web Workers). Use `httpResource()` for all HTTP data (see HTTP section).
 
 ### HTTP
-- Use `httpResource()` for all HTTP data fetching inside services. This is a new project; raw `HttpClient` calls are not permitted in any file — not in components, facades, or services.
-- Every `httpResource()` call lives in `core/services/data/[feature].service.ts`.
-- The resource's reactive `params` function is the only place to derive the request from signals or route state. Do not call `.reload()` as a substitute for reactive params.
-- Handle loading, error, and resolved states using the resource's `status`, `isLoading`, `error`, and `hasValue()` signals — expose these through the facade as computed `Signal<boolean>` properties (`isLoading`, `isError`, `isSuccess`) rather than exposing the raw resource object to templates.
+- **`httpResource()` is for reactive reads (GET).** Every `httpResource()` call lives in `core/services/data/[feature].service.ts`. The resource type annotation must be explicit: `HttpResourceRef<T[] | undefined>` or `HttpResourceRef<T | undefined>`.
+- **`HttpClient` is for mutations (POST, PUT, DELETE).** Inject it via `inject(HttpClient)` in the data service. Raw `HttpClient` is not permitted in components or facades — only in `core/services/data/`.
+- The resource's reactive params function is the only place to derive the request from signals or route state. Do not call `.reload()` as a substitute for reactive params during navigation.
+- Call `.reload()` after a successful mutation to re-sync the `httpResource` with the updated server state. This is the intended use; it is not a substitute for reactive params.
+- Handle loading, error, and resolved states using the resource's `isLoading`, `error()`, and `value()` signals — expose these through the facade as computed `Signal<boolean>` properties (`isLoading`, `isError`, `isSuccess`) rather than exposing the raw resource object to templates.
+- **`BaseDataService<T extends { id: string }>`** — list-based CRUD data services extend this abstract class, which provides `items: Signal<T[]>`, `isLoading: Signal<boolean>`, `isError: Signal<boolean>`, `reload()`, `create()`, `update()`, and `delete()` out of the box. The subclass only needs to declare `protected abstract readonly apiPath: ApiPath`.
+  ```ts
+  @Service()
+  export class ProjectsService extends BaseDataService<Project> {
+    protected readonly apiPath: ApiPath = ApiPath.Projects;
+  }
+  ```
+  Singleton (non-list) resources (e.g. About data) do not extend `BaseDataService`; they define their own `httpResource()` independently.
 
 ### Routing
 - All feature routes are **lazy-loaded** via `loadComponent`.
 - Auth-protected routes use `canActivate: [authGuard]`.
+- **Define route path segments as enums** — never hard-code route strings in `app.routes.ts`, `routerLink` bindings, or `router.navigate()` calls. Use a feature-scoped enum (e.g. `AdminRoute`) stored in the feature's `enums/` folder:
+  ```ts
+  export enum AdminRoute {
+    Root = 'admin',
+    Experience = 'experience',
+    Projects = 'projects',
+  }
+  ```
 - The default `PathLocationStrategy` is used. If the project is later deployed to a static host (e.g. GitHub Pages) that does not support HTML5 history, update `app.config.ts` to provide `HashLocationStrategy` at that time and document the reason in `CONTRIBUTING.md`. Do not add it pre-emptively.
 
 ### RxJS Interop
@@ -277,23 +309,30 @@ This document defines mandatory standards for all code generation, refactoring, 
 src/
 ├── app/
 │   ├── core/                     # Root singletons, interceptors, guards
+│   │   ├── constants/            # App-wide magic numbers and config strings
+│   │   ├── enums/                # Core-layer enums (ApiPath, LocalStorageKeys, …)
 │   │   ├── interceptors/
 │   │   ├── guards/
+│   │   ├── models/               # Core-layer interfaces
 │   │   └── services/
-│   │       ├── data/             # httpResource services — one file per feature
+│   │       ├── data/             # httpResource + HttpClient mutation services — one file per feature
+│   │       │   ├── base-data.service.ts   # Abstract base for list CRUD services
 │   │       │   └── [feature].service.ts
-│   │       └── platform/         # App-wide singletons: analytics, seo, theme
-│   │           ├── analytics.service.ts
+│   │       └── platform/         # App-wide singletons: analytics, seo, theme, auth
+│   │           ├── auth.service.ts
 │   │           ├── seo.service.ts
 │   │           └── theme.service.ts
 │   ├── shared/                   # Dumb UI components, utils, constants, enums, models
 │   └── features/                 # Smart components + facades (one folder per feature)
 │       └── [feature]/
-│           ├── components/       # Dumb sub-components scoped to this feature
+│           ├── components/       # Sub-components scoped to this feature
+│           │   └── [name]/
+│           │       ├── facades/  # Sub-component facade (if the sub-component owns state)
+│           │       └── [name].component.ts
 │           ├── enums/            # Feature-scoped enums
-│           ├── facades/          # Feature facade(s)
+│           ├── facades/          # Feature root facade(s)
 │           ├── models/           # Interfaces / types for this feature
-│           ├── utils/            # Feature-scoped utilities
+│           ├── utils/            # Feature-scoped utilities and constants
 │           ├── [feature].component.ts   # Smart root component
 │           └── [feature].routes.ts      # If sub-routing needed
 └── styles/
@@ -302,20 +341,25 @@ src/
 ```
 
 Additional rules:
-- `httpResource` instances live exclusively in `core/services/data/[feature].service.ts`. Facades inject the service and expose computed signals derived from the resource's state signals.
-- Platform services (`analytics`, `seo`, `theme`) are root-provided singletons and live in `core/services/platform/`.
+- `httpResource` instances and `HttpClient` mutation methods live exclusively in `core/services/data/[feature].service.ts`. Facades inject the service and expose computed signals derived from the resource's state signals.
+- Platform services (`auth`, `analytics`, `seo`, `theme`) are root-provided singletons and live in `core/services/platform/`.
+- Sub-components that own local state provide their own facade via `[feature]/components/[name]/facades/[name].facade.ts` and list it in the sub-component's `providers` array — same pattern as the feature root.
 - `@defer` imports that reference components from other features go through the component's own file path, never a barrel index.
 
 ### Naming Conventions
 - Feature root component: `[feature].component.ts` (directly inside `[feature]/`)
 - Feature routes: `[feature].routes.ts` (directly inside `[feature]/`)
-- Sub-components: `[feature]/components/[name].component.ts`
-- Facades: `[feature]/facades/[feature].facade.ts`
+- Sub-components: `[feature]/components/[name]/[name].component.ts`
+- Sub-component facades: `[feature]/components/[name]/facades/[name].facade.ts`
+- Feature root facades: `[feature]/facades/[feature].facade.ts`
 - Models: `[feature]/models/[feature].models.ts`
 - Enums: `[feature]/enums/[name].enum.ts`
-- Utils: `[feature]/utils/[name].utils.ts`
+- Feature-scoped constants and utilities: `[feature]/utils/[name].constants.ts` or `[feature]/utils/[name].utils.ts`
 - Data services: `core/services/data/[feature].service.ts`
 - Platform services: `core/services/platform/[name].service.ts`
+- Core constants: `core/constants/core.constants.ts`
+- Core enums: `core/enums/core.enums.ts`
+- Core models: `core/models/core.models.ts`
 - Global constants: `src/app/shared/constants/`
 - Global enums: `src/app/shared/enums/`
 - Global models: `src/app/shared/models/`
