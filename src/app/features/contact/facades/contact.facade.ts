@@ -20,13 +20,17 @@ export class ContactFacade {
     message: '',
   });
 
-  readonly contactForm: FieldTree<ContactData> = form(this.model, (schemaPath) => {
+  private readonly contactForm: FieldTree<ContactData> = form(this.model, (schemaPath) => {
     required(schemaPath.name, { message: 'CONTACT.FIELD_REQUIRED' });
     required(schemaPath.email, { message: 'CONTACT.FIELD_REQUIRED' });
     email(schemaPath.email, { message: 'CONTACT.EMAIL_INVALID' });
     required(schemaPath.message, { message: 'CONTACT.FIELD_REQUIRED' });
     minLength(schemaPath.message, CONTACT_MIN_MESSAGE_LENGTH, { message: 'CONTACT.MESSAGE_TOO_SHORT' });
   });
+
+  readonly nameField: FieldTree<string> = this.contactForm.name;
+  readonly emailField: FieldTree<string> = this.contactForm.email;
+  readonly messageField: FieldTree<string> = this.contactForm.message;
 
   private readonly _result: WritableSignal<SubmitState> = signal<SubmitState>(SubmitState.Idle);
 
