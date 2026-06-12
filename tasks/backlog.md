@@ -3,6 +3,7 @@
 Planned feature branches — each maps to a PR into `development`.
 
 ## In Progress (PRs open → development)
+- [ ] `feature/24-unit-tests` — Vitest unit tests: pure functions, platform services, guards, interceptors, data services
 - [ ] `feature/15-admin-panel` — Google Sign In, mock CRUD for Experience/Projects/Skills, navbar Admin link
 - [ ] `refactor/scss-shared-styles` — shared mixins, SVGs to assets, about.component.scss budget fix
 - [ ] `feature/18-404-page` — NotFoundComponent for unknown hash routes + static 404.html for GitHub Pages
