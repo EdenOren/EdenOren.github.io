@@ -77,11 +77,6 @@
     gap: variables.$space-2;
   }
 
-  &__card-tag {
-    @include mixins.pill-tag;
-    background-color: colors.$color-bg;
-  }
-
   &__card-footer {
     display: flex;
     gap: variables.$space-4;

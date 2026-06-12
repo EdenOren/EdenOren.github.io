@@ -14,7 +14,7 @@ import { HeroFacade } from './facades/hero.facade';
 export class HeroComponent {
   private readonly heroFacade: HeroFacade = inject(HeroFacade);
 
-  protected readonly ButtonVariant: typeof ButtonVariant = ButtonVariant;
+  protected readonly buttonVariant: typeof ButtonVariant = ButtonVariant;
   protected readonly translation: Signal<Record<string, string>> = this.heroFacade.translation;
 
   protected scrollToSection(sectionId: string): void {

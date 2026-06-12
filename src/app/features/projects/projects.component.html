@@ -22,7 +22,7 @@
 
               <ul class="projects__card-tags" role="list" aria-label="Technologies used">
                 @for (tag of project.tags; track tag) {
-                  <li class="projects__card-tag no-select">{{ tag }}</li>
+                  <li><app-tag>{{ tag }}</app-tag></li>
                 }
               </ul>
             </div>

@@ -6,12 +6,12 @@
        (click)="$event.stopPropagation()">
     <p class="confirm-dialog__message">{{ message() }}</p>
     <div class="confirm-dialog__actions">
-      <button class="confirm-dialog__cancel-btn" type="button" (click)="onCancel()">
+      <app-button [variant]="buttonVariant.Ghost" (click)="onCancel()">
         {{ 'ADMIN.CANCEL' | translate }}
-      </button>
-      <button class="confirm-dialog__confirm-btn" type="button" (click)="onConfirm()">
+      </app-button>
+      <app-button [variant]="buttonVariant.Danger" (click)="onConfirm()">
         {{ 'ADMIN.DELETE' | translate }}
-      </button>
+      </app-button>
     </div>
   </div>
 </div>

@@ -3,11 +3,12 @@ import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { SkeletonType } from '../../shared/enums/shared.enums';
 import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header.component';
+import { TagComponent } from '../../shared/ui/tag/tag.component';
 import { ProjectViewModel, ProjectsFacade } from './facades/projects.facade';
 
 @Component({
   selector: 'app-projects',
-  imports: [SkeletonLoaderComponent, ScrollRevealDirective, SectionHeaderComponent],
+  imports: [SkeletonLoaderComponent, ScrollRevealDirective, SectionHeaderComponent, TagComponent],
   providers: [ProjectsFacade],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',

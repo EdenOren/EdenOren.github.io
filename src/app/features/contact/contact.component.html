@@ -67,14 +67,14 @@
           <p class="contact__error" role="alert" aria-live="assertive">{{ 'CONTACT.ERROR' | translate }}</p>
         }
 
-        <app-cta-button
+        <app-button
           class="contact__form-submit"
-          [variant]="ButtonVariant.Filled"
-          [buttonType]="ButtonType.Submit"
+          [variant]="buttonVariant.Filled"
+          [buttonType]="buttonType.Submit"
           [loading]="isLoading()"
           [disabled]="isLoading()">
           {{ (isLoading() ? 'CONTACT.SUBMIT_LOADING' : 'CONTACT.SUBMIT') | translate }}
-        </app-cta-button>
+        </app-button>
 
       </form>
     }

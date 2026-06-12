@@ -6,10 +6,13 @@ import { filter } from 'rxjs';
 import { AdminSkillGroup } from '../../models/admin.models';
 import { AdminSkillsFacade } from './facades/admin-skills.facade';
 import { ConfirmDialogService } from '../../../../core/services/platform/confirm-dialog.service';
+import { ButtonSize, ButtonVariant } from '../../../../shared/enums/button.enums';
+import { CtaButtonComponent } from '../../../../shared/ui/cta-button/cta-button.component';
+import { TagComponent } from '../../../../shared/ui/tag/tag.component';
 
 @Component({
   selector: 'app-admin-skills',
-  imports: [FormField],
+  imports: [FormField, CtaButtonComponent, TagComponent],
   providers: [AdminSkillsFacade],
   templateUrl: './admin-skills.component.html',
   styleUrl: './admin-skills.component.scss',
@@ -20,6 +23,9 @@ export class AdminSkillsComponent {
   private readonly confirmDialogService: ConfirmDialogService = inject(ConfirmDialogService);
   private readonly translateService: TranslateService = inject(TranslateService);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
+
+  protected readonly buttonVariant: typeof ButtonVariant = ButtonVariant;
+  protected readonly buttonSize: typeof ButtonSize = ButtonSize;
 
   protected readonly groups: Signal<AdminSkillGroup[]> = this.adminSkillsFacade.items;
   protected readonly isFormOpen: Signal<boolean> = this.adminSkillsFacade.isFormOpen;

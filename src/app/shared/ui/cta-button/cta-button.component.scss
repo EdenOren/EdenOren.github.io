@@ -49,6 +49,34 @@
     }
   }
 
+  &--ghost {
+    background-color: transparent;
+    border-color: colors.$color-border;
+    color: colors.$color-text-muted;
+
+    &:hover:not(:disabled) {
+      color: colors.$color-text;
+      border-color: colors.$color-text-muted;
+    }
+  }
+
+  &--danger {
+    background-color: transparent;
+    border-color: color-mix(in srgb, #{colors.$color-error} 30%, transparent);
+    color: colors.$color-error;
+
+    &:hover:not(:disabled) {
+      background-color: colors.$color-error;
+      border-color: colors.$color-error;
+      color: #fff;
+    }
+  }
+
+  &--compact {
+    padding: variables.$space-1 variables.$space-3;
+    font-size: variables.$font-size-sm;
+  }
+
   &--loading {
     pointer-events: none;
   }

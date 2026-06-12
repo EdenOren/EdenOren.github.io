@@ -29,13 +29,13 @@
                 <h3 class="experience__entry-role">{{ entry.role }}</h3>
                 <span class="experience__entry-company">{{ entry.company }}</span>
                 @if (entry.current) {
-                  <span class="experience__entry-badge no-select">{{ t['PRESENT'] }}</span>
+                  <app-tag [variant]="tagVariant.Accent">{{ t['PRESENT'] }}</app-tag>
                 }
               </div>
               <p class="experience__entry-description">{{ entry.description }}</p>
               <ul class="experience__entry-tags" role="list" aria-label="Technologies">
                 @for (tag of entry.tags; track tag) {
-                  <li class="experience__entry-tag no-select">{{ tag }}</li>
+                  <li><app-tag [hoverable]="true">{{ tag }}</app-tag></li>
                 }
               </ul>
             </div>

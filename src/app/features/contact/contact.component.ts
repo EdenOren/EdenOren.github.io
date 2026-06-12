@@ -19,8 +19,8 @@ import { CONTACT_TEXTAREA_ROWS } from './utils/contact.constants';
 export class ContactComponent {
   private readonly contactFacade: ContactFacade = inject(ContactFacade);
 
-  protected readonly ButtonVariant: typeof ButtonVariant = ButtonVariant;
-  protected readonly ButtonType: typeof ButtonType = ButtonType;
+  protected readonly buttonVariant: typeof ButtonVariant = ButtonVariant;
+  protected readonly buttonType: typeof ButtonType = ButtonType;
   protected readonly isSuccess: Signal<boolean> = this.contactFacade.isSuccess;
   protected readonly isLoading: Signal<boolean> = this.contactFacade.isLoading;
   protected readonly isError: Signal<boolean> = this.contactFacade.isError;

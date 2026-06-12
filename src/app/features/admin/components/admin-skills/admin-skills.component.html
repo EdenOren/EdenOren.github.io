@@ -2,9 +2,9 @@
   <div class="admin-crud__header">
     <h2 class="admin-crud__title">Skills</h2>
     @if (!isFormOpen()) {
-      <button class="admin-crud__add-btn" type="button" (click)="openAdd()">
+      <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="openAdd()">
         + Add Group
-      </button>
+      </app-button>
     }
   </div>
 
@@ -29,14 +29,12 @@
         </div>
       </div>
       <div class="admin-crud__form-actions">
-        <button class="admin-crud__save-btn" type="button"
-                [disabled]="!isFormValid()"
-                (click)="save()">
+        <app-button [variant]="buttonVariant.Filled" [size]="buttonSize.Compact" [disabled]="!isFormValid()" (click)="save()">
           {{ isEditing() ? 'Save' : 'Add' }}
-        </button>
-        <button class="admin-crud__cancel-btn" type="button" (click)="closeForm()">
+        </app-button>
+        <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="closeForm()">
           Cancel
-        </button>
+        </app-button>
       </div>
     </div>
   }
@@ -47,17 +45,17 @@
         <div class="admin-crud__item-header admin-crud__item-header--center">
           <span class="admin-crud__group-label">{{ group.label }}</span>
           <div class="admin-crud__item-actions">
-            <button class="admin-crud__edit-btn" type="button" (click)="openEdit(group)">
+            <app-button [variant]="buttonVariant.Ghost" [size]="buttonSize.Compact" (click)="openEdit(group)">
               Edit
-            </button>
-            <button class="admin-crud__delete-btn" type="button" (click)="onDeleteClick(group.id)">
+            </app-button>
+            <app-button [variant]="buttonVariant.Danger" [size]="buttonSize.Compact" (click)="onDeleteClick(group.id)">
               Delete
-            </button>
+            </app-button>
           </div>
         </div>
         <div class="admin-crud__pills">
           @for (skill of group.skills; track skill) {
-            <span class="admin-crud__pill">{{ skill }}</span>
+            <app-tag>{{ skill }}</app-tag>
           }
         </div>
       </li>

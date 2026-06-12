@@ -21,13 +21,4 @@
     gap: variables.$space-2;
   }
 
-  &__pill {
-    padding: variables.$space-1 variables.$space-3;
-    font-size: 0.75rem;
-    font-family: variables.$font-family-mono;
-    color: colors.$color-text-muted;
-    background: colors.$color-bg;
-    border: 1px solid colors.$color-border;
-    border-radius: 3px;
-  }
 }

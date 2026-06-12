@@ -6,10 +6,14 @@ import { filter } from 'rxjs';
 import { ExperienceEntry } from '../../../experience/models/experience.models';
 import { AdminExperienceFacade } from './facades/admin-experience.facade';
 import { ConfirmDialogService } from '../../../../core/services/platform/confirm-dialog.service';
+import { ButtonSize, ButtonVariant } from '../../../../shared/enums/button.enums';
+import { TagVariant } from '../../../../shared/enums/tag.enum';
+import { CtaButtonComponent } from '../../../../shared/ui/cta-button/cta-button.component';
+import { TagComponent } from '../../../../shared/ui/tag/tag.component';
 
 @Component({
   selector: 'app-admin-experience',
-  imports: [FormField],
+  imports: [FormField, CtaButtonComponent, TagComponent],
   providers: [AdminExperienceFacade],
   templateUrl: './admin-experience.component.html',
   styleUrl: './admin-experience.component.scss',
@@ -20,6 +24,10 @@ export class AdminExperienceComponent {
   private readonly confirmDialogService: ConfirmDialogService = inject(ConfirmDialogService);
   private readonly translateService: TranslateService = inject(TranslateService);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
+
+  protected readonly buttonVariant: typeof ButtonVariant = ButtonVariant;
+  protected readonly buttonSize: typeof ButtonSize = ButtonSize;
+  protected readonly tagVariant: typeof TagVariant = TagVariant;
 
   protected readonly entries: Signal<ExperienceEntry[]> = this.adminExperienceFacade.items;
   protected readonly isFormOpen: Signal<boolean> = this.adminExperienceFacade.isFormOpen;

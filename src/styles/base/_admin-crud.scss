@@ -18,23 +18,6 @@
     color: colors.$color-text;
   }
 
-  &__add-btn {
-    padding: variables.$space-2 variables.$space-4;
-    font-size: variables.$font-size-sm;
-    font-family: variables.$font-family-base;
-    color: colors.$color-accent;
-    background: color-mix(in srgb, #{colors.$color-accent} 8%, transparent);
-    border: 1px solid color-mix(in srgb, #{colors.$color-accent} 30%, transparent);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background variables.$transition-fast, border-color variables.$transition-fast;
-
-    &:hover {
-      background: color-mix(in srgb, #{colors.$color-accent} 14%, transparent);
-      border-color: colors.$color-accent;
-    }
-  }
-
   &__form {
     background: colors.$color-surface;
     border: 1px solid colors.$color-border;
@@ -113,40 +96,6 @@
     margin-top: variables.$space-6;
   }
 
-  &__save-btn {
-    padding: variables.$space-2 variables.$space-6;
-    font-size: variables.$font-size-sm;
-    font-family: variables.$font-family-base;
-    color: colors.$color-bg;
-    background: colors.$color-accent;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: opacity variables.$transition-fast;
-
-    &:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-  }
-
-  &__cancel-btn {
-    padding: variables.$space-2 variables.$space-6;
-    font-size: variables.$font-size-sm;
-    font-family: variables.$font-family-base;
-    color: colors.$color-text-muted;
-    background: transparent;
-    border: 1px solid colors.$color-border;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: color variables.$transition-fast, border-color variables.$transition-fast;
-
-    &:hover {
-      color: colors.$color-text;
-      border-color: colors.$color-text-muted;
-    }
-  }
-
   &__list {
     display: flex;
     flex-direction: column;
@@ -186,38 +135,6 @@
     gap: variables.$space-2;
   }
 
-  &__edit-btn,
-  &__delete-btn {
-    padding: variables.$space-1 variables.$space-3;
-    font-size: variables.$font-size-sm;
-    font-family: variables.$font-family-base;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all variables.$transition-fast;
-  }
-
-  &__edit-btn {
-    color: colors.$color-text-muted;
-    background: transparent;
-    border: 1px solid colors.$color-border;
-
-    &:hover {
-      color: colors.$color-text;
-      border-color: colors.$color-text-muted;
-    }
-  }
-
-  &__delete-btn {
-    color: colors.$color-error;
-    background: transparent;
-    border: 1px solid color-mix(in srgb, #{colors.$color-error} 30%, transparent);
-
-    &:hover {
-      background: color-mix(in srgb, #{colors.$color-error} 8%, transparent);
-      border-color: colors.$color-error;
-    }
-  }
-
   &__item-thumb {
     width: 80px;
     height: 56px;
@@ -235,31 +152,10 @@
     margin-bottom: variables.$space-3;
   }
 
-  &__badge {
-    display: inline-block;
-    padding: variables.$space-1 variables.$space-2;
-    font-size: 0.75rem;
-    color: colors.$color-accent;
-    background: color-mix(in srgb, #{colors.$color-accent} 8%, transparent);
-    border: 1px solid color-mix(in srgb, #{colors.$color-accent} 30%, transparent);
-    border-radius: 3px;
-    font-family: variables.$font-family-mono;
-    width: fit-content;
-  }
-
   &__tags {
     display: flex;
     flex-wrap: wrap;
     gap: variables.$space-2;
   }
 
-  &__tag {
-    padding: variables.$space-1 variables.$space-2;
-    font-size: 0.75rem;
-    font-family: variables.$font-family-mono;
-    color: colors.$color-text-muted;
-    background: colors.$color-bg;
-    border: 1px solid colors.$color-border;
-    border-radius: 3px;
-  }
 }

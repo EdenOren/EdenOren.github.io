@@ -14,12 +14,12 @@
     <p class="hero__tagline">{{ t['TAGLINE'] }}</p>
 
     <div class="hero__actions">
-      <app-cta-button [variant]="ButtonVariant.Filled" (click)="scrollToSection('projects')">
+      <app-button [variant]="buttonVariant.Filled" (click)="scrollToSection('projects')">
         {{ t['CTA_WORK'] }}
-      </app-cta-button>
-      <app-cta-button [variant]="ButtonVariant.Outline" (click)="scrollToSection('contact')">
+      </app-button>
+      <app-button [variant]="buttonVariant.Outline" (click)="scrollToSection('contact')">
         {{ t['CTA_CONTACT'] }}
-      </app-cta-button>
+      </app-button>
     </div>
   </div>
 </section>

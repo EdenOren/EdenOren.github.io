@@ -7,10 +7,13 @@ import { Project } from '../../../projects/models/projects.models';
 import { AdminProjectsFacade } from './facades/admin-projects.facade';
 import { ConfirmDialogService } from '../../../../core/services/platform/confirm-dialog.service';
 import { ImageUploadComponent } from '../../../../shared/components/image-upload/image-upload.component';
+import { ButtonSize, ButtonVariant } from '../../../../shared/enums/button.enums';
+import { CtaButtonComponent } from '../../../../shared/ui/cta-button/cta-button.component';
+import { TagComponent } from '../../../../shared/ui/tag/tag.component';
 
 @Component({
   selector: 'app-admin-projects',
-  imports: [FormField, ImageUploadComponent],
+  imports: [FormField, ImageUploadComponent, CtaButtonComponent, TagComponent],
   providers: [AdminProjectsFacade],
   templateUrl: './admin-projects.component.html',
   styleUrl: './admin-projects.component.scss',
@@ -21,6 +24,9 @@ export class AdminProjectsComponent {
   private readonly confirmDialogService: ConfirmDialogService = inject(ConfirmDialogService);
   private readonly translateService: TranslateService = inject(TranslateService);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
+
+  protected readonly buttonVariant: typeof ButtonVariant = ButtonVariant;
+  protected readonly buttonSize: typeof ButtonSize = ButtonSize;
 
   protected readonly projects: Signal<Project[]> = this.adminProjectsFacade.items;
   protected readonly isFormOpen: Signal<boolean> = this.adminProjectsFacade.isFormOpen;
