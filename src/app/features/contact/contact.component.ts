@@ -24,9 +24,9 @@ export class ContactComponent {
   protected readonly isSuccess: Signal<boolean> = this.contactFacade.isSuccess;
   protected readonly isLoading: Signal<boolean> = this.contactFacade.isLoading;
   protected readonly isError: Signal<boolean> = this.contactFacade.isError;
-  protected readonly nameField: FieldTree<string> = this.contactFacade.contactForm.name;
-  protected readonly emailField: FieldTree<string> = this.contactFacade.contactForm.email;
-  protected readonly messageField: FieldTree<string> = this.contactFacade.contactForm.message;
+  protected readonly nameField: FieldTree<string> = this.contactFacade.nameField;
+  protected readonly emailField: FieldTree<string> = this.contactFacade.emailField;
+  protected readonly messageField: FieldTree<string> = this.contactFacade.messageField;
   protected readonly TEXTAREA_ROWS: number = CONTACT_TEXTAREA_ROWS;
 
   protected submit(): void {
