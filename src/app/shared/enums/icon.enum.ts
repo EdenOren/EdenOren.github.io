@@ -6,6 +6,6 @@ export enum Icon {
   Github = 'assets/icons/github.svg',
   Linkedin = 'assets/icons/linkedin.svg',
   Noise = 'assets/icons/noise.svg',
-  Sun = '/icons/sun.svg',
-  Moon = '/icons/moon.svg'
+  Sun = 'assets/icons/sun.svg',
+  Moon = 'assets/icons/moon.svg'
 }
