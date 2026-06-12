@@ -13,22 +13,22 @@
       <p class="admin-panel__brand">{{ 'ADMIN.BRAND' | translate }}</p>
       <nav class="admin-panel__nav">
         <a class="admin-panel__nav-link"
-           routerLink="/admin/about"
+           [routerLink]="['/admin', ADMIN_ROUTE.ABOUT]"
            routerLinkActive="admin-panel__nav-link--active">
-          About
+          {{ 'ADMIN.NAV_ABOUT' | translate }}
         </a>
         <a class="admin-panel__nav-link"
-           routerLink="/admin/experience"
+           [routerLink]="['/admin', ADMIN_ROUTE.EXPERIENCE]"
            routerLinkActive="admin-panel__nav-link--active">
           {{ 'ADMIN.NAV_EXPERIENCE' | translate }}
         </a>
         <a class="admin-panel__nav-link"
-           routerLink="/admin/projects"
+           [routerLink]="['/admin', ADMIN_ROUTE.PROJECTS]"
            routerLinkActive="admin-panel__nav-link--active">
           {{ 'ADMIN.NAV_PROJECTS' | translate }}
         </a>
         <a class="admin-panel__nav-link"
-           routerLink="/admin/skills"
+           [routerLink]="['/admin', ADMIN_ROUTE.SKILLS]"
            routerLinkActive="admin-panel__nav-link--active">
           {{ 'ADMIN.NAV_SKILLS' | translate }}
         </a>
