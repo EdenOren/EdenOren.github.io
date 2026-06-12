@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, Signal, WritableSignal, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
 import { FieldTree, FormField } from '@angular/forms/signals';
 import { ExperienceEntry } from '../../../experience/models/experience.models';
 import { AdminExperienceFacade } from './facades/admin-experience.facade';
+import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-admin-experience',
-  imports: [FormField],
+  imports: [FormField, ConfirmDialogComponent],
   providers: [AdminExperienceFacade],
   templateUrl: './admin-experience.component.html',
   styleUrl: './admin-experience.component.scss',
@@ -25,6 +26,15 @@ export class AdminExperienceComponent {
   protected readonly descriptionField: FieldTree<string> = this.adminExperienceFacade.descriptionField;
   protected readonly tagsField: FieldTree<string> = this.adminExperienceFacade.tagsField;
 
+  private readonly deletingId: WritableSignal<string | null> = signal(null);
+  protected readonly isDeleteDialogOpen: Signal<boolean> = computed(() => this.deletingId() !== null);
+  protected readonly deleteDialogMessage: Signal<string> = computed(() => {
+    const id = this.deletingId();
+    if (id === null) { return ''; }
+    const entry = this.entries().find(e => e.id === id);
+    return entry ? `Delete "${entry.role}"?` : 'Delete this item?';
+  });
+
   protected openAdd(): void {
     this.adminExperienceFacade.openAdd();
   }
@@ -41,7 +51,18 @@ export class AdminExperienceComponent {
     this.adminExperienceFacade.save();
   }
 
-  protected remove(id: string): void {
+  protected openDeleteFor(id: string): void {
+    this.deletingId.set(id);
+  }
+
+  protected confirmDelete(): void {
+    const id = this.deletingId();
+    if (id === null) { return; }
+    this.deletingId.set(null);
     this.adminExperienceFacade.remove(id);
+  }
+
+  protected cancelDelete(): void {
+    this.deletingId.set(null);
   }
 }

@@ -50,7 +50,7 @@
             <button class="admin-crud__edit-btn" type="button" (click)="openEdit(group)">
               Edit
             </button>
-            <button class="admin-crud__delete-btn" type="button" (click)="remove(group.id)">
+            <button class="admin-crud__delete-btn" type="button" (click)="openDeleteFor(group.id)">
               Delete
             </button>
           </div>
@@ -63,4 +63,11 @@
       </li>
     }
   </ul>
+
+  @if (isDeleteDialogOpen()) {
+    <confirm-dialog
+      [message]="deleteDialogMessage()"
+      (confirm)="confirmDelete()"
+      (cancel)="cancelDelete()" />
+  }
 </div>
