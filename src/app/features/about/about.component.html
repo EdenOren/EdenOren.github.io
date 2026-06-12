@@ -2,12 +2,16 @@
   <div class="about__inner">
 
     <div class="about__portrait-col">
-      <div class="about__frame" aria-hidden="true">
-        <div class="about__frame-inner">
-          <div class="about__initials no-select">EO</div>
+      @if (portraitUrl()) {
+        <img class="about__portrait" [src]="portraitUrl()" alt="Eden Oren" />
+      } @else {
+        <div class="about__frame" aria-hidden="true">
+          <div class="about__frame-inner">
+            <div class="about__initials no-select">EO</div>
+          </div>
+          <div class="about__frame-accent"></div>
         </div>
-        <div class="about__frame-accent"></div>
-      </div>
+      }
 
       <ul class="about__social" role="list" aria-label="Social links">
         @for (link of SOCIAL_LINKS; track link.key) {
@@ -31,9 +35,9 @@
       <h2 class="about__heading no-select">{{ t['HEADING'] }}</h2>
 
       <div class="about__bio">
-        <p class="about__bio-paragraph">{{ t['BIO_1'] }}</p>
-        <p class="about__bio-paragraph">{{ t['BIO_2'] }}</p>
-        <p class="about__bio-paragraph">{{ t['BIO_3'] }}</p>
+        @for (paragraph of bioParagraphs(); track paragraph) {
+          <p class="about__bio-paragraph">{{ paragraph }}</p>
+        }
       </div>
     </div>
 

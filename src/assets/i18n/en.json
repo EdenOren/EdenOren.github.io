@@ -22,10 +22,7 @@
     "HEADING": "About Me",
     "GITHUB_LABEL": "GitHub Profile",
     "LINKEDIN_LABEL": "LinkedIn Profile",
-    "EMAIL_LABEL": "Send an Email",
-    "BIO_1": "I'm a frontend developer who cares deeply about the craft — clean architecture, thoughtful interactions, and interfaces that feel as good as they look.",
-    "BIO_2": "I work primarily with Angular, TypeScript, and modern CSS. I enjoy the challenge of translating complex requirements into simple, elegant solutions.",
-    "BIO_3": "When I'm not building products, I'm exploring design systems, contributing to open source, and obsessing over typographic details."
+    "EMAIL_LABEL": "Send an Email"
   },
   "EXPERIENCE": {
     "HEADING": "Experience",

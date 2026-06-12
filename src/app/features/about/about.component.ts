@@ -15,4 +15,6 @@ export class AboutComponent {
 
   protected readonly translation: Signal<Record<string, string>> = this.aboutFacade.translation;
   protected readonly SOCIAL_LINKS: SocialLink[] = this.aboutFacade.SOCIAL_LINKS;
+  protected readonly portraitUrl: Signal<string | null> = this.aboutFacade.portraitUrl;
+  protected readonly bioParagraphs: Signal<string[]> = this.aboutFacade.bioParagraphs;
 }

@@ -1,0 +1,35 @@
+<div class="admin-about">
+  <div class="admin-crud__header">
+    <h2 class="admin-crud__title">About</h2>
+  </div>
+
+  <div class="admin-about__form">
+    <div class="admin-crud__field admin-crud__field--full">
+      <label class="admin-crud__label" for="about-bio">Bio</label>
+      <textarea
+        id="about-bio"
+        class="admin-crud__input admin-crud__input--textarea admin-about__bio-textarea"
+        rows="10"
+        [value]="bioText()"
+        (input)="onBioInput($event)"
+        placeholder="Write about yourself… Separate paragraphs with a blank line."></textarea>
+    </div>
+
+    <div class="admin-crud__field admin-crud__field--full">
+      <label class="admin-crud__label">Portrait image</label>
+      <image-upload
+        [currentImageUrl]="imagePreviewUrl()"
+        (fileSelected)="onFileSelected($event)" />
+    </div>
+
+    <div class="admin-crud__form-actions">
+      <app-button
+        [variant]="buttonVariant.Filled"
+        [size]="buttonSize.Compact"
+        [disabled]="isSaving()"
+        (click)="save()">
+        {{ isSaving() ? 'Saving…' : 'Save' }}
+      </app-button>
+    </div>
+  </div>
+</div>
