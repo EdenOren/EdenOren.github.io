@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -26,6 +27,9 @@ jobs:
 
       - name: Build
         run: npm run build -- --configuration=production
+
+      - name: Build Angular app
+        run: npx ng build --configuration production --base-href /
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
