@@ -62,7 +62,7 @@
       @if (isAuthenticated()) {
         <a
           class="navbar__admin-link"
-          routerLink="/admin/experience"
+          [routerLink]="['/admin', ADMIN_ROUTE.ABOUT]"
           (click)="closeMenu()"
         >
           Admin

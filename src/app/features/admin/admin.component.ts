@@ -10,6 +10,7 @@ import {
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AdminFacade } from './facades/admin.facade';
+import { AdminRoute } from './enums/admin-route.enum';
 
 @Component({
   selector: 'app-admin',
@@ -24,6 +25,7 @@ export class AdminComponent {
   private readonly googleBtnEl = viewChild<ElementRef<HTMLElement>>('googleBtn');
 
   protected readonly isAuthenticated: Signal<boolean> = this.adminFacade.isAuthenticated;
+  protected readonly ADMIN_ROUTE: typeof AdminRoute = AdminRoute;
 
   constructor() {
     effect(() => {
