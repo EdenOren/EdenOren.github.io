@@ -15,48 +15,29 @@
       </h3>
       <div class="admin-crud__form-grid">
         <div class="admin-crud__field admin-crud__field--full">
-          <label class="admin-crud__label">Title *</label>
+          <label class="admin-crud__label">Name *</label>
           <input class="admin-crud__input" type="text"
-                 [value]="titleField()"
-                 (input)="titleField.set($any($event.target).value)"
+                 [formField]="nameField"
                  placeholder="Project name" />
         </div>
         <div class="admin-crud__field admin-crud__field--full">
           <label class="admin-crud__label">Description</label>
           <textarea class="admin-crud__input admin-crud__input--textarea"
                     rows="3"
-                    [value]="descriptionField()"
-                    (input)="descriptionField.set($any($event.target).value)"
+                    [formField]="descriptionField"
                     placeholder="What this project is about…"></textarea>
         </div>
         <div class="admin-crud__field admin-crud__field--full">
           <label class="admin-crud__label">Tags (comma-separated)</label>
           <input class="admin-crud__input" type="text"
-                 [value]="tagsField()"
-                 (input)="tagsField.set($any($event.target).value)"
+                 [formField]="tagsField"
                  placeholder="Angular, TypeScript, SCSS" />
         </div>
         <div class="admin-crud__field">
           <label class="admin-crud__label">GitHub URL</label>
           <input class="admin-crud__input" type="url"
-                 [value]="githubUrlField()"
-                 (input)="githubUrlField.set($any($event.target).value)"
+                 [formField]="githubUrlField"
                  placeholder="https://github.com/…" />
-        </div>
-        <div class="admin-crud__field">
-          <label class="admin-crud__label">Live URL</label>
-          <input class="admin-crud__input" type="url"
-                 [value]="liveUrlField()"
-                 (input)="liveUrlField.set($any($event.target).value)"
-                 placeholder="https://…" />
-        </div>
-        <div class="admin-crud__field admin-crud__field--checkbox">
-          <label class="admin-crud__checkbox-label">
-            <input type="checkbox"
-                   [checked]="featuredField()"
-                   (change)="featuredField.set($any($event.target).checked)" />
-            Featured project
-          </label>
         </div>
       </div>
       <div class="admin-crud__form-actions">
@@ -77,10 +58,7 @@
       <li class="admin-crud__item">
         <div class="admin-crud__item-header">
           <div class="admin-crud__item-meta">
-            <span class="admin-crud__name">{{ project.title }}</span>
-            @if (project.featured) {
-              <span class="admin-crud__badge">Featured</span>
-            }
+            <span class="admin-crud__name">{{ project.name }}</span>
           </div>
           <div class="admin-crud__item-actions">
             <button class="admin-crud__edit-btn" type="button" (click)="openEdit(project)">
@@ -94,18 +72,13 @@
         @if (project.description) {
           <p class="admin-crud__description">{{ project.description }}</p>
         }
-        <div class="admin-crud__links">
-          @if (project.githubUrl) {
-            <a class="admin-crud__link" [href]="project.githubUrl" target="_blank" rel="noopener">
+        @if (project.github_url) {
+          <div class="admin-crud__links">
+            <a class="admin-crud__link" [href]="project.github_url" target="_blank" rel="noopener">
               GitHub
             </a>
-          }
-          @if (project.liveUrl) {
-            <a class="admin-crud__link" [href]="project.liveUrl" target="_blank" rel="noopener">
-              Live
-            </a>
-          }
-        </div>
+          </div>
+        }
         @if (project.tags.length > 0) {
           <div class="admin-crud__tags">
             @for (tag of project.tags; track tag) {

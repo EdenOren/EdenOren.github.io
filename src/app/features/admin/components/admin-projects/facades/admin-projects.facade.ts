@@ -1,75 +1,68 @@
-import { Service, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { Project } from '../../../models/admin.models';
+import {
+  DestroyRef,
+  Service,
+  Signal,
+  WritableSignal,
+  computed,
+  inject,
+  linkedSignal,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FieldTree, form, required } from '@angular/forms/signals';
+import { Project } from '../../../../../features/projects/models/projects.models';
+import { ProjectsService } from '../../../../../core/services/data/projects.service';
 import { AdminCrudFacade } from '../../../facades/admin-crud.facade';
 
-const SEED_PROJECTS: Project[] = [
-  {
-    id: 'portfolio',
-    title: 'Portfolio',
-    description: 'This portfolio — built with Angular 22, zoneless change detection, signals, and a hand-crafted design system.',
-    tags: ['Angular 22', 'Signals', 'SCSS', 'TypeScript'],
-    githubUrl: 'https://github.com/EdenOren/EdenOren.github.io2',
-    liveUrl: 'https://edenoren.github.io',
-    featured: true,
-  },
-  {
-    id: 'design-system',
-    title: 'Signal Luxe DS',
-    description: 'A dark editorial design system with Cormorant + Geist typography, emerald accent tokens, and full SCSS BEM architecture.',
-    tags: ['Design System', 'SCSS', 'Tokens'],
-    githubUrl: 'https://github.com/EdenOren',
-    featured: true,
-  },
-  {
-    id: 'open-source',
-    title: 'Open Source Contributions',
-    description: 'Various contributions to Angular ecosystem libraries — accessibility fixes, documentation, and performance improvements.',
-    tags: ['Angular', 'Open Source', 'A11y'],
-    githubUrl: 'https://github.com/EdenOren',
-    featured: false,
-  },
-  {
-    id: 'web-experiments',
-    title: 'Web Experiments',
-    description: 'A collection of CSS animations, canvas experiments, and creative coding sketches exploring the boundaries of the browser.',
-    tags: ['CSS', 'Canvas', 'Animation'],
-    githubUrl: 'https://github.com/EdenOren',
-    featured: false,
-  },
-];
+interface ProjectFormModel {
+  name: string;
+  description: string;
+  tags: string;
+  githubUrl: string;
+}
 
 @Service({ autoProvided: false })
 export class AdminProjectsFacade extends AdminCrudFacade<Project> {
-  override readonly items: WritableSignal<Project[]> = signal([...SEED_PROJECTS]);
+  private readonly projectsService: ProjectsService = inject(ProjectsService);
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
-  readonly titleField: WritableSignal<string> = signal('');
-  readonly descriptionField: WritableSignal<string> = signal('');
-  readonly tagsField: WritableSignal<string> = signal('');
-  readonly githubUrlField: WritableSignal<string> = signal('');
-  readonly liveUrlField: WritableSignal<string> = signal('');
-  readonly featuredField: WritableSignal<boolean> = signal(false);
-
-  override readonly isFormValid: Signal<boolean> = computed(
-    () => this.titleField().trim().length > 0
+  override readonly items: WritableSignal<Project[]> = linkedSignal(() =>
+    this.projectsService.items()
   );
 
+  private readonly formModel: WritableSignal<ProjectFormModel> = signal({
+    name: '',
+    description: '',
+    tags: '',
+    githubUrl: '',
+  });
+
+  private readonly formTree: FieldTree<ProjectFormModel> = form(
+    this.formModel,
+    (p) => {
+      required(p.name);
+    }
+  );
+
+  readonly nameField: FieldTree<string> = this.formTree.name;
+  readonly descriptionField: FieldTree<string> = this.formTree.description;
+  readonly tagsField: FieldTree<string> = this.formTree.tags;
+  readonly githubUrlField: FieldTree<string> = this.formTree.githubUrl;
+
+  override readonly isFormValid: Signal<boolean> = computed(() => this.formTree().valid());
+
   override openAdd(): void {
-    this.titleField.set('');
-    this.descriptionField.set('');
-    this.tagsField.set('');
-    this.githubUrlField.set('');
-    this.liveUrlField.set('');
-    this.featuredField.set(false);
+    this.formModel.set({ name: '', description: '', tags: '', githubUrl: '' });
     this.beginAdd();
   }
 
   override openEdit(project: Project): void {
-    this.titleField.set(project.title);
-    this.descriptionField.set(project.description);
-    this.tagsField.set(project.tags.join(', '));
-    this.githubUrlField.set(project.githubUrl ?? '');
-    this.liveUrlField.set(project.liveUrl ?? '');
-    this.featuredField.set(project.featured);
+    this.formModel.set({
+      name: project.name,
+      description: project.description,
+      tags: project.tags.join(', '),
+      githubUrl: project.github_url ?? '',
+    });
     this.beginEdit(project.id);
   }
 
@@ -77,18 +70,33 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
     if (!this.isFormValid()) {
       return;
     }
+    const value = this.formModel();
+    const existing = this.items().find(item => item.id === this.editingId());
     const project: Project = {
       id: this.editingId() ?? crypto.randomUUID(),
-      title: this.titleField().trim(),
-      description: this.descriptionField().trim(),
-      tags: this.tagsField()
-        .split(',')
-        .map(tag => tag.trim())
-        .filter(tag => tag.length > 0),
-      githubUrl: this.githubUrlField().trim() || undefined,
-      liveUrl: this.liveUrlField().trim() || undefined,
-      featured: this.featuredField(),
+      name: value.name.trim(),
+      description: value.description.trim(),
+      tags: value.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0),
+      github_url: value.githubUrl.trim() || null,
+      sort_order: existing?.sort_order ?? this.items().length,
     };
-    this.applyChange(project);
+
+    const call$ = this.isEditing()
+      ? this.projectsService.update(project.id, project)
+      : this.projectsService.create(project);
+
+    call$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => {
+        this.projectsService.reload();
+        this.closeForm();
+      },
+    });
+  }
+
+  override remove(id: string): void {
+    this.projectsService
+      .delete(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({ next: () => this.projectsService.reload() });
   }
 }

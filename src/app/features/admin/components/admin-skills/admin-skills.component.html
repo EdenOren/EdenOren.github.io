@@ -17,16 +17,14 @@
         <div class="admin-crud__field">
           <label class="admin-crud__label">Label *</label>
           <input class="admin-crud__input" type="text"
-                 [value]="labelField()"
-                 (input)="labelField.set($any($event.target).value)"
+                 [formField]="labelField"
                  placeholder="e.g. Frontend" />
         </div>
         <div class="admin-crud__field">
           <label class="admin-crud__label">Skills (comma-separated)</label>
           <textarea class="admin-crud__input admin-crud__input--textarea"
                     rows="3"
-                    [value]="skillsField()"
-                    (input)="skillsField.set($any($event.target).value)"
+                    [formField]="skillsField"
                     placeholder="Angular, TypeScript, SCSS"></textarea>
         </div>
       </div>
