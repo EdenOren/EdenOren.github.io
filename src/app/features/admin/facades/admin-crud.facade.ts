@@ -13,6 +13,7 @@ export abstract class AdminCrudFacade<T extends { id: string }> {
 
   closeForm(): void {
     this.isFormOpen.set(false);
+    this.editingId.set(null);
   }
 
   remove(id: string): void {

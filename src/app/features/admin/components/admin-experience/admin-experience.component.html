@@ -17,29 +17,24 @@
         <div class="admin-crud__field">
           <label class="admin-crud__label">Role *</label>
           <input class="admin-crud__input" type="text"
-                 [value]="roleField()"
-                 (input)="roleField.set($any($event.target).value)"
+                 [formField]="roleField"
                  placeholder="e.g. Frontend Developer" />
         </div>
         <div class="admin-crud__field">
           <label class="admin-crud__label">Company *</label>
           <input class="admin-crud__input" type="text"
-                 [value]="companyField()"
-                 (input)="companyField.set($any($event.target).value)"
+                 [formField]="companyField"
                  placeholder="e.g. Acme Corp" />
         </div>
         <div class="admin-crud__field">
           <label class="admin-crud__label">Period *</label>
           <input class="admin-crud__input" type="text"
-                 [value]="periodField()"
-                 (input)="periodField.set($any($event.target).value)"
+                 [formField]="periodField"
                  placeholder="e.g. 2023" />
         </div>
         <div class="admin-crud__field admin-crud__field--checkbox">
           <label class="admin-crud__checkbox-label">
-            <input type="checkbox"
-                   [checked]="currentField()"
-                   (change)="currentField.set($any($event.target).checked)" />
+            <input type="checkbox" [formField]="isCurrentField" />
             Current role
           </label>
         </div>
@@ -47,15 +42,13 @@
           <label class="admin-crud__label">Description</label>
           <textarea class="admin-crud__input admin-crud__input--textarea"
                     rows="3"
-                    [value]="descriptionField()"
-                    (input)="descriptionField.set($any($event.target).value)"
+                    [formField]="descriptionField"
                     placeholder="Role summary…"></textarea>
         </div>
         <div class="admin-crud__field admin-crud__field--full">
           <label class="admin-crud__label">Tags (comma-separated)</label>
           <input class="admin-crud__input" type="text"
-                 [value]="tagsField()"
-                 (input)="tagsField.set($any($event.target).value)"
+                 [formField]="tagsField"
                  placeholder="Angular, TypeScript, SCSS" />
         </div>
       </div>
@@ -79,7 +72,7 @@
           <div class="admin-crud__item-meta">
             <span class="admin-crud__role">{{ entry.role }}</span>
             <span class="admin-crud__company">{{ entry.company }} · {{ entry.period }}</span>
-            @if (entry.current) {
+            @if (entry.is_current) {
               <span class="admin-crud__badge">Current</span>
             }
           </div>

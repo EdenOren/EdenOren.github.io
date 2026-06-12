@@ -65,6 +65,19 @@ This document defines mandatory standards for all code generation, refactoring, 
   protected readonly isCopied     = this.socialShareFacade.isCopied;
   ```
 
+- **No signal writes or event emissions in templates** — never call `.set()`, `.update()`, or `.emit()` directly in a template expression. Move all writes into a named component method. Expose field signals as `Signal<T>` (not `WritableSignal<T>`) on the component so the template can only read them. Use a typed cast in the method body (`event.target as HTMLInputElement`) instead of `$any()`:
+  ```ts
+  // correct — component method
+  protected onRoleChange(event: Event): void {
+    this.facade.roleField.set((event.target as HTMLInputElement).value);
+  }
+  // correct — template
+  (input)="onRoleChange($event)"
+
+  // wrong — template writes directly
+  (input)="roleField.set($any($event.target).value)"
+  ```
+
 ### Naming Conventions (class properties)
 - **Static `readonly` properties** (primitives, data arrays, constants) → `CAPITAL_SNAKE_CASE`
 - **Reactive properties** (`Signal`, `WritableSignal`, `computed`) → `camelCase`
