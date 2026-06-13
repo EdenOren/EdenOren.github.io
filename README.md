@@ -14,7 +14,7 @@
 
 ## What Is This?
 
-A fully dynamic personal portfolio with a database-backed admin panel. Content (bio, work experience, projects, skills) is stored in a database and served through a REST API deployed on Vercel — no rebuilds required to update the site. The contact form is handled by Formspree. The admin panel is protected by Google OAuth.
+A fully dynamic personal portfolio with a database-backed admin panel. Content (bio, work experience, projects, skills) is stored in TiDB Cloud and served through a REST API deployed on Vercel — no rebuilds required to update the site. The contact form is handled by Formspree. The admin panel is protected by Google OAuth.
 
 ---
 
@@ -32,18 +32,18 @@ A fully dynamic personal portfolio with a database-backed admin panel. Content (
 ## System Architecture
 
 ```
-┌─────────────────────────────────────────────────────┐
+┌──────────────────────────────────────────────────────┐
 │                  Browser (Angular SPA)               │
-│  ┌───────────┐  ┌───────────┐  ┌──────────────────┐ │
-│  │  Portfolio │  │   Admin   │  │  Contact Form    │ │
-│  │   (public) │  │  (gated)  │  │  (Formspree)     │ │
-│  └─────┬─────┘  └─────┬─────┘  └────────┬─────────┘ │
+│  ┌───────────┐  ┌───────────┐  ┌──────────────────┐  │
+│  │ Portfolio │  │   Admin   │  │  Contact Form    │  │
+│  │  (public) │  │  (gated)  │  │  (Formspree)     │  │
+│  └─────┬─────┘  └─────┬─────┘  └────────┬─────────┘  │
 └────────┼──────────────┼─────────────────┼────────────┘
-         │ httpResource │ HttpClient       │ HttpClient
+         │              │                 │
          ▼              ▼                 ▼
 ┌────────────────────────────┐   ┌────────────────────┐
-│   REST API (Vercel)        │   │      Formspree      │
-│  /api/experience           │   │  (email delivery)   │
+│   REST API (Vercel)        │   │      Formspree     │
+│  /api/experience           │   │  (email delivery)  │
 │  /api/projects             │   └────────────────────┘
 │  /api/skills               │
 │  /api/about                │
@@ -52,11 +52,11 @@ A fully dynamic personal portfolio with a database-backed admin panel. Content (
 └────────────┬───────────────┘
              │
     ┌────────┴────────┐
-    │    Database     │   ← persists all portfolio content
+    │   TiDB Cloud    │   ← persists all portfolio content
     └─────────────────┘
              │
     ┌────────┴────────┐
-    │  Image Storage  │   ← hosts uploaded portrait / project images
+    │  Vercel Blob    │   ← hosts uploaded portrait / project images
     └─────────────────┘
 ```
 
@@ -131,7 +131,7 @@ The backend is a separate repository deployed to Vercel. Every content section i
 | `GET /api/projects` | Projects section |
 | `GET /api/skills` | Skills section |
 | `GET /api/about` | About section |
-| `POST/PUT/DELETE /api/*` | Admin panel CRUD (requires auth) |
+| `POST/PATCH/DELETE /api/*` | Admin panel CRUD (requires auth) |
 | `POST /api/upload` | Image uploads from admin panel |
 | `GET /api/admin/verify` | Validates Google JWT on the server side |
 
@@ -157,8 +157,8 @@ The contact form POSTs directly to Formspree (`https://formspree.io/f/xyzkybnl`)
 When an admin uploads a portrait or project image:
 1. The browser reads the file as a `FileReader` data URL
 2. The base64-encoded content + MIME type are POSTed to `/api/upload`
-3. The API stores the image in an external storage service and returns a public URL
-4. The URL is saved alongside the content record in the database
+3. The API stores the image in Vercel Blob Storage and returns a public URL
+4. The URL is saved alongside the content record in TiDB Cloud
 
 ---
 
