@@ -9,8 +9,9 @@
           }
         </div>
         <div class="about__frame-accent" aria-hidden="true"></div>
-        @if (portraitUrl()) {
-          <img class="about__portrait" [src]="portraitUrl()" alt="Eden Oren" />
+        @let aboutPortraitUrl = portraitUrl();
+        @if (aboutPortraitUrl) {
+          <img class="about__portrait" [ngSrc]="aboutPortraitUrl" fill priority alt="Eden Oren" />
         }
       </div>
 

@@ -39,6 +39,12 @@
                  [formField]="githubUrlField"
                  [placeholder]="'ADMIN.PROJECT_GITHUB_PLACEHOLDER' | translate" />
         </div>
+        <div class="admin-crud__field">
+          <label class="admin-crud__label">{{ 'ADMIN.PROJECT_LIVE_LABEL' | translate }}</label>
+          <input class="admin-crud__input" type="url"
+                 [formField]="liveUrlField"
+                 [placeholder]="'ADMIN.PROJECT_LIVE_PLACEHOLDER' | translate" />
+        </div>
         <div class="admin-crud__field admin-crud__field--full">
           <label class="admin-crud__label">{{ 'ADMIN.PROJECT_IMAGE_LABEL' | translate }}</label>
           <image-upload
@@ -79,11 +85,18 @@
         @if (project.description) {
           <p class="admin-crud__description">{{ project.description }}</p>
         }
-        @if (project.github_url) {
+        @if (project.github_url || project.live_url) {
           <div class="admin-crud__links">
-            <a class="admin-crud__link" [href]="project.github_url" target="_blank" rel="noopener">
-              {{ 'ADMIN.PROJECT_GITHUB_LINK' | translate }}
-            </a>
+            @if (project.github_url) {
+              <a class="admin-crud__link" [href]="project.github_url" target="_blank" rel="noopener">
+                {{ 'ADMIN.PROJECT_GITHUB_LINK' | translate }}
+              </a>
+            }
+            @if (project.live_url) {
+              <a class="admin-crud__link" [href]="project.live_url" target="_blank" rel="noopener">
+                {{ 'ADMIN.PROJECT_LIVE_LINK' | translate }}
+              </a>
+            }
           </div>
         }
         @if (project.tags.length > 0) {

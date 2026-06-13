@@ -26,6 +26,14 @@
     }
   }
 
+  &__card-image {
+    position: relative;
+    margin: -(variables.$space-8);
+    margin-bottom: variables.$space-6;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
   &__card {
     background-color: colors.$color-surface;
     border: 1px solid colors.$color-border;

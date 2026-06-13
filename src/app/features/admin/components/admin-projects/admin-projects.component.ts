@@ -30,6 +30,7 @@ export class AdminProjectsComponent {
   protected readonly descriptionField: FieldTree<string> = this.adminProjectsFacade.descriptionField;
   protected readonly tagsField: FieldTree<string> = this.adminProjectsFacade.tagsField;
   protected readonly githubUrlField: FieldTree<string> = this.adminProjectsFacade.githubUrlField;
+  protected readonly liveUrlField: FieldTree<string> = this.adminProjectsFacade.liveUrlField;
 
   protected readonly editingId: Signal<string | null> = this.adminProjectsFacade.editingId;
   protected readonly currentProjectImageUrl: Signal<string | null> = computed(() => {

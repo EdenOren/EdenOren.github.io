@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { SkeletonLoaderComponent } from '../../shared/components/skeleton-loader/skeleton-loader.component';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { SkeletonType } from '../../shared/enums/shared.enums';
@@ -8,7 +9,7 @@ import { ProjectViewModel, ProjectsFacade } from './facades/projects.facade';
 
 @Component({
   selector: 'app-projects',
-  imports: [SkeletonLoaderComponent, ScrollRevealDirective, SectionHeaderComponent, TagComponent],
+  imports: [NgOptimizedImage, SkeletonLoaderComponent, ScrollRevealDirective, SectionHeaderComponent, TagComponent],
   providers: [ProjectsFacade],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',

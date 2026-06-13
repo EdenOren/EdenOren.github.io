@@ -23,6 +23,7 @@ interface ProjectFormModel {
   description: string;
   tags: string;
   githubUrl: string;
+  liveUrl: string;
 }
 
 @Service({ autoProvided: false })
@@ -42,6 +43,7 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
     description: '',
     tags: '',
     githubUrl: '',
+    liveUrl: '',
   });
 
   private readonly formTree: FieldTree<ProjectFormModel> = form(
@@ -57,6 +59,7 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
   readonly descriptionField: FieldTree<string> = this.formTree.description;
   readonly tagsField: FieldTree<string> = this.formTree.tags;
   readonly githubUrlField: FieldTree<string> = this.formTree.githubUrl;
+  readonly liveUrlField: FieldTree<string> = this.formTree.liveUrl;
 
   override readonly isFormValid: Signal<boolean> = computed(() => this.formTree().valid());
 
@@ -65,7 +68,7 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
   }
 
   override openAdd(): void {
-    this.formModel.set({ name: '', description: '', tags: '', githubUrl: '' });
+    this.formModel.set({ name: '', description: '', tags: '', githubUrl: '', liveUrl: '' });
     this.selectedFile.set(null);
     this.beginAdd();
   }
@@ -76,6 +79,7 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
       description: project.description,
       tags: project.tags.join(', '),
       githubUrl: project.github_url ?? '',
+      liveUrl: project.live_url ?? '',
     });
     this.selectedFile.set(null);
     this.beginEdit(project.id);
@@ -96,6 +100,7 @@ export class AdminProjectsFacade extends AdminCrudFacade<Project> {
       description: value.description.trim(),
       tags: value.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0),
       github_url: value.githubUrl.trim() || null,
+      live_url: value.liveUrl.trim() || null,
       image_url: imageUrl,
       sort_order: existing?.sort_order ?? this.items().length,
     });
