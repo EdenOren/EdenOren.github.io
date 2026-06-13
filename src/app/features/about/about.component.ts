@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, Signal, inject } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { AboutFacade, SocialLink } from './facades/about.facade';
 
 @Component({
   selector: 'app-about',
-  imports: [ScrollRevealDirective],
+  imports: [NgOptimizedImage, ScrollRevealDirective],
   providers: [AboutFacade],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',

@@ -16,6 +16,12 @@
       <div class="projects__grid" animate.enter="content-reveal">
         @for (project of projects(); track project.id) {
           <article class="projects__card">
+            @if (project.imageUrl) {
+              @let cardImageUrl = project.imageUrl;
+              <div class="projects__card-image">
+                <img [ngSrc]="cardImageUrl" fill alt="" />
+              </div>
+            }
             <div class="projects__card-body">
               <h3 class="projects__card-title">{{ project.title }}</h3>
               <p class="projects__card-description">{{ project.description }}</p>

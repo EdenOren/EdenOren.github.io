@@ -12,6 +12,7 @@ export interface ProjectViewModel {
   tags: string[];
   githubUrl: string | undefined;
   liveUrl: string | undefined;
+  imageUrl: string | undefined;
 }
 
 @Service({ autoProvided: false })
@@ -29,7 +30,8 @@ export class ProjectsFacade {
       description: project.description,
       tags: project.tags,
       githubUrl: project.github_url ?? undefined,
-      liveUrl: undefined,
+      liveUrl: project.live_url ?? undefined,
+      imageUrl: project.image_url ?? undefined,
     }))
   );
 
