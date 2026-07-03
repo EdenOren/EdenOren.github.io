@@ -29,7 +29,6 @@ This document defines mandatory standards for all code generation, refactoring, 
 - **Prefer `enum` over union string types** — `type State = 'a' | 'b'` should be `enum State { A = 'a', B = 'b' }`.
 - Use `InputSignal<T>` as the explicit type annotation for `input()` declarations and `InputSignalWithTransform<T, U>` when a transform is applied. Use `OutputEmitterRef<T>` for `output()` declarations.
 - Signal query types: `Signal<T | undefined>` for optional queries, `Signal<T>` for required queries (`.required` variant), and `Signal<readonly T[]>` for `viewChildren()` / `contentChildren()`.
-- **All model interface properties must be `readonly`** — interfaces in `models/` files use `readonly` on every property, e.g. `readonly id: string`.
 
 ### Enums
 - **No literal strings in logic or comparisons** — always define and use an enum.

@@ -19,7 +19,7 @@ export class AboutService {
   }
 
   update(payload: Partial<Omit<AboutData, 'id'>>): Observable<ApiOkResponse> {
-    return this.httpClient.put<ApiOkResponse>(
+    return this.httpClient.patch<ApiOkResponse>(
       `${environment.apiBaseUrl}api/admin/about`,
       payload
     );

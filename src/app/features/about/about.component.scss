@@ -35,11 +35,7 @@
   }
 
   &__portrait {
-    display: block;
-    position: relative;
     z-index: 1;
-    width: min(260px, 75vw);
-    aspect-ratio: 280 / 250;
     object-fit: cover;
     object-position: top;
     border-radius: 4px;

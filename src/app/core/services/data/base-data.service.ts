@@ -28,7 +28,7 @@ export abstract class BaseDataService<T extends { id: string }> {
   }
 
   update(id: string, item: T): Observable<T> {
-    return this.httpClient.put<T>(`${this.baseUrl}/${id}`, item);
+    return this.httpClient.patch<T>(`${this.baseUrl}/${id}`, item);
   }
 
   delete(id: string): Observable<void> {
