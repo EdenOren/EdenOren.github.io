@@ -8,16 +8,27 @@
   inset-inline: 0;
   z-index: variables.$z-nav;
   border-bottom: 1px solid transparent;
-  transition:
-    background-color variables.$transition-base,
-    border-color variables.$transition-base,
-    backdrop-filter variables.$transition-base;
+  transition: border-color variables.$transition-base;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: transparent;
+    transition:
+      background-color variables.$transition-base,
+      backdrop-filter variables.$transition-base;
+  }
 
   &--scrolled {
-    background-color: colors.$color-bg-scrolled;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     border-bottom-color: colors.$color-border;
+
+    &::before {
+      background-color: colors.$color-bg-scrolled;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
   }
 
   &__inner {
