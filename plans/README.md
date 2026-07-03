@@ -6,3 +6,4 @@ One implementation plan per feature, saved before coding begins.
 
 ## Index
 <!-- Add a line here when a new plan is created -->
+- `mobile-menu-overlay-fix.md` — fix unresponsive mobile hamburger menu (overlay intercepts taps)

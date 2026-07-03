@@ -38,4 +38,21 @@
     mask-repeat: no-repeat;
     mask-position: center;
   }
+
+  &--icon-only {
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: variables.$space-2;
+    border: none;
+
+    @media (max-width: #{variables.$breakpoint-md - 1px}) {
+      width: 44px;
+      height: 44px;
+    }
+
+    .icon-button__label {
+      @include mixins.visually-hidden;
+    }
+  }
 }

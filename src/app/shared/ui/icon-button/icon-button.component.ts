@@ -7,6 +7,7 @@ import { ButtonType } from '../../enums/button.enums';
   template: `
     <button
       class="icon-button"
+      [class.icon-button--icon-only]="iconOnly()"
       [type]="buttonType()"
       [attr.aria-expanded]="ariaExpanded()"
       [attr.aria-haspopup]="ariaHasPopup() || null">
@@ -33,4 +34,5 @@ export class IconButtonComponent {
   readonly buttonType: InputSignal<ButtonType> = input<ButtonType>(ButtonType.Button);
   readonly ariaExpanded: InputSignal<boolean | null> = input<boolean | null>(null);
   readonly ariaHasPopup: InputSignal<boolean> = input<boolean>(false);
+  readonly iconOnly: InputSignal<boolean> = input<boolean>(false);
 }
