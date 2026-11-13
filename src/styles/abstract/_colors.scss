@@ -24,9 +24,31 @@
   --color-success: #1A9E65;
   --color-error: #D94F4F;
   --color-warning: #C68B2E;
+
+  // Glass board (v2) — smoked glass with light ink at night
+  --color-glass-pane: rgb(6 10 26 / 50%);
+  --color-glass-sheen: rgb(120 140 230 / 16%);
+  --color-glass-frame: #05070F;
+  --color-ink: #F6F7FB;
+  --color-ink-soft: #D3D8EA;
+  --color-ink-accent: #6EF0B4;
+  --color-sky-top: #050919;
+  --color-sky-middle: #1A2358;
+  --color-sky-bottom: #454A86;
 }
 
 [data-theme="light"] {
+  // Glass board (v2) — milky glass with dark ink by day
+  --color-glass-pane: rgb(255 255 255 / 46%);
+  --color-glass-sheen: rgb(255 255 255 / 70%);
+  --color-glass-frame: #2B3038;
+  --color-ink: #111D33;
+  --color-ink-soft: #2C3A52;
+  --color-ink-accent: #0A6B42;
+  --color-sky-top: #2F7FD8;
+  --color-sky-middle: #7DB6EC;
+  --color-sky-bottom: #D6E8F2;
+
   --color-bg: #F5F3EF;
   --color-bg-scrolled: rgb(245 243 239 / 90%);
   --color-surface: #EBEBEB;
@@ -59,3 +81,14 @@ $color-border: var(--color-border);
 $color-success: var(--color-success);
 $color-error: var(--color-error);
 $color-warning: var(--color-warning);
+
+// Glass board (v2)
+$color-glass-pane: var(--color-glass-pane);
+$color-glass-sheen: var(--color-glass-sheen);
+$color-glass-frame: var(--color-glass-frame);
+$color-ink: var(--color-ink);
+$color-ink-soft: var(--color-ink-soft);
+$color-ink-accent: var(--color-ink-accent);
+$color-sky-top: var(--color-sky-top);
+$color-sky-middle: var(--color-sky-middle);
+$color-sky-bottom: var(--color-sky-bottom);

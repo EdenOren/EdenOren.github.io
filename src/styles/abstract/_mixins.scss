@@ -140,6 +140,18 @@
   }
 }
 
+@mixin glass-pane {
+  background: linear-gradient(
+    118deg,
+    colors.$color-glass-sheen 0%,
+    colors.$color-glass-pane 26%,
+    colors.$color-glass-pane 100%
+  );
+  border: 5px solid colors.$color-glass-frame;
+  -webkit-backdrop-filter: blur(3px) saturate(1.1);
+  backdrop-filter: blur(3px) saturate(1.1);
+}
+
 @mixin heading-accent-bar {
   &::after {
     content: '';

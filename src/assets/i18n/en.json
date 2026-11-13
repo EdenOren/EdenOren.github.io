@@ -132,6 +132,18 @@
     "SUBTITLE": "The page you're looking for doesn't exist.",
     "CTA": "Back to home"
   },
+  "BOARD": {
+    "REGION_HERO": "Home",
+    "REGION_ABOUT": "About",
+    "REGION_EXPERIENCE": "Experience",
+    "REGION_SKILLS": "Skills",
+    "REGION_PROJECTS": "Projects",
+    "REGION_CONTACT": "Contact",
+    "GO_TO": "Go to",
+    "NAVIGATION_LABEL": "Board navigation",
+    "CLASSIC_LINK": "Classic version",
+    "PLACEHOLDER": "This part of the board is still being written."
+  },
   "SHARE": {
     "BUTTON_LABEL": "Share",
     "PANEL_LABEL": "Share this portfolio",
