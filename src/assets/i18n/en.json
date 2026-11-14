@@ -158,7 +158,15 @@
     "LOADING": "still writing this…",
     "LOAD_ERROR": "This part didn't load. Try again later.",
     "SEND": "send",
-    "SENDING": "sending…"
+    "SENDING": "sending…",
+    "MENU_OPEN": "menu",
+    "MENU_CLOSE": "close",
+    "MENU_HEADING": "the board",
+    "MENU_HERE": "you are here",
+    "THEME_DAY": "day",
+    "THEME_NIGHT": "night",
+    "THEME_TO_DAY": "Switch to day",
+    "THEME_TO_NIGHT": "Switch to night"
   },
   "SHARE": {
     "BUTTON_LABEL": "Share",

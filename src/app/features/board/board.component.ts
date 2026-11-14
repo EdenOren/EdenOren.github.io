@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BoardArrowsComponent } from './components/board-arrows/board-arrows.component';
+import { BoardMenuComponent } from './components/board-menu/board-menu.component';
 import { BoardPanelComponent } from './components/board-panel/board-panel.component';
 import { CityBackdropComponent } from './components/city-backdrop/city-backdrop.component';
 import { AboutPanelComponent } from './components/panels/about-panel/about-panel.component';
@@ -19,15 +20,35 @@ import { ProjectsPanelComponent } from './components/panels/projects-panel/proje
 import { SkillsPanelComponent } from './components/panels/skills-panel/skills-panel.component';
 import { BoardDirection, BoardRegion } from './enums/board.enums';
 import { BoardFacade } from './facades/board.facade';
-import { BoardArrowView, BoardCityPan, BoardPanelView } from './models/board.models';
-import { BOARD_CLASSIC_PATH } from './utils/board.const';
-import { directionForKey, isTypingTarget } from './utils/board.utils';
+import {
+  BoardArrowView,
+  BoardCityPan,
+  BoardMenuCell,
+  BoardMenuLabels,
+  BoardPanelView,
+  BoardTouchPoint,
+} from './models/board.models';
+import {
+  BOARD_CLASSIC_PATH,
+  BOARD_WHEEL_GESTURE_GAP_MS,
+  BOARD_WHEEL_LOCK_MS,
+  BOARD_WHEEL_QUIET_MS,
+  WHEEL_LINE_HEIGHT,
+} from './utils/board.const';
+import {
+  directionForKey,
+  isTypingTarget,
+  isVerticalDirection,
+  swipeDirection,
+  wheelDirection,
+} from './utils/board.utils';
 
 @Component({
   selector: 'app-board',
   imports: [
     RouterLink,
     BoardArrowsComponent,
+    BoardMenuComponent,
     BoardPanelComponent,
     CityBackdropComponent,
     HeroPanelComponent,
@@ -62,8 +83,18 @@ export class BoardComponent {
   protected readonly cityPan: Signal<BoardCityPan> = this.boardFacade.cityPan;
   protected readonly isNight: Signal<boolean> = this.boardFacade.isNight;
 
+  protected readonly menuCells: Signal<BoardMenuCell[]> = this.boardFacade.menuCells;
+  protected readonly menuLabels: Signal<BoardMenuLabels> = this.boardFacade.menuLabels;
+
   private readonly panelComponents: Signal<readonly BoardPanelComponent[]> =
     viewChildren(BoardPanelComponent);
+
+  private touchStart: BoardTouchPoint | undefined;
+  private touchStartScroll: number = 0;
+  private wheelDeltaX: number = 0;
+  private wheelDeltaY: number = 0;
+  private lastWheelTime: number = 0;
+  private wheelLockedUntil: number = 0;
 
   protected onMove(direction: BoardDirection): void {
     this.focusAfter(this.boardFacade.move(direction));
@@ -71,6 +102,76 @@ export class BoardComponent {
 
   protected onRegionRequested(region: BoardRegion): void {
     this.focusAfter(this.boardFacade.goTo(region));
+  }
+
+  protected onThemeToggled(): void {
+    this.boardFacade.toggleTheme();
+  }
+
+  protected onTouchStart(event: TouchEvent): void {
+    const touch = event.touches[0];
+    if (event.touches.length !== 1 || !touch || isTypingTarget(event.target)) {
+      this.touchStart = undefined;
+      return;
+    }
+    this.touchStart = { x: touch.clientX, y: touch.clientY, time: event.timeStamp };
+    this.touchStartScroll = this.activePanel()?.scrollOffset() ?? 0;
+  }
+
+  // A vertical swipe that scrolled a tall pane was reading, not navigating.
+  protected onTouchEnd(event: TouchEvent): void {
+    const start = this.touchStart;
+    const touch = event.changedTouches[0];
+    this.touchStart = undefined;
+    if (!start || !touch) {
+      return;
+    }
+    const direction = swipeDirection(start, { x: touch.clientX, y: touch.clientY, time: event.timeStamp });
+    if (!direction) {
+      return;
+    }
+    const hasScrolled = (this.activePanel()?.scrollOffset() ?? 0) !== this.touchStartScroll;
+    if (isVerticalDirection(direction) && hasScrolled) {
+      return;
+    }
+    this.onMove(direction);
+  }
+
+  // The wheel scrolls a tall pane first; only once the pane has no room left does it move the board,
+  // and a pane that just finished scrolling must go quiet before the same flick can move on.
+  protected onWheel(event: WheelEvent): void {
+    if (event.ctrlKey) {
+      return;
+    }
+    const now = event.timeStamp;
+    if (now < this.wheelLockedUntil) {
+      this.wheelLockedUntil = Math.max(this.wheelLockedUntil, now + BOARD_WHEEL_QUIET_MS);
+      return;
+    }
+    if (now - this.lastWheelTime > BOARD_WHEEL_GESTURE_GAP_MS) {
+      this.wheelDeltaX = 0;
+      this.wheelDeltaY = 0;
+    }
+    this.lastWheelTime = now;
+    const scale = event.deltaMode === WheelEvent.DOM_DELTA_LINE ? WHEEL_LINE_HEIGHT : 1;
+    this.wheelDeltaX += event.deltaX * scale;
+    this.wheelDeltaY += event.deltaY * scale;
+    const direction = wheelDirection(this.wheelDeltaX, this.wheelDeltaY);
+    if (!direction) {
+      return;
+    }
+    this.wheelDeltaX = 0;
+    this.wheelDeltaY = 0;
+    if (this.activePanel()?.canScroll(direction)) {
+      this.wheelLockedUntil = now + BOARD_WHEEL_QUIET_MS;
+      return;
+    }
+    this.wheelLockedUntil = now + BOARD_WHEEL_LOCK_MS;
+    this.onMove(direction);
+  }
+
+  private activePanel(): BoardPanelComponent | undefined {
+    return this.panelComponents().find(panel => panel.isActive());
   }
 
   private focusAfter(navigation: Promise<boolean>): void {
@@ -97,9 +198,7 @@ export class BoardComponent {
   private focusActivePanel(): void {
     afterNextRender(
       () => {
-        this.panelComponents()
-          .find(panel => panel.isActive())
-          ?.focusHeading();
+        this.activePanel()?.focusHeading();
       },
       { injector: this.injector }
     );
