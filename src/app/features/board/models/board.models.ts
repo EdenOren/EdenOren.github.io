@@ -1,10 +1,13 @@
-import { BoardDirection, BoardRegion } from '../enums/board.enums';
+import { BoardDirection, BoardPanelWidth, BoardRegion } from '../enums/board.enums';
 
 export interface BoardRegionConfig {
   region: BoardRegion;
   column: number;
   row: number;
   labelKey: string;
+  headingKey: string;
+  noteKey: string;
+  width: BoardPanelWidth;
 }
 
 export interface BoardOffset {
@@ -56,6 +59,8 @@ export interface BoardPanelView {
   gridColumn: number;
   gridRow: number;
   heading: string;
+  note: string;
+  isWide: boolean;
   isActive: boolean;
 }
 

@@ -76,6 +76,10 @@
   }
 }
 
+.board__panel-placeholder {
+  @include mixins.hand-note;
+}
+
 .board__announcer {
   @include mixins.visually-hidden;
 }

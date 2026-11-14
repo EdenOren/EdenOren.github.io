@@ -17,11 +17,52 @@
     @for (panel of panels(); track panel.region) {
       <app-board-panel
         [heading]="panel.heading"
+        [note]="panel.note"
+        [isWide]="panel.isWide"
         [gridColumn]="panel.gridColumn"
         [gridRow]="panel.gridRow"
         [isActive]="panel.isActive"
       >
-        <p>{{ t['PLACEHOLDER'] }}</p>
+        @switch (panel.region) {
+          @case (REGION.Hero) {
+            <app-hero-panel [aside]="t['HERO_ASIDE']" (regionRequested)="onRegionRequested($event)" />
+          }
+          @case (REGION.About) {
+            @defer (on idle) {
+              <app-about-panel />
+            } @placeholder {
+              <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
+            }
+          }
+          @case (REGION.Experience) {
+            @defer (on idle) {
+              <app-experience-panel [loadingLabel]="t['LOADING']" [errorLabel]="t['LOAD_ERROR']" />
+            } @placeholder {
+              <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
+            }
+          }
+          @case (REGION.Skills) {
+            @defer (on idle) {
+              <app-skills-panel [loadingLabel]="t['LOADING']" [errorLabel]="t['LOAD_ERROR']" />
+            } @placeholder {
+              <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
+            }
+          }
+          @case (REGION.Projects) {
+            @defer (on idle) {
+              <app-projects-panel [loadingLabel]="t['LOADING']" [errorLabel]="t['LOAD_ERROR']" />
+            } @placeholder {
+              <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
+            }
+          }
+          @case (REGION.Contact) {
+            @defer (on idle) {
+              <app-contact-panel [sendLabel]="t['SEND']" [sendingLabel]="t['SENDING']" />
+            } @placeholder {
+              <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
+            }
+          }
+        }
       </app-board-panel>
     }
   </div>

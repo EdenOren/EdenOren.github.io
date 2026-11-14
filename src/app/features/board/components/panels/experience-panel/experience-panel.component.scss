@@ -1,0 +1,85 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+$dot-size: 0.875rem;
+
+:host {
+  display: block;
+  max-width: 48ch;
+}
+
+.experience-panel__status {
+  @include mixins.hand-note;
+}
+
+.experience-panel__status--error {
+  color: colors.$color-ink-aside;
+}
+
+.experience-panel__timeline {
+  display: grid;
+  gap: variables.$space-6;
+  padding-left: variables.$space-6;
+  border-left: 3px solid colors.$color-ink;
+  border-radius: 2px;
+}
+
+.experience-panel__entry {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0.45em;
+    left: calc(-1 * #{variables.$space-6} - #{$dot-size} / 2 - 1.5px);
+    width: $dot-size;
+    height: $dot-size;
+    border: 3px solid colors.$color-ink;
+    border-radius: 50%;
+    background: colors.$color-ink-accent;
+  }
+}
+
+.experience-panel__period {
+  @include mixins.hand-note;
+  color: colors.$color-ink-accent;
+}
+
+.experience-panel__present {
+  color: colors.$color-ink-aside;
+}
+
+.experience-panel__role {
+  font-size: 1.15em;
+  font-weight: 600;
+  color: colors.$color-ink;
+}
+
+.experience-panel__company {
+  font-weight: 500;
+  color: colors.$color-ink-soft;
+}
+
+.experience-panel__description {
+  margin-top: variables.$space-2;
+}
+
+.experience-panel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: variables.$space-1 variables.$space-3;
+  margin-top: variables.$space-3;
+}
+
+.experience-panel__tag {
+  font-family: variables.$font-family-hand;
+  font-size: 1.25em;
+  font-weight: 700;
+  color: colors.$color-ink;
+
+  &:not(:last-child)::after {
+    content: ' ·';
+    color: colors.$color-ink-accent;
+  }
+}

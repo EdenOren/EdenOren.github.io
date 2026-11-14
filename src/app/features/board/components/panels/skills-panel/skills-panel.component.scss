@@ -1,0 +1,48 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+:host {
+  display: block;
+}
+
+.skills-panel__status {
+  @include mixins.hand-note;
+}
+
+.skills-panel__status--error {
+  color: colors.$color-ink-aside;
+}
+
+.skills-panel__groups {
+  display: grid;
+  gap: variables.$space-6;
+}
+
+.skills-panel__label {
+  @include mixins.hand-note;
+  margin-bottom: variables.$space-2;
+  color: colors.$color-ink-accent;
+}
+
+.skills-panel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: variables.$space-3 variables.$space-4;
+}
+
+.skills-panel__tag {
+  @include mixins.hand-circle;
+  padding: variables.$space-1 variables.$space-4;
+  font-weight: 600;
+  color: colors.$color-ink;
+
+  &:nth-child(3n + 1) {
+    border-color: colors.$color-ink-accent;
+    transform: rotate(-2deg);
+  }
+
+  &:nth-child(3n) {
+    transform: rotate(1.5deg);
+  }
+}

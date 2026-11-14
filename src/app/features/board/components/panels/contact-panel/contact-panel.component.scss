@@ -1,0 +1,105 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+:host {
+  display: block;
+  max-width: 28rem;
+}
+
+.contact-panel__form {
+  display: grid;
+  gap: variables.$space-3;
+}
+
+.contact-panel__row {
+  display: flex;
+  align-items: flex-end;
+  gap: variables.$space-3;
+}
+
+.contact-panel__row--message {
+  align-items: flex-start;
+}
+
+.contact-panel__label {
+  flex: 0 0 4.5rem;
+  color: colors.$color-ink-soft;
+}
+
+// A blank on the board: no box, only a drawn line that thickens and turns green while you write on it.
+.contact-panel__blank {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: variables.$space-1 0;
+  font: inherit;
+  color: colors.$color-ink;
+  background: transparent;
+  border: 0;
+  border-bottom: 2.5px solid colors.$color-ink;
+  border-radius: 2px;
+  transform: rotate(-0.4deg);
+
+  &:focus-visible {
+    outline: none;
+    border-bottom-width: 4px;
+    border-bottom-color: colors.$color-ink-accent;
+  }
+}
+
+.contact-panel__blank--message {
+  resize: none;
+  line-height: 1.6;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(1.6em - 2px),
+    colors.$color-ink-soft calc(1.6em - 2px),
+    colors.$color-ink-soft 1.6em
+  );
+  background-attachment: local;
+  border-bottom: 0;
+
+  &:focus-visible {
+    border-bottom: 0;
+    box-shadow: inset 4px 0 0 colors.$color-ink-accent;
+  }
+}
+
+.contact-panel__error {
+  @include mixins.hand-note;
+  font-size: 1.2em;
+  color: colors.$color-ink-aside;
+}
+
+.contact-panel__success {
+  @include mixins.hand-note;
+  color: colors.$color-ink-accent;
+}
+
+.contact-panel__send {
+  @include mixins.hand-circle(3px);
+  @include mixins.hand-note;
+  justify-self: start;
+  min-height: 2.75rem;
+  margin-top: variables.$space-2;
+  padding: 0 variables.$space-6 variables.$space-1;
+  color: colors.$color-ink-accent;
+  background: transparent;
+  cursor: pointer;
+  transform: rotate(-2deg);
+
+  &:hover {
+    color: colors.$color-ink;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+
+  &:disabled {
+    cursor: progress;
+    opacity: 0.6;
+  }
+}

@@ -1,0 +1,19 @@
+@let t = translation();
+@if (isLoading()) {
+  <p class="skills-panel__status" role="status">{{ loadingLabel() }}</p>
+} @else if (isError()) {
+  <p class="skills-panel__status skills-panel__status--error" role="alert">{{ errorLabel() }}</p>
+} @else {
+  <div class="skills-panel__groups">
+    @for (group of groups(); track group.id) {
+      <section class="skills-panel__group">
+        <h3 class="skills-panel__label">{{ t[group.labelKey] }}</h3>
+        <ul class="skills-panel__tags" role="list">
+          @for (skill of group.skills; track skill) {
+            <li class="skills-panel__tag">{{ skill }}</li>
+          }
+        </ul>
+      </section>
+    }
+  </div>
+}

@@ -1,14 +1,62 @@
 import { AppRoute } from '../../../core/enums/core.enums';
-import { BoardDirection, BoardNavigationKey, BoardRegion } from '../enums/board.enums';
+import { BoardDirection, BoardNavigationKey, BoardPanelWidth, BoardRegion } from '../enums/board.enums';
 import { BoardOffset, BoardRegionConfig } from '../models/board.models';
 
 export const BOARD_REGIONS: BoardRegionConfig[] = [
-  { region: BoardRegion.About, column: 0, row: 0, labelKey: 'REGION_ABOUT' },
-  { region: BoardRegion.Hero, column: 1, row: 0, labelKey: 'REGION_HERO' },
-  { region: BoardRegion.Experience, column: 2, row: 0, labelKey: 'REGION_EXPERIENCE' },
-  { region: BoardRegion.Skills, column: 0, row: 1, labelKey: 'REGION_SKILLS' },
-  { region: BoardRegion.Projects, column: 1, row: 1, labelKey: 'REGION_PROJECTS' },
-  { region: BoardRegion.Contact, column: 2, row: 1, labelKey: 'REGION_CONTACT' },
+  {
+    region: BoardRegion.About,
+    column: 0,
+    row: 0,
+    labelKey: 'REGION_ABOUT',
+    headingKey: 'HEADING_ABOUT',
+    noteKey: 'NOTE_ABOUT',
+    width: BoardPanelWidth.Standard,
+  },
+  {
+    region: BoardRegion.Hero,
+    column: 1,
+    row: 0,
+    labelKey: 'REGION_HERO',
+    headingKey: 'HEADING_HERO',
+    noteKey: 'NOTE_HERO',
+    width: BoardPanelWidth.Standard,
+  },
+  {
+    region: BoardRegion.Experience,
+    column: 2,
+    row: 0,
+    labelKey: 'REGION_EXPERIENCE',
+    headingKey: 'HEADING_EXPERIENCE',
+    noteKey: 'NOTE_EXPERIENCE',
+    width: BoardPanelWidth.Standard,
+  },
+  {
+    region: BoardRegion.Skills,
+    column: 0,
+    row: 1,
+    labelKey: 'REGION_SKILLS',
+    headingKey: 'HEADING_SKILLS',
+    noteKey: 'NOTE_SKILLS',
+    width: BoardPanelWidth.Standard,
+  },
+  {
+    region: BoardRegion.Projects,
+    column: 1,
+    row: 1,
+    labelKey: 'REGION_PROJECTS',
+    headingKey: 'HEADING_PROJECTS',
+    noteKey: 'NOTE_PROJECTS',
+    width: BoardPanelWidth.Wide,
+  },
+  {
+    region: BoardRegion.Contact,
+    column: 2,
+    row: 1,
+    labelKey: 'REGION_CONTACT',
+    headingKey: 'HEADING_CONTACT',
+    noteKey: 'NOTE_CONTACT',
+    width: BoardPanelWidth.Standard,
+  },
 ];
 
 export const BOARD_DEFAULT_REGION: BoardRegion = BoardRegion.Hero;

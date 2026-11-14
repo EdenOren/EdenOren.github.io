@@ -1,0 +1,28 @@
+@let t = translation();
+@if (isLoading()) {
+  <p class="experience-panel__status" role="status">{{ loadingLabel() }}</p>
+} @else if (isError()) {
+  <p class="experience-panel__status experience-panel__status--error" role="alert">{{ errorLabel() }}</p>
+} @else {
+  <ol class="experience-panel__timeline" role="list">
+    @for (entry of entries(); track entry.id) {
+      <li class="experience-panel__entry">
+        <p class="experience-panel__period">
+          {{ entry.period }}
+          @if (entry.current) {
+            <span class="experience-panel__present">— {{ t['PRESENT'] }}</span>
+          }
+        </p>
+        <h3 class="experience-panel__role">
+          {{ entry.role }}<span class="experience-panel__company">, {{ entry.company }}</span>
+        </h3>
+        <p class="experience-panel__description">{{ entry.description }}</p>
+        <ul class="experience-panel__tags" role="list">
+          @for (tag of entry.tags; track tag) {
+            <li class="experience-panel__tag">{{ tag }}</li>
+          }
+        </ul>
+      </li>
+    }
+  </ol>
+}
