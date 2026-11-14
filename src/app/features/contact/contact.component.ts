@@ -6,7 +6,7 @@ import { ButtonType, ButtonVariant } from '../../shared/enums/button.enums';
 import { CtaButtonComponent } from '../../shared/ui/cta-button/cta-button.component';
 import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header.component';
 import { ContactFacade } from './facades/contact.facade';
-import { CONTACT_TEXTAREA_ROWS } from './utils/contact.constants';
+import { CONTACT_TEXTAREA_ROWS } from './utils/contact.const';
 
 @Component({
   selector: 'app-contact',

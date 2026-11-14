@@ -1,11 +1,11 @@
 import { DestroyRef, Service, Signal, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { GOOGLE_CLIENT_ID } from '../../../core/constants/core.constants';
+import { GOOGLE_CLIENT_ID } from '../../../core/constants/core.const';
 import { AuthService } from '../../../core/services/platform/auth.service';
 import { AdminService } from '../../../core/services/data/admin.service';
 import { GoogleIdentityResponse } from '../../../core/models/core.models';
-import { AdminRoute } from '../enums/admin-route.enum';
+import { AdminRoute } from '../enums/admin.enums';
 
 declare const google: {
   accounts: {

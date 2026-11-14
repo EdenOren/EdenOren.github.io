@@ -2,7 +2,7 @@ import { Service, Signal, WritableSignal, computed, inject, signal } from '@angu
 import { FieldTree, email, form, minLength, required, submit } from '@angular/forms/signals';
 import { ContactService } from '../../../core/services/data/contact.service';
 import { SubmitState } from '../enums/contact.enums';
-import { CONTACT_MIN_MESSAGE_LENGTH } from '../utils/contact.constants';
+import { CONTACT_MIN_MESSAGE_LENGTH } from '../utils/contact.const';
 
 interface ContactData {
   name: string;

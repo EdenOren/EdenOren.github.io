@@ -2,7 +2,7 @@ import { Service, Signal, WritableSignal, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { SHARE_EMAIL_URL, SHARE_TEXT, SHARE_TITLE, SHARE_URL, SHARE_WHATSAPP_URL } from '../utils/share.constants';
+import { SHARE_EMAIL_URL, SHARE_TEXT, SHARE_TITLE, SHARE_URL, SHARE_WHATSAPP_URL } from '../utils/share.const';
 
 @Service({ autoProvided: false })
 export class SocialShareFacade {
