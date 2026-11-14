@@ -1,0 +1,13 @@
+<nav class="board-arrows" [attr.aria-label]="navigationLabel()">
+  @for (arrow of arrows(); track arrow.direction) {
+    <button
+      class="board-arrows__button no-select"
+      type="button"
+      [attr.data-direction]="arrow.direction"
+      [attr.aria-label]="arrow.ariaLabel"
+      (click)="onArrowClick(arrow.direction)"
+    >
+      {{ arrow.label }}
+    </button>
+  }
+</nav>

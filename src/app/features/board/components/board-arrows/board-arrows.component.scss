@@ -1,0 +1,83 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+.board-arrows__button {
+  position: absolute;
+  z-index: variables.$z-above;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: variables.$space-1 variables.$space-3;
+  font-family: variables.$font-family-hand;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  color: colors.$color-ink;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color variables.$transition-fast;
+
+  &:hover {
+    color: colors.$color-ink-accent;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+
+  &[data-direction='left'] {
+    left: variables.$space-3;
+    bottom: variables.$space-16;
+    transform: rotate(-3deg);
+
+    &::before {
+      content: '\2190\00a0';
+    }
+  }
+
+  &[data-direction='right'] {
+    right: variables.$space-3;
+    bottom: variables.$space-16;
+    transform: rotate(2deg);
+
+    &::after {
+      content: '\00a0\2192';
+    }
+  }
+
+  &[data-direction='up'] {
+    top: variables.$space-3;
+    left: 50%;
+    transform: translateX(-50%);
+
+    &::before {
+      content: '\2191\00a0';
+    }
+  }
+
+  &[data-direction='down'] {
+    bottom: variables.$space-3;
+    left: 50%;
+    transform: translateX(-50%);
+
+    &::before {
+      content: '\2193\00a0';
+    }
+  }
+
+  @include mixins.respond-to(md) {
+    &[data-direction='left'] {
+      top: 50%;
+      bottom: auto;
+      transform: translateY(-50%) rotate(-3deg);
+    }
+
+    &[data-direction='right'] {
+      top: 50%;
+      bottom: auto;
+      transform: translateY(-50%) rotate(2deg);
+    }
+  }
+}

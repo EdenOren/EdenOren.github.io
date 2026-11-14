@@ -140,6 +140,12 @@
   }
 }
 
+@mixin glass-pane {
+  background: colors.$color-glass-pane;
+  -webkit-backdrop-filter: blur(3px) saturate(1.1);
+  backdrop-filter: blur(3px) saturate(1.1);
+}
+
 @mixin heading-accent-bar {
   &::after {
     content: '';

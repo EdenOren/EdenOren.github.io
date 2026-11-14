@@ -18,3 +18,9 @@ export enum Theme {
   Light = 'light',
   Dark = 'dark',
 }
+
+export enum AppRoute {
+  Home = '',
+  Admin = 'admin',
+  Board = 'v2',
+}

@@ -1,0 +1,60 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  padding: variables.$space-16 variables.$space-6 variables.$space-24;
+  color: colors.$color-ink;
+
+  @include mixins.respond-to(md) {
+    padding: variables.$space-16 variables.$space-24;
+  }
+}
+
+.board-panel__writing {
+  width: min(42rem, 100%);
+  transform: rotate(-1.2deg);
+}
+
+.board-panel__heading {
+  font-family: variables.$font-family-marker;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 400;
+  line-height: 0.95;
+  text-wrap: balance;
+
+  // Focus lands here after every board move, so the indicator is the underline changing ink rather than a box.
+  &:focus-visible {
+    outline: none;
+
+    + .board-panel__underline {
+      color: colors.$color-ink;
+    }
+  }
+}
+
+.board-panel__underline {
+  display: block;
+  width: min(20rem, 70%);
+  height: 0.875rem;
+  margin-block: variables.$space-1 variables.$space-4;
+  color: colors.$color-ink-accent;
+}
+
+.board-panel__underline-stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.board-panel__body {
+  max-width: 44ch;
+  color: colors.$color-ink-soft;
+  font-weight: 500;
+}

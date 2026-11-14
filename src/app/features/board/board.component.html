@@ -1,0 +1,30 @@
+@let t = translation();
+<a class="board__classic-link" [routerLink]="CLASSIC_PATH">{{ t['CLASSIC_LINK'] }}</a>
+
+<main class="board__viewport">
+  <div
+    class="board__surface"
+    [style.--board-columns]="COLUMN_COUNT"
+    [style.--board-rows]="ROW_COUNT"
+    [style.transform]="surfaceTransform()"
+  >
+    @for (panel of panels(); track panel.region) {
+      <app-board-panel
+        [heading]="panel.heading"
+        [gridColumn]="panel.gridColumn"
+        [gridRow]="panel.gridRow"
+        [isActive]="panel.isActive"
+      >
+        <p>{{ t['PLACEHOLDER'] }}</p>
+      </app-board-panel>
+    }
+  </div>
+</main>
+
+<app-board-arrows
+  [arrows]="arrows()"
+  [navigationLabel]="t['NAVIGATION_LABEL']"
+  (moved)="onMove($event)"
+/>
+
+<p class="board__announcer" aria-live="polite">{{ activeHeading() }}</p>

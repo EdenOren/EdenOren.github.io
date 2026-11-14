@@ -1,0 +1,76 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+:host {
+  position: fixed;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    colors.$color-sky-top 0%,
+    colors.$color-sky-middle 55%,
+    colors.$color-sky-bottom 100%
+  );
+}
+
+.board__viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+
+  // The glass and its reflection stay fixed to the screen; only the writing slides, so no seam
+  // or pane edge ever travels across the view.
+  @include mixins.glass-pane;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(118deg, colors.$color-glass-sheen 0%, transparent 26%);
+  }
+}
+
+.board__surface {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns), 1fr);
+  grid-template-rows: repeat(var(--board-rows), 1fr);
+  width: calc(var(--board-columns) * 100%);
+  height: calc(var(--board-rows) * 100%);
+  transition: transform 950ms cubic-bezier(0.45, 0, 0.15, 1);
+  will-change: transform;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.board__classic-link {
+  position: absolute;
+  top: variables.$space-3;
+  left: variables.$space-4;
+  z-index: variables.$z-above;
+  padding: variables.$space-2 variables.$space-3;
+  font-size: variables.$font-size-sm;
+  font-weight: 500;
+  color: colors.$color-ink;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    color: colors.$color-ink-accent;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.board__announcer {
+  @include mixins.visually-hidden;
+}
