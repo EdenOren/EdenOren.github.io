@@ -10,6 +10,8 @@ import {
   isBoardRegion,
   isTypingTarget,
   resolveBoardRegion,
+  swipeDirection,
+  wheelDirection,
 } from './board.utils';
 
 describe('board utils', () => {
@@ -53,6 +55,28 @@ describe('board utils', () => {
   it('maps arrow keys to directions', () => {
     expect(directionForKey(BoardNavigationKey.ArrowLeft)).toBe(BoardDirection.Left);
     expect(directionForKey('Enter')).toBeUndefined();
+  });
+
+  it('turns a clear swipe into the opposite board move', () => {
+    const start = { x: 200, y: 400, time: 0 };
+    expect(swipeDirection(start, { x: 100, y: 410, time: 200 })).toBe(BoardDirection.Right);
+    expect(swipeDirection(start, { x: 300, y: 390, time: 200 })).toBe(BoardDirection.Left);
+    expect(swipeDirection(start, { x: 205, y: 300, time: 200 })).toBe(BoardDirection.Down);
+    expect(swipeDirection(start, { x: 195, y: 500, time: 200 })).toBe(BoardDirection.Up);
+  });
+
+  it('ignores short, diagonal and slow swipes', () => {
+    const start = { x: 200, y: 400, time: 0 };
+    expect(swipeDirection(start, { x: 170, y: 400, time: 200 })).toBeUndefined();
+    expect(swipeDirection(start, { x: 120, y: 320, time: 200 })).toBeUndefined();
+    expect(swipeDirection(start, { x: 100, y: 400, time: 1500 })).toBeUndefined();
+  });
+
+  it('reads the dominant wheel axis once it passes the threshold', () => {
+    expect(wheelDirection(0, 120)).toBe(BoardDirection.Down);
+    expect(wheelDirection(10, -60)).toBe(BoardDirection.Up);
+    expect(wheelDirection(-80, 20)).toBe(BoardDirection.Left);
+    expect(wheelDirection(5, 12)).toBeUndefined();
   });
 
   it('treats form fields as typing targets', () => {

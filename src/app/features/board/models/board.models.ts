@@ -64,6 +64,30 @@ export interface BoardPanelView {
   isActive: boolean;
 }
 
+export interface BoardMenuCell {
+  region: BoardRegion;
+  label: string;
+  gridColumn: number;
+  gridRow: number;
+  isActive: boolean;
+}
+
+export interface BoardMenuLabels {
+  open: string;
+  close: string;
+  heading: string;
+  here: string;
+  day: string;
+  night: string;
+  themeAction: string;
+}
+
+export interface BoardTouchPoint {
+  x: number;
+  y: number;
+  time: number;
+}
+
 export interface BoardArrowView {
   direction: BoardDirection;
   label: string;

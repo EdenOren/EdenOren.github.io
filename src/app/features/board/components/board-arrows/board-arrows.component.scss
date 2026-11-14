@@ -67,6 +67,14 @@
     }
   }
 
+  // On a phone a tall pane scrolls underneath the arrows, so each one gets its own frosted patch to stay legible.
+  @media (width < variables.$breakpoint-md) {
+    @include mixins.glass-pane;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+  }
+
   @include mixins.respond-to(md) {
     &[data-direction='left'] {
       top: 50%;

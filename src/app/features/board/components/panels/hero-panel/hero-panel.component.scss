@@ -20,17 +20,23 @@
 }
 
 .hero-panel__action {
-  @include mixins.hand-circle;
   @include mixins.hand-note;
   min-height: 2.75rem;
-  padding: 0 variables.$space-4 variables.$space-1;
+  padding: 0 variables.$space-1;
   color: colors.$color-ink;
   background: transparent;
+  border: 0;
   cursor: pointer;
   transform: rotate(1.5deg);
 
+  &::after {
+    content: '\00a0\2192';
+  }
+
   &:hover {
     color: colors.$color-ink-accent;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   &:focus-visible {

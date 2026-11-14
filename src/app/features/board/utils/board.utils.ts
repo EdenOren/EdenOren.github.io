@@ -1,10 +1,14 @@
 import { BoardDirection, BoardNavigationKey, BoardRegion } from '../enums/board.enums';
-import { BoardCityPan, BoardRegionConfig } from '../models/board.models';
+import { BoardCityPan, BoardRegionConfig, BoardTouchPoint } from '../models/board.models';
 import {
   BOARD_DEFAULT_REGION,
   BOARD_DIRECTION_OFFSETS,
   BOARD_KEY_DIRECTIONS,
   BOARD_REGIONS,
+  BOARD_SWIPE_AXIS_RATIO,
+  BOARD_SWIPE_MAX_DURATION_MS,
+  BOARD_SWIPE_MIN_DISTANCE,
+  BOARD_WHEEL_MIN_DELTA,
   FULL_PERCENT,
 } from './board.const';
 
@@ -58,6 +62,43 @@ function panFraction(index: number, count: number): number {
 
 export function directionForKey(key: string): BoardDirection | undefined {
   return BOARD_KEY_DIRECTIONS[key as BoardNavigationKey];
+}
+
+// The board follows the finger: dragging content to the left reveals the region on the right.
+export function swipeDirection(
+  start: BoardTouchPoint,
+  end: BoardTouchPoint
+): BoardDirection | undefined {
+  const deltaX = end.x - start.x;
+  const deltaY = end.y - start.y;
+  const distanceX = Math.abs(deltaX);
+  const distanceY = Math.abs(deltaY);
+  if (end.time - start.time > BOARD_SWIPE_MAX_DURATION_MS) {
+    return undefined;
+  }
+  if (distanceX >= BOARD_SWIPE_MIN_DISTANCE && distanceX >= distanceY * BOARD_SWIPE_AXIS_RATIO) {
+    return deltaX < 0 ? BoardDirection.Right : BoardDirection.Left;
+  }
+  if (distanceY >= BOARD_SWIPE_MIN_DISTANCE && distanceY >= distanceX * BOARD_SWIPE_AXIS_RATIO) {
+    return deltaY < 0 ? BoardDirection.Down : BoardDirection.Up;
+  }
+  return undefined;
+}
+
+export function wheelDirection(deltaX: number, deltaY: number): BoardDirection | undefined {
+  const distanceX = Math.abs(deltaX);
+  const distanceY = Math.abs(deltaY);
+  if (Math.max(distanceX, distanceY) < BOARD_WHEEL_MIN_DELTA) {
+    return undefined;
+  }
+  if (distanceY >= distanceX) {
+    return deltaY > 0 ? BoardDirection.Down : BoardDirection.Up;
+  }
+  return deltaX > 0 ? BoardDirection.Right : BoardDirection.Left;
+}
+
+export function isVerticalDirection(direction: BoardDirection): boolean {
+  return direction === BoardDirection.Up || direction === BoardDirection.Down;
 }
 
 export function isTypingTarget(target: EventTarget | null): boolean {

@@ -79,6 +79,20 @@ export const BOARD_CLASSIC_PATH = `/${AppRoute.Home}`;
 export const BOARD_ROOT_PATH = `/${AppRoute.Board}`;
 export const FULL_PERCENT = 100;
 
+export const BOARD_SWIPE_MIN_DISTANCE = 60;
+export const BOARD_SWIPE_MAX_DURATION_MS = 700;
+// A swipe counts only when one axis clearly dominates, so diagonal drags do nothing.
+export const BOARD_SWIPE_AXIS_RATIO = 1.5;
+
+export const BOARD_WHEEL_MIN_DELTA = 40;
+export const BOARD_WHEEL_GESTURE_GAP_MS = 200;
+// Trackpads keep sending inertial wheel events for a second or more after the finger lifts;
+// the lock is held until they stop so one flick moves one region.
+export const BOARD_WHEEL_LOCK_MS = 1000;
+export const BOARD_WHEEL_QUIET_MS = 250;
+// Firefox reports mouse wheels in lines rather than pixels.
+export const WHEEL_LINE_HEIGHT = 16;
+
 export const CITY_DAY_PHOTO = 'assets/images/tlv-west-day.avif';
 export const CITY_NIGHT_PHOTO = 'assets/images/tlv-west-night.avif';
 export const CITY_PHOTO_WIDTH = 1536;

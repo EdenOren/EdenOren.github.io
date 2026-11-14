@@ -9,7 +9,7 @@
 
 .contact-panel__form {
   display: grid;
-  gap: variables.$space-3;
+  gap: variables.$space-1;
 }
 
 .contact-panel__row {
@@ -48,18 +48,21 @@
   }
 }
 
+// Ruled lines stay sharp only when they are level and on whole pixels: the box cancels the
+// writing's -1.2deg tilt and the rule spacing is a whole rem rather than a fraction of the font size.
 .contact-panel__blank--message {
   resize: none;
-  line-height: 1.6;
-  background: repeating-linear-gradient(
+  line-height: 2rem;
+  background: linear-gradient(
     to bottom,
-    transparent 0,
-    transparent calc(1.6em - 2px),
-    colors.$color-ink-soft calc(1.6em - 2px),
-    colors.$color-ink-soft 1.6em
+    transparent calc(2rem - 2px),
+    colors.$color-ink-soft calc(2rem - 2px)
   );
+  background-size: 100% 2rem;
   background-attachment: local;
+  padding-inline-start: variables.$space-3;
   border-bottom: 0;
+  transform: rotate(1.2deg);
 
   &:focus-visible {
     border-bottom: 0;
@@ -67,10 +70,24 @@
   }
 }
 
+// Each field keeps a fixed slot for its error, so a message appearing never shifts the fields below.
+.contact-panel__errors {
+  height: 1.75rem;
+  padding-inline-start: calc(4.5rem + #{variables.$space-3});
+}
+
 .contact-panel__error {
   @include mixins.hand-note;
-  font-size: 1.2em;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  white-space: nowrap;
   color: colors.$color-ink-aside;
+}
+
+.contact-panel__footer {
+  display: flex;
+  align-items: center;
+  gap: variables.$space-4;
 }
 
 .contact-panel__success {
@@ -81,9 +98,8 @@
 .contact-panel__send {
   @include mixins.hand-circle(3px);
   @include mixins.hand-note;
-  justify-self: start;
   min-height: 2.75rem;
-  margin-top: variables.$space-2;
+  margin-inline-start: auto;
   padding: 0 variables.$space-6 variables.$space-1;
   color: colors.$color-ink-accent;
   background: transparent;

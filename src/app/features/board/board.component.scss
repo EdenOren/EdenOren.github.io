@@ -67,6 +67,12 @@
   text-decoration: underline;
   text-underline-offset: 0.2em;
 
+  // On a phone a tall pane scrolls underneath, so the link keeps its own frosted patch.
+  @media (width < variables.$breakpoint-md) {
+    @include mixins.glass-pane;
+    border-radius: 999px;
+  }
+
   &:hover {
     color: colors.$color-ink-accent;
   }

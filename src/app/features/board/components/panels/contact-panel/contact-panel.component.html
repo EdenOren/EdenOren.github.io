@@ -2,66 +2,79 @@
   <p class="contact-panel__success" role="status" aria-live="polite">{{ 'CONTACT.SUCCESS' | translate }}</p>
 } @else {
   <form class="contact-panel__form" (submit)="onSubmit($event)" novalidate>
-    <div class="contact-panel__row">
-      <label class="contact-panel__label" for="board-contact-name">{{ 'CONTACT.NAME_LABEL' | translate }}</label>
-      <input
-        class="contact-panel__blank"
-        id="board-contact-name"
-        type="text"
-        autocomplete="name"
-        aria-required="true"
-        [formField]="nameField"
-      />
+    <div class="contact-panel__field">
+      <div class="contact-panel__row">
+        <label class="contact-panel__label" for="board-contact-name">{{ 'CONTACT.NAME_LABEL' | translate }}</label>
+        <input
+          class="contact-panel__blank"
+          id="board-contact-name"
+          type="text"
+          autocomplete="name"
+          aria-required="true"
+          [formField]="nameField"
+        />
+      </div>
+      <div class="contact-panel__errors">
+        @if (nameField().touched() && nameField().invalid()) {
+          @for (error of nameField().errors(); track error.kind) {
+            <p class="contact-panel__error" role="alert">{{ error.message | translate }}</p>
+          }
+        }
+      </div>
     </div>
-    @if (nameField().touched() && nameField().invalid()) {
-      @for (error of nameField().errors(); track error.kind) {
-        <p class="contact-panel__error" role="alert">{{ error.message | translate }}</p>
-      }
-    }
 
-    <div class="contact-panel__row">
-      <label class="contact-panel__label" for="board-contact-email">{{ 'CONTACT.EMAIL_LABEL' | translate }}</label>
-      <input
-        class="contact-panel__blank"
-        id="board-contact-email"
-        type="email"
-        autocomplete="email"
-        aria-required="true"
-        [formField]="emailField"
-      />
+    <div class="contact-panel__field">
+      <div class="contact-panel__row">
+        <label class="contact-panel__label" for="board-contact-email">{{ 'CONTACT.EMAIL_LABEL' | translate }}</label>
+        <input
+          class="contact-panel__blank"
+          id="board-contact-email"
+          type="email"
+          autocomplete="email"
+          aria-required="true"
+          [formField]="emailField"
+        />
+      </div>
+      <div class="contact-panel__errors">
+        @if (emailField().touched() && emailField().invalid()) {
+          @for (error of emailField().errors(); track error.kind) {
+            <p class="contact-panel__error" role="alert">{{ error.message | translate }}</p>
+          }
+        }
+      </div>
     </div>
-    @if (emailField().touched() && emailField().invalid()) {
-      @for (error of emailField().errors(); track error.kind) {
-        <p class="contact-panel__error" role="alert">{{ error.message | translate }}</p>
-      }
-    }
 
-    <div class="contact-panel__row contact-panel__row--message">
-      <label class="contact-panel__label" for="board-contact-message">{{ 'CONTACT.MESSAGE_LABEL' | translate }}</label>
-      <textarea
-        class="contact-panel__blank contact-panel__blank--message"
-        id="board-contact-message"
-        [attr.rows]="TEXTAREA_ROWS"
-        aria-required="true"
-        [formField]="messageField"
-      ></textarea>
+    <div class="contact-panel__field">
+      <div class="contact-panel__row contact-panel__row--message">
+        <label class="contact-panel__label" for="board-contact-message">{{ 'CONTACT.MESSAGE_LABEL' | translate }}</label>
+        <textarea
+          class="contact-panel__blank contact-panel__blank--message"
+          id="board-contact-message"
+          [attr.rows]="TEXTAREA_ROWS"
+          aria-required="true"
+          [formField]="messageField"
+        ></textarea>
+      </div>
+      <div class="contact-panel__errors">
+        @if (messageField().touched() && messageField().invalid()) {
+          @for (error of messageField().errors(); track error.kind) {
+            <p class="contact-panel__error" role="alert">{{ error.message | translate }}</p>
+          }
+        }
+      </div>
     </div>
-    @if (messageField().touched() && messageField().invalid()) {
-      @for (error of messageField().errors(); track error.kind) {
-        <p class="contact-panel__error" role="alert">{{ error.message | translate }}</p>
-      }
-    }
 
-    @if (isError()) {
-      <p class="contact-panel__error" role="alert">{{ 'CONTACT.ERROR' | translate }}</p>
-    }
-
-    <button class="contact-panel__send" type="submit" [disabled]="isLoading()">
-      @if (isLoading()) {
-        {{ sendingLabel() }}
-      } @else {
-        {{ sendLabel() }}
+    <div class="contact-panel__footer">
+      @if (isError()) {
+        <p class="contact-panel__error" role="alert">{{ 'CONTACT.ERROR' | translate }}</p>
       }
-    </button>
+      <button class="contact-panel__send" type="submit" [disabled]="isLoading()">
+        @if (isLoading()) {
+          {{ sendingLabel() }}
+        } @else {
+          {{ sendLabel() }}
+        }
+      </button>
+    </div>
   </form>
 }

@@ -7,7 +7,9 @@
   <div class="board__city-placeholder" aria-hidden="true"></div>
 }
 
-<main class="board__viewport">
+<main class="board__viewport" (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)"
+  (wheel)="onWheel($event)"
+>
   <div
     class="board__surface"
     [style.--board-columns]="COLUMN_COUNT"
@@ -72,6 +74,16 @@
   [arrows]="arrows()"
   [navigationLabel]="t['NAVIGATION_LABEL']"
   (moved)="onMove($event)"
+/>
+
+<app-board-menu
+  [cells]="menuCells()"
+  [labels]="menuLabels()"
+  [isNight]="isNight()"
+  [columnCount]="COLUMN_COUNT"
+  [rowCount]="ROW_COUNT"
+  (regionSelected)="onRegionRequested($event)"
+  (themeToggled)="onThemeToggled()"
 />
 
 <p class="board__announcer" aria-live="polite">{{ activeHeading() }}</p>

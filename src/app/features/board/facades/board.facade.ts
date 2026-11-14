@@ -5,7 +5,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable, map } from 'rxjs';
 import { ThemeService } from '../../../core/services/platform/theme.service';
 import { BoardDirection, BoardPanelWidth, BoardRegion, BoardRouteParam } from '../enums/board.enums';
-import { BoardArrowView, BoardCityPan, BoardPanelView, BoardRegionConfig } from '../models/board.models';
+import {
+  BoardArrowView,
+  BoardCityPan,
+  BoardMenuCell,
+  BoardMenuLabels,
+  BoardPanelView,
+  BoardRegionConfig,
+} from '../models/board.models';
 import { BOARD_REGIONS, BOARD_ROOT_PATH } from '../utils/board.const';
 import {
   buildCityPan,
@@ -69,6 +76,31 @@ export class BoardFacade {
     }));
   });
 
+  readonly menuCells: Signal<BoardMenuCell[]> = computed(() => {
+    const translation = this.translation();
+    const activeRegion = this.activeRegion();
+    return BOARD_REGIONS.map(config => ({
+      region: config.region,
+      label: translation[config.labelKey] ?? '',
+      gridColumn: config.column + 1,
+      gridRow: config.row + 1,
+      isActive: config.region === activeRegion,
+    }));
+  });
+
+  readonly menuLabels: Signal<BoardMenuLabels> = computed(() => {
+    const translation = this.translation();
+    return {
+      open: translation['MENU_OPEN'] ?? '',
+      close: translation['MENU_CLOSE'] ?? '',
+      heading: translation['MENU_HEADING'] ?? '',
+      here: translation['MENU_HERE'] ?? '',
+      day: translation['THEME_DAY'] ?? '',
+      night: translation['THEME_NIGHT'] ?? '',
+      themeAction: translation[this.isNight() ? 'THEME_TO_DAY' : 'THEME_TO_NIGHT'] ?? '',
+    };
+  });
+
   readonly arrows: Signal<BoardArrowView[]> = computed(() => {
     const translation = this.translation();
     const activeConfig = this.activeConfig();
@@ -93,5 +125,9 @@ export class BoardFacade {
 
   goTo(region: BoardRegion): Promise<boolean> {
     return this.router.navigate([BOARD_ROOT_PATH, region]);
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggle();
   }
 }
