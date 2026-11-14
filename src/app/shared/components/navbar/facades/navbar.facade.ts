@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import {
   DestroyRef,
   Service,
@@ -21,6 +22,7 @@ import { NAVBAR_SCROLL_THRESHOLD_PX } from '../navbar.const';
 @Service({ autoProvided: false })
 export class NavbarFacade {
   private readonly translateService: TranslateService = inject(TranslateService);
+  private readonly document: Document = inject(DOCUMENT);
   private readonly router: Router = inject(Router);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
   private readonly authService: AuthService = inject(AuthService);
@@ -57,7 +59,7 @@ export class NavbarFacade {
     });
 
     effect(() => {
-      document.body.style.overflow = this.isMenuOpen() ? 'hidden' : '';
+      this.document.body.style.overflow = this.isMenuOpen() ? 'hidden' : '';
     });
 
     this.router.events
