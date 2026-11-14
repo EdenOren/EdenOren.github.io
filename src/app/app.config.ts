@@ -6,7 +6,6 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
 import { Language } from './core/enums/core.enums';
-import { SeoService } from './core/services/platform/seo.service';
 import { ThemeService } from './core/services/platform/theme.service';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 
@@ -18,7 +17,6 @@ export const appConfig: ApplicationConfig = {
     ...provideTranslateService(),
     ...provideTranslateHttpLoader(),
     provideAppInitializer(() => inject(TranslateService).use(Language.English)),
-    provideAppInitializer(() => inject(SeoService).apply()),
     provideAppInitializer(() => inject(ThemeService).init()),
   ]
 };
