@@ -37,6 +37,42 @@
 
     gtag('config', 'G-HRQPSZBGKB');
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://edenoren.github.io/#website",
+          "url": "https://edenoren.github.io/",
+          "name": "Eden Oren",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://edenoren.github.io/#person" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://edenoren.github.io/#profile",
+          "url": "https://edenoren.github.io/",
+          "isPartOf": { "@id": "https://edenoren.github.io/#website" },
+          "mainEntity": { "@id": "https://edenoren.github.io/#person" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://edenoren.github.io/#person",
+          "name": "Eden Oren",
+          "jobTitle": "Frontend Developer",
+          "url": "https://edenoren.github.io/",
+          "image": "https://helotf3akdazlzyf.public.blob.vercel-storage.com/1781343352554-eden.jpg",
+          "worksFor": { "@type": "Organization", "name": "Lawyal" },
+          "knowsAbout": ["Angular", "TypeScript", "SCSS", "Node.js", "Gemini API", "Supabase"],
+          "sameAs": [
+            "https://github.com/EdenOren",
+            "https://linkedin.com/in/edenoren"
+          ]
+        }
+      ]
+    }
+  </script>
 </head>
 <body>
   <app-root></app-root>
