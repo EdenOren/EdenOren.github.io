@@ -9,11 +9,13 @@ import {
   output,
   viewChild,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { BoardRegion } from '../../enums/board.enums';
 import { BoardMenuCell, BoardMenuLabels } from '../../models/board.models';
 
 @Component({
   selector: 'app-board-menu',
+  imports: [RouterLink],
   templateUrl: './board-menu.component.html',
   styleUrl: './board-menu.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +26,7 @@ export class BoardMenuComponent {
   readonly isNight: InputSignal<boolean> = input.required<boolean>();
   readonly columnCount: InputSignal<number> = input.required<number>();
   readonly rowCount: InputSignal<number> = input.required<number>();
+  readonly adminPath: InputSignal<string> = input.required<string>();
   readonly regionSelected: OutputEmitterRef<BoardRegion> = output<BoardRegion>();
   readonly themeToggled: OutputEmitterRef<void> = output<void>();
 

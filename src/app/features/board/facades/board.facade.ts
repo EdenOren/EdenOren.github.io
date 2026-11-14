@@ -107,6 +107,7 @@ export class BoardFacade {
       day: translation['THEME_DAY'] ?? '',
       night: translation['THEME_NIGHT'] ?? '',
       themeAction: translation[this.isNight() ? 'THEME_TO_DAY' : 'THEME_TO_NIGHT'] ?? '',
+      admin: translation['ADMIN_LINK'] ?? '',
     };
   });
 
