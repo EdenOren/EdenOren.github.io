@@ -126,7 +126,7 @@ export class BoardFacade {
     });
     effect(() => {
       this.analyticsService.trackEvent(AnalyticsEvent.PageView, {
-        page_path: `${BOARD_ROOT_PATH}/${this.activeRegion()}`,
+        page_path: `${BOARD_ROOT_PATH}${this.activeRegion()}`,
       });
     });
     inject(DestroyRef).onDestroy(() => this.seoService.resetTitle());

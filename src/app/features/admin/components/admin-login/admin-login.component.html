@@ -1,0 +1,19 @@
+@defer (on idle) {
+  <app-city-backdrop [pan]="CITY_PAN" [isNight]="isNight()" />
+} @placeholder {
+  <div class="admin-login__city-placeholder" aria-hidden="true"></div>
+}
+
+<main class="admin-login__pane">
+  <app-board-panel
+    [heading]="'ADMIN.LOGIN_TITLE' | translate"
+    [note]="'ADMIN.LOGIN_EYEBROW' | translate"
+    [gridColumn]="1"
+    [gridRow]="1"
+    [isActive]="true"
+  >
+    <p>{{ 'ADMIN.LOGIN_SUBTITLE' | translate }}</p>
+    <div #googleButton class="admin-login__google"></div>
+    <a class="admin-login__back" [routerLink]="BOARD_PATH">{{ 'ADMIN.LOGIN_BACK' | translate }}</a>
+  </app-board-panel>
+</main>

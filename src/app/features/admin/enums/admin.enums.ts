@@ -4,3 +4,13 @@ export enum AdminRoute {
   PROJECTS = 'projects',
   SKILLS = 'skills',
 }
+
+export enum GoogleButtonTheme {
+  Outline = 'outline',
+  FilledBlack = 'filled_black',
+}
+
+export enum GoogleButtonShape {
+  Rectangular = 'rectangular',
+  Pill = 'pill',
+}

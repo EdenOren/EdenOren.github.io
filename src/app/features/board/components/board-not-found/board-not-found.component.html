@@ -1,0 +1,26 @@
+@let t = translation();
+@defer (on idle) {
+  <app-city-backdrop [pan]="CITY_PAN" [isNight]="isNight()" />
+} @placeholder {
+  <div class="board-not-found__city-placeholder" aria-hidden="true"></div>
+}
+
+<main class="board-not-found__pane">
+  <app-board-panel
+    [heading]="t['NOT_FOUND_HEADING']"
+    [note]="t['NOT_FOUND_NOTE']"
+    [gridColumn]="1"
+    [gridRow]="1"
+    [isActive]="true"
+  >
+    <p>{{ t['NOT_FOUND_BODY'] }}</p>
+    <p class="board-not-found__links">
+      <a class="board-not-found__link board-not-found__link--primary" [routerLink]="BOARD_PATH">
+        {{ t['NOT_FOUND_HOME'] }}
+      </a>
+      @if (SHOWS_CLASSIC_LINK) {
+        <a class="board-not-found__link" [routerLink]="CLASSIC_PATH">{{ t['CLASSIC_LINK'] }}</a>
+      }
+    </p>
+  </app-board-panel>
+</main>
