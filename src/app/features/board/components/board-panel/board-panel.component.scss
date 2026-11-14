@@ -4,21 +4,36 @@
 
 :host {
   display: flex;
-  align-items: center;
-  justify-content: center;
   min-width: 0;
   min-height: 0;
   padding: variables.$space-16 variables.$space-6 variables.$space-24;
+  overflow-y: auto;
   color: colors.$color-ink;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @include mixins.respond-to(md) {
     padding: variables.$space-16 variables.$space-24;
   }
 }
 
+// margin: auto centres the writing but, unlike align-items: center, lets a tall pane scroll from its top.
 .board-panel__writing {
   width: min(42rem, 100%);
+  margin: auto;
   transform: rotate(-1.2deg);
+}
+
+.board-panel__writing--wide {
+  width: min(60rem, 100%);
+}
+
+.board-panel__note {
+  @include mixins.hand-note;
+  color: colors.$color-ink-accent;
 }
 
 .board-panel__heading {
@@ -54,7 +69,8 @@
 }
 
 .board-panel__body {
-  max-width: 44ch;
-  color: colors.$color-ink-soft;
+  font-size: clamp(0.95rem, 1.5vw, 1.125rem);
   font-weight: 500;
+  line-height: 1.55;
+  color: colors.$color-ink-soft;
 }

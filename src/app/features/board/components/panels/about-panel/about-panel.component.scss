@@ -1,0 +1,78 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+$polaroid-width: 9.5rem;
+
+:host {
+  display: flow-root;
+}
+
+.about-panel__polaroid {
+  position: relative;
+  float: right;
+  width: $polaroid-width;
+  margin: 0 0 variables.$space-4 variables.$space-6;
+  padding: variables.$space-2 variables.$space-2 variables.$space-8;
+  background: colors.$color-board-paper;
+  box-shadow: 0 8px 16px colors.$color-board-shadow;
+  transform: rotate(4deg);
+
+  @media (max-width: variables.$breakpoint-sm) {
+    float: none;
+    margin: 0 0 variables.$space-6;
+  }
+}
+
+.about-panel__tape {
+  position: absolute;
+  top: -0.6rem;
+  left: 50%;
+  z-index: 1;
+  width: 4.5rem;
+  height: 1.4rem;
+  background: colors.$color-board-tape;
+  transform: translateX(-50%) rotate(-6deg);
+}
+
+.about-panel__photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.about-panel__bio {
+  display: grid;
+  gap: variables.$space-3;
+  max-width: 44ch;
+}
+
+.about-panel__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: variables.$space-2 variables.$space-6;
+  margin-top: variables.$space-6;
+}
+
+.about-panel__link {
+  @include mixins.hand-note;
+  display: inline-block;
+  min-height: 2.75rem;
+  color: colors.$color-ink-accent;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+
+  &:hover {
+    color: colors.$color-ink;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}

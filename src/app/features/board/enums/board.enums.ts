@@ -24,3 +24,8 @@ export enum BoardRegion {
 export enum BoardRouteParam {
   Region = 'region',
 }
+
+export enum BoardPanelWidth {
+  Standard = 'standard',
+  Wide = 'wide',
+}

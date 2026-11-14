@@ -140,6 +140,25 @@
   }
 }
 
+// Uneven radii make a box read as drawn by hand rather than rendered.
+// Percent radii keep the wobbly oval on small tags; pixel radii get scaled down into near-rectangles.
+@mixin hand-circle($border-width: 2.5px) {
+  border: $border-width solid currentColor;
+  border-radius: 48% 52% 46% 54% / 62% 44% 56% 40%;
+}
+
+@mixin hand-sketch($border-width: 2.5px) {
+  border: $border-width solid currentColor;
+  border-radius: 14px 225px 16px 255px / 255px 16px 225px 14px;
+}
+
+@mixin hand-note {
+  font-family: variables.$font-family-hand;
+  font-size: clamp(1.375rem, 2.3vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
 @mixin glass-pane {
   background: colors.$color-glass-pane;
   -webkit-backdrop-filter: blur(3px) saturate(1.1);

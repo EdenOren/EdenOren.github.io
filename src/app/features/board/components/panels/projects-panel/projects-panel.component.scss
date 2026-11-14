@@ -1,0 +1,99 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+:host {
+  display: block;
+}
+
+.projects-panel__status {
+  @include mixins.hand-note;
+}
+
+.projects-panel__status--error {
+  color: colors.$color-ink-aside;
+}
+
+.projects-panel__cards {
+  display: grid;
+  gap: variables.$space-6;
+
+  @include mixins.respond-to(md) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.projects-panel__card {
+  @include mixins.hand-sketch;
+  display: flex;
+  flex-direction: column;
+  gap: variables.$space-2;
+  min-width: 0;
+  padding: variables.$space-3 variables.$space-4 variables.$space-4;
+  color: colors.$color-ink;
+
+  &:nth-child(2) {
+    border-color: colors.$color-ink-accent;
+    transform: rotate(1.4deg);
+  }
+
+  &:nth-child(3) {
+    transform: rotate(-0.8deg);
+  }
+}
+
+.projects-panel__title {
+  font-family: variables.$font-family-marker;
+  font-size: 1.75em;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.projects-panel__description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  font-size: 0.9em;
+  color: colors.$color-ink-soft;
+}
+
+.projects-panel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 variables.$space-2;
+  font-family: variables.$font-family-hand;
+  font-size: 1.15em;
+  font-weight: 700;
+  color: colors.$color-ink-accent;
+}
+
+.projects-panel__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 variables.$space-4;
+  margin-top: auto;
+}
+
+.projects-panel__link {
+  @include mixins.hand-note;
+  display: inline-block;
+  min-height: 2.75rem;
+  color: colors.$color-ink;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+
+  &:hover {
+    color: colors.$color-ink-accent;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.projects-panel__link-context {
+  @include mixins.visually-hidden;
+}

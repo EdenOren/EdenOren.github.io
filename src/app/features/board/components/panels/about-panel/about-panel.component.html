@@ -1,0 +1,31 @@
+@let portrait = portraitUrl();
+@if (portrait) {
+  <figure class="about-panel__polaroid" aria-hidden="true">
+    <span class="about-panel__tape"></span>
+    <span class="about-panel__photo">
+      <img [ngSrc]="portrait" fill alt="" />
+    </span>
+  </figure>
+}
+
+<div class="about-panel__bio">
+  @for (paragraph of bioParagraphs(); track paragraph) {
+    <p>{{ paragraph }}</p>
+  }
+</div>
+
+<ul class="about-panel__links" role="list">
+  @for (link of SOCIAL_LINKS; track link.key) {
+    <li>
+      <a
+        class="about-panel__link"
+        [href]="link.href"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="link.ariaLabel()"
+      >
+        {{ link.label }} <span aria-hidden="true">↗</span>
+      </a>
+    </li>
+  }
+</ul>

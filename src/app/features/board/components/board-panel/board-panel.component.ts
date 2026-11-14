@@ -21,6 +21,8 @@ import {
 })
 export class BoardPanelComponent {
   readonly heading: InputSignal<string> = input.required<string>();
+  readonly note: InputSignal<string> = input<string>('');
+  readonly isWide: InputSignal<boolean> = input<boolean>(false);
   readonly gridColumn: InputSignal<number> = input.required<number>();
   readonly gridRow: InputSignal<number> = input.required<number>();
   readonly isActive: InputSignal<boolean> = input.required<boolean>();

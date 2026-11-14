@@ -11,7 +11,13 @@ import { RouterLink } from '@angular/router';
 import { BoardArrowsComponent } from './components/board-arrows/board-arrows.component';
 import { BoardPanelComponent } from './components/board-panel/board-panel.component';
 import { CityBackdropComponent } from './components/city-backdrop/city-backdrop.component';
-import { BoardDirection } from './enums/board.enums';
+import { AboutPanelComponent } from './components/panels/about-panel/about-panel.component';
+import { ContactPanelComponent } from './components/panels/contact-panel/contact-panel.component';
+import { ExperiencePanelComponent } from './components/panels/experience-panel/experience-panel.component';
+import { HeroPanelComponent } from './components/panels/hero-panel/hero-panel.component';
+import { ProjectsPanelComponent } from './components/panels/projects-panel/projects-panel.component';
+import { SkillsPanelComponent } from './components/panels/skills-panel/skills-panel.component';
+import { BoardDirection, BoardRegion } from './enums/board.enums';
 import { BoardFacade } from './facades/board.facade';
 import { BoardArrowView, BoardCityPan, BoardPanelView } from './models/board.models';
 import { BOARD_CLASSIC_PATH } from './utils/board.const';
@@ -19,7 +25,18 @@ import { directionForKey, isTypingTarget } from './utils/board.utils';
 
 @Component({
   selector: 'app-board',
-  imports: [RouterLink, BoardArrowsComponent, BoardPanelComponent, CityBackdropComponent],
+  imports: [
+    RouterLink,
+    BoardArrowsComponent,
+    BoardPanelComponent,
+    CityBackdropComponent,
+    HeroPanelComponent,
+    AboutPanelComponent,
+    ExperiencePanelComponent,
+    SkillsPanelComponent,
+    ProjectsPanelComponent,
+    ContactPanelComponent,
+  ],
   providers: [BoardFacade],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
@@ -33,6 +50,7 @@ export class BoardComponent {
   private readonly injector: Injector = inject(Injector);
 
   protected readonly CLASSIC_PATH: string = BOARD_CLASSIC_PATH;
+  protected readonly REGION: typeof BoardRegion = BoardRegion;
   protected readonly COLUMN_COUNT: number = this.boardFacade.COLUMN_COUNT;
   protected readonly ROW_COUNT: number = this.boardFacade.ROW_COUNT;
 
@@ -48,7 +66,15 @@ export class BoardComponent {
     viewChildren(BoardPanelComponent);
 
   protected onMove(direction: BoardDirection): void {
-    void this.boardFacade.move(direction).then(hasMoved => {
+    this.focusAfter(this.boardFacade.move(direction));
+  }
+
+  protected onRegionRequested(region: BoardRegion): void {
+    this.focusAfter(this.boardFacade.goTo(region));
+  }
+
+  private focusAfter(navigation: Promise<boolean>): void {
+    void navigation.then(hasMoved => {
       if (hasMoved) {
         this.focusActivePanel();
       }

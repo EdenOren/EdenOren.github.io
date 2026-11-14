@@ -4,7 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, map } from 'rxjs';
 import { ThemeService } from '../../../core/services/platform/theme.service';
-import { BoardDirection, BoardRegion, BoardRouteParam } from '../enums/board.enums';
+import { BoardDirection, BoardPanelWidth, BoardRegion, BoardRouteParam } from '../enums/board.enums';
 import { BoardArrowView, BoardCityPan, BoardPanelView, BoardRegionConfig } from '../models/board.models';
 import { BOARD_REGIONS, BOARD_ROOT_PATH } from '../utils/board.const';
 import {
@@ -62,7 +62,9 @@ export class BoardFacade {
       region: config.region,
       gridColumn: config.column + 1,
       gridRow: config.row + 1,
-      heading: translation[config.labelKey] ?? '',
+      heading: translation[config.headingKey] ?? '',
+      note: translation[config.noteKey] ?? '',
+      isWide: config.width === BoardPanelWidth.Wide,
       isActive: config.region === activeRegion,
     }));
   });

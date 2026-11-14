@@ -31,6 +31,7 @@
   --color-ink: #F6F7FB;
   --color-ink-soft: #D3D8EA;
   --color-ink-accent: #6EF0B4;
+  --color-ink-aside: #FFD866;
   --color-sky-top: #050919;
   --color-sky-middle: #1A2358;
   --color-sky-bottom: #454A86;
@@ -43,6 +44,7 @@
   --color-ink: #111D33;
   --color-ink-soft: #2C3A52;
   --color-ink-accent: #0A6B42;
+  --color-ink-aside: #B3261E;
   --color-sky-top: #2F7FD8;
   --color-sky-middle: #7DB6EC;
   --color-sky-bottom: #D6E8F2;
@@ -86,12 +88,18 @@ $color-city-plane: rgb(38 52 82 / 75%);
 $color-city-strobe: #FFFFFF;
 $color-city-beacon: #FF4D4D;
 
+// Board props (v2) — real objects taped to the glass keep their own colour in both themes
+$color-board-paper: #FCFBF7;
+$color-board-tape: rgb(255 240 190 / 70%);
+$color-board-shadow: rgb(0 0 0 / 25%);
+
 // Glass board (v2)
 $color-glass-pane: var(--color-glass-pane);
 $color-glass-sheen: var(--color-glass-sheen);
 $color-ink: var(--color-ink);
 $color-ink-soft: var(--color-ink-soft);
 $color-ink-accent: var(--color-ink-accent);
+$color-ink-aside: var(--color-ink-aside);
 $color-sky-top: var(--color-sky-top);
 $color-sky-middle: var(--color-sky-middle);
 $color-sky-bottom: var(--color-sky-bottom);

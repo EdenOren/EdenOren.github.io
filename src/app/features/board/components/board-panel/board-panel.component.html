@@ -1,4 +1,7 @@
-<section class="board-panel__writing">
+<section class="board-panel__writing" [class.board-panel__writing--wide]="isWide()">
+  @if (note()) {
+    <p class="board-panel__note" aria-hidden="true">{{ note() }}</p>
+  }
   <h2 #headingElement class="board-panel__heading" tabindex="-1">{{ heading() }}</h2>
   <svg class="board-panel__underline" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true">
     <path
