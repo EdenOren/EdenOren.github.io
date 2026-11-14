@@ -38,11 +38,13 @@ $polaroid-width: 9.5rem;
 .about-panel__photo {
   position: relative;
   display: block;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
 
+  // The portrait is a tall shot with the face near the top; centring the crop cut the face off.
   img {
     object-fit: cover;
+    object-position: top;
   }
 }
 

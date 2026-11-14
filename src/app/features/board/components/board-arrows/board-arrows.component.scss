@@ -75,17 +75,47 @@
     border-radius: 999px;
   }
 
+  // With a pointer the whole strip along each edge moves the board; only the hit area grows, not the label.
+  // The strips stay inside the panel padding (6rem sides, 4rem top) so they never cover content.
   @include mixins.respond-to(md) {
-    &[data-direction='left'] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &[data-direction='left'],
+    &[data-direction='right'] {
       top: 50%;
       bottom: auto;
+      min-width: 6rem;
+      min-height: 16rem;
+    }
+
+    &[data-direction='left'] {
+      left: 0;
+      justify-content: flex-start;
+      padding-inline-start: variables.$space-6;
       transform: translateY(-50%) rotate(-3deg);
     }
 
     &[data-direction='right'] {
-      top: 50%;
-      bottom: auto;
+      right: 0;
+      justify-content: flex-end;
+      padding-inline-end: variables.$space-6;
       transform: translateY(-50%) rotate(2deg);
+    }
+
+    &[data-direction='up'],
+    &[data-direction='down'] {
+      min-width: 20rem;
+      min-height: 4rem;
+    }
+
+    &[data-direction='up'] {
+      top: 0;
+    }
+
+    &[data-direction='down'] {
+      bottom: 0;
     }
   }
 }
