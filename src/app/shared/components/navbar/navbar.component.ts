@@ -7,8 +7,9 @@ import {
   inject,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AppRoute } from '../../../core/enums/core.enums';
 import { Icon } from '../../enums/icon.enum';
-import { AdminRoute } from '../../../features/admin/enums/admin-route.enum';
+import { AdminRoute } from '../../../features/admin/enums/admin.enums';
 import { NavbarFacade } from './facades/navbar.facade';
 import { SocialShareComponent } from '../../../features/share/share.component';
 
@@ -34,6 +35,8 @@ export class NavbarComponent {
   );
   protected readonly NAV_LINKS: { labelKey: string; sectionId: string }[] = this.navbarFacade.NAV_LINKS;
   protected readonly ADMIN_ROUTE: typeof AdminRoute = AdminRoute;
+  protected readonly BOARD_PATH: string = `/${AppRoute.Board}`;
+  protected readonly CLASSIC_PATH: string = `/${AppRoute.Classic}`;
 
   protected scrollToSection(sectionId: string): void {
     this.navbarFacade.scrollToSection(sectionId);

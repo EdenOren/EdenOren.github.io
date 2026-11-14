@@ -1,0 +1,14 @@
+@let t = translation();
+<p class="hero-panel__role">{{ t['TITLE'] }}</p>
+<p class="hero-panel__tagline">{{ t['TAGLINE'] }}</p>
+
+<div class="hero-panel__actions">
+  <button class="hero-panel__action hero-panel__action--primary" type="button" (click)="onShowProjects()">
+    {{ t['CTA_WORK'] }}
+  </button>
+  <button class="hero-panel__action" type="button" (click)="onShowContact()">
+    {{ t['CTA_CONTACT'] }}
+  </button>
+</div>
+
+<p class="hero-panel__aside" aria-hidden="true">{{ aside() }} <span>→</span></p>

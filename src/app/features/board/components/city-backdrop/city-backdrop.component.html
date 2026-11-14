@@ -1,0 +1,27 @@
+<div class="city__frame">
+  <img class="city__photo" [ngSrc]="DAY_PHOTO" alt="" fill priority />
+  <img
+    class="city__photo city__photo--night"
+    [class.city__photo--visible]="isNight()"
+    [ngSrc]="NIGHT_PHOTO"
+    alt=""
+    fill
+    priority
+  />
+
+  <div class="city__sky">
+    <div class="city__cloud city__cloud--high"></div>
+    <div class="city__cloud city__cloud--middle"></div>
+    <div class="city__cloud city__cloud--low"></div>
+
+    <div class="city__plane">
+      <svg class="city__plane-body" viewBox="0 0 40 12" focusable="false">
+        <path d="M2 6.2 L30 5 Q38 5 39 6 Q38 7 30 7 L2 6.8 Z M14 6 L22 6 L17 11 L14 11 Z M14 6 L22 6 L17 1 L14 1 Z M2 6 L5 6 L3 2 L1 2 Z" />
+      </svg>
+      <span class="city__plane-strobe"></span>
+      <span class="city__plane-beacon"></span>
+    </div>
+  </div>
+
+  <canvas #lifeCanvas class="city__life"></canvas>
+</div>

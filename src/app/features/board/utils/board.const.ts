@@ -1,0 +1,125 @@
+import { AppRoute } from '../../../core/enums/core.enums';
+import { BoardDirection, BoardNavigationKey, BoardPanelWidth, BoardRegion } from '../enums/board.enums';
+import { BoardCityPan, BoardOffset, BoardRegionConfig } from '../models/board.models';
+
+export const BOARD_REGIONS: BoardRegionConfig[] = [
+  {
+    region: BoardRegion.About,
+    column: 0,
+    row: 0,
+    labelKey: 'REGION_ABOUT',
+    headingKey: 'HEADING_ABOUT',
+    noteKey: 'NOTE_ABOUT',
+    width: BoardPanelWidth.Standard,
+  },
+  {
+    region: BoardRegion.Hero,
+    column: 1,
+    row: 0,
+    labelKey: 'REGION_HERO',
+    headingKey: 'HEADING_HERO',
+    noteKey: 'NOTE_HERO',
+    width: BoardPanelWidth.Standard,
+  },
+  {
+    region: BoardRegion.Experience,
+    column: 2,
+    row: 0,
+    labelKey: 'REGION_EXPERIENCE',
+    headingKey: 'HEADING_EXPERIENCE',
+    noteKey: 'NOTE_EXPERIENCE',
+    width: BoardPanelWidth.Standard,
+  },
+  {
+    region: BoardRegion.Skills,
+    column: 0,
+    row: 1,
+    labelKey: 'REGION_SKILLS',
+    headingKey: 'HEADING_SKILLS',
+    noteKey: 'NOTE_SKILLS',
+    width: BoardPanelWidth.Standard,
+  },
+  {
+    region: BoardRegion.Projects,
+    column: 1,
+    row: 1,
+    labelKey: 'REGION_PROJECTS',
+    headingKey: 'HEADING_PROJECTS',
+    noteKey: 'NOTE_PROJECTS',
+    width: BoardPanelWidth.Wide,
+  },
+  {
+    region: BoardRegion.Contact,
+    column: 2,
+    row: 1,
+    labelKey: 'REGION_CONTACT',
+    headingKey: 'HEADING_CONTACT',
+    noteKey: 'NOTE_CONTACT',
+    width: BoardPanelWidth.Standard,
+  },
+];
+
+export const BOARD_DEFAULT_REGION: BoardRegion = BoardRegion.Hero;
+
+export const BOARD_DIRECTION_OFFSETS: Record<BoardDirection, BoardOffset> = {
+  [BoardDirection.Left]: { column: -1, row: 0 },
+  [BoardDirection.Right]: { column: 1, row: 0 },
+  [BoardDirection.Up]: { column: 0, row: -1 },
+  [BoardDirection.Down]: { column: 0, row: 1 },
+};
+
+export const BOARD_KEY_DIRECTIONS: Record<BoardNavigationKey, BoardDirection> = {
+  [BoardNavigationKey.ArrowLeft]: BoardDirection.Left,
+  [BoardNavigationKey.ArrowRight]: BoardDirection.Right,
+  [BoardNavigationKey.ArrowUp]: BoardDirection.Up,
+  [BoardNavigationKey.ArrowDown]: BoardDirection.Down,
+};
+
+export const BOARD_CLASSIC_PATH = `/${AppRoute.Classic}`;
+// The classic site still exists at /classic; the links to it are only hidden for now.
+export const BOARD_SHOWS_CLASSIC_LINK = false;
+export const BOARD_ADMIN_PATH = `/${AppRoute.Admin}`;
+export const BOARD_ROOT_PATH = `/${AppRoute.Board}`;
+export const FULL_PERCENT = 100;
+// The 404 page has no place on the board, so the city sits centred in its pan range.
+export const BOARD_NOT_FOUND_CITY_PAN: BoardCityPan = { x: 0.5, y: 0.5 };
+
+export const BOARD_SWIPE_MIN_DISTANCE = 60;
+export const BOARD_SWIPE_MAX_DURATION_MS = 700;
+// A swipe counts only when one axis clearly dominates, so diagonal drags do nothing.
+export const BOARD_SWIPE_AXIS_RATIO = 1.5;
+
+export const BOARD_WHEEL_MIN_DELTA = 40;
+export const BOARD_WHEEL_GESTURE_GAP_MS = 200;
+// Trackpads keep sending inertial wheel events for a second or more after the finger lifts;
+// the lock is held until they stop so one flick moves one region.
+export const BOARD_WHEEL_LOCK_MS = 1000;
+export const BOARD_WHEEL_QUIET_MS = 250;
+// Firefox reports mouse wheels in lines rather than pixels.
+export const WHEEL_LINE_HEIGHT = 16;
+
+export const CITY_DAY_PHOTO = 'assets/images/tlv-west-day.avif';
+export const CITY_NIGHT_PHOTO = 'assets/images/tlv-west-night.avif';
+export const CITY_PHOTO_WIDTH = 1536;
+export const CITY_PHOTO_HEIGHT = 1024;
+export const CITY_PHOTO_FOCUS_Y = 0.58;
+
+export const CITY_FRAME_INTERVAL_MS = 1000 / 30;
+export const CITY_MAX_PIXEL_RATIO = 2;
+export const CITY_WINDOW_TOGGLE_INTERVAL_MS = 700;
+export const CITY_WINDOW_FADE_MS = 500;
+export const CITY_WINDOW_MAX_OFF_RATIO = 0.15;
+export const CITY_GLINT_MAX_COUNT = 16;
+export const CITY_GLINT_MIN_LIFETIME_MS = 2600;
+export const CITY_GLINT_MAX_LIFETIME_MS = 5200;
+// Sized in photo pixels to survive the 3px glass blur; smaller glints vanish behind the pane.
+export const CITY_GLINT_MIN_LENGTH = 8;
+export const CITY_GLINT_MAX_LENGTH = 22;
+export const CITY_GLINT_THICKNESS = 2;
+export const CITY_GLINT_DAY_COLOR = 'rgb(255 255 255)';
+export const CITY_GLINT_NIGHT_COLOR = 'rgb(205 218 255)';
+export const CITY_GLINT_DAY_ALPHA = 0.85;
+export const CITY_GLINT_NIGHT_ALPHA = 0.45;
+
+export const CITY_REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+export const CITY_WIDE_QUERY = '(min-width: 768px)';

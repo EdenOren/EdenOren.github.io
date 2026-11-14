@@ -1,0 +1,110 @@
+@let t = translation();
+<h1 class="board__page-heading">{{ t['PAGE_HEADING'] }}</h1>
+<a class="board__corner board__corner--start" [routerLink]="ADMIN_PATH" [attr.aria-label]="t['ADMIN_LINK']">
+  <svg class="board__icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M7.5 11 V7.8 C7.5 5 9.4 3.2 12 3.2 S16.6 5.1 16.4 7.9 V11" />
+    <path d="M5.2 11.3 C9.6 10.7 14.6 10.8 18.9 11.2 C19.3 14.4 19.1 17.6 18.7 20.6 C14.3 21.1 9.7 21.2 5.4 20.7 C4.9 17.6 4.9 14.5 5.2 11.3 Z" />
+    <path d="M12 14.6 V17.2" />
+  </svg>
+</a>
+<button
+  class="board__corner board__corner--end no-select"
+  type="button"
+  aria-haspopup="dialog"
+  (click)="onMenuOpen()"
+>
+  <svg class="board__icon board__icon--menu" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 7 C9 6.2 15 6.6 20 6.8 M4.5 12.2 C9.5 11.6 14.5 12.4 19.5 11.8 M4 17.2 C9 16.6 15 17.4 20 16.8" />
+  </svg>
+  {{ menuLabels().open }}
+</button>
+@if (SHOWS_CLASSIC_LINK) {
+  <a class="board__classic-link" [routerLink]="CLASSIC_PATH">{{ t['CLASSIC_LINK'] }}</a>
+}
+
+@defer (on idle; hydrate on idle) {
+  <app-city-backdrop [pan]="cityPan()" [isNight]="isNight()" />
+} @placeholder {
+  <div class="board__city-placeholder" aria-hidden="true"></div>
+}
+
+<main class="board__viewport" (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)"
+  (wheel)="onWheel($event)"
+>
+  <div
+    class="board__surface"
+    [style.--board-columns]="COLUMN_COUNT"
+    [style.--board-rows]="ROW_COUNT"
+    [style.transform]="surfaceTransform()"
+  >
+    @for (panel of panels(); track panel.region) {
+      <app-board-panel
+        [heading]="panel.heading"
+        [note]="panel.note"
+        [isWide]="panel.isWide"
+        [gridColumn]="panel.gridColumn"
+        [gridRow]="panel.gridRow"
+        [isActive]="panel.isActive"
+      >
+        @switch (panel.region) {
+          @case (REGION.Hero) {
+            <app-hero-panel [aside]="t['HERO_ASIDE']" (regionRequested)="onRegionRequested($event)" />
+          }
+          @case (REGION.About) {
+            @defer (on idle; hydrate on idle) {
+              <app-about-panel />
+            } @placeholder {
+              <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
+            }
+          }
+          @case (REGION.Experience) {
+            @defer (on idle; hydrate on idle) {
+              <app-experience-panel [loadingLabel]="t['LOADING']" [errorLabel]="t['LOAD_ERROR']" />
+            } @placeholder {
+              <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
+            }
+          }
+          @case (REGION.Skills) {
+            @defer (on idle; hydrate on idle) {
+              <app-skills-panel [loadingLabel]="t['LOADING']" [errorLabel]="t['LOAD_ERROR']" />
+            } @placeholder {
+              <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
+            }
+          }
+          @case (REGION.Projects) {
+            @defer (on idle; hydrate on idle) {
+              <app-projects-panel [loadingLabel]="t['LOADING']" [errorLabel]="t['LOAD_ERROR']" />
+            } @placeholder {
+              <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
+            }
+          }
+          @case (REGION.Contact) {
+            @defer (on idle; hydrate on idle) {
+              <app-contact-panel [sendLabel]="t['SEND']" [sendingLabel]="t['SENDING']" />
+            } @placeholder {
+              <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
+            }
+          }
+        }
+      </app-board-panel>
+    }
+  </div>
+</main>
+
+<app-board-arrows
+  [arrows]="arrows()"
+  [navigationLabel]="t['NAVIGATION_LABEL']"
+  (moved)="onMove($event)"
+/>
+
+<app-board-menu
+  [cells]="menuCells()"
+  [labels]="menuLabels()"
+  [isNight]="isNight()"
+  [columnCount]="COLUMN_COUNT"
+  [rowCount]="ROW_COUNT"
+  (regionSelected)="onRegionRequested($event)"
+  (themeToggled)="onThemeToggled()"
+/>
+
+<p class="board__announcer" aria-live="polite">{{ activeHeading() }}</p>

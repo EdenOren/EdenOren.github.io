@@ -10,7 +10,7 @@ import {
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AdminFacade } from './facades/admin.facade';
-import { AdminRoute } from './enums/admin-route.enum';
+import { AdminRoute } from './enums/admin.enums';
 
 @Component({
   selector: 'app-admin',

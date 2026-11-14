@@ -1,5 +1,5 @@
 import { Service, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { MS_PER_SECOND } from '../../constants/core.constants';
+import { MS_PER_SECOND } from '../../constants/core.const';
 import { LocalStorageKeys } from '../../enums/core.enums';
 import { GoogleIdTokenPayload } from '../../models/core.models';
 
@@ -29,6 +29,10 @@ export class AuthService {
   );
 
   private static checkStoredToken(): boolean {
+    // Pre-rendering runs without storage; admin routes are client-rendered, so signed-out is right there.
+    if (typeof localStorage === 'undefined') {
+      return false;
+    }
     const token: string | null = localStorage.getItem(LocalStorageKeys.AdminToken);
     if (isTokenValid(token)) {
       return true;
@@ -42,6 +46,9 @@ export class AuthService {
   readonly isAuthenticated: Signal<boolean> = computed(() => this._authenticated());
 
   getValidToken(): string | null {
+    if (typeof localStorage === 'undefined') {
+      return null;
+    }
     const token = localStorage.getItem(LocalStorageKeys.AdminToken);
     return isTokenValid(token) ? token : null;
   }

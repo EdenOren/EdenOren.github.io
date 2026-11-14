@@ -13,6 +13,8 @@ $space-24: 6rem;
 $font-family-display: 'Cormorant', Georgia, serif;
 $font-family-base: 'Geist', system-ui, sans-serif;
 $font-family-mono: 'JetBrains Mono', monospace;
+$font-family-marker: 'Caveat Brush', 'Caveat', 'Segoe Print', cursive;
+$font-family-hand: 'Caveat', 'Segoe Print', cursive;
 
 // Single base size for all UI text (nav, body, labels, inputs, footer, tags).
 // Only headings/titles deviate from this.
@@ -37,6 +39,8 @@ $breakpoint-xl: 1280px;
 $transition-fast: 150ms ease;
 $transition-base: 300ms ease;
 $transition-slow: 500ms ease;
+$transition-board-slide: 950ms cubic-bezier(0.45, 0, 0.15, 1);
+$transition-city-fade: 1200ms ease-in-out;
 
 // Z-index layers
 $z-base: 0;

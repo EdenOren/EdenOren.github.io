@@ -1,0 +1,71 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+:host {
+  position: fixed;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    colors.$color-sky-top 0%,
+    colors.$color-sky-middle 55%,
+    colors.$color-sky-bottom 100%
+  );
+}
+
+.board-not-found__city-placeholder {
+  position: absolute;
+  inset: 0;
+}
+
+.board-not-found__pane {
+  @include mixins.glass-pane;
+  position: absolute;
+  inset: 0;
+  display: grid;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(118deg, colors.$color-glass-sheen 0%, transparent 26%);
+  }
+}
+
+.board-not-found__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: variables.$space-2 variables.$space-6;
+  margin-top: variables.$space-6;
+}
+
+.board-not-found__link {
+  @include mixins.hand-note;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: colors.$color-ink;
+
+  &:hover {
+    color: colors.$color-ink-accent;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.board-not-found__link--primary {
+  color: colors.$color-ink-accent;
+
+  &::before {
+    content: '\2190\00a0';
+  }
+
+  &:hover {
+    color: colors.$color-ink;
+  }
+}

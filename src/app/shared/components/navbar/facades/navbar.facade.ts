@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import {
   DestroyRef,
   Service,
@@ -13,13 +14,15 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, filter } from 'rxjs';
+import { AppRoute } from '../../../../core/enums/core.enums';
 import { AuthService } from '../../../../core/services/platform/auth.service';
 import { ThemeService } from '../../../../core/services/platform/theme.service';
-import { NAVBAR_SCROLL_THRESHOLD_PX } from '../navbar.constants';
+import { NAVBAR_SCROLL_THRESHOLD_PX } from '../navbar.const';
 
 @Service({ autoProvided: false })
 export class NavbarFacade {
   private readonly translateService: TranslateService = inject(TranslateService);
+  private readonly document: Document = inject(DOCUMENT);
   private readonly router: Router = inject(Router);
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
   private readonly authService: AuthService = inject(AuthService);
@@ -56,7 +59,7 @@ export class NavbarFacade {
     });
 
     effect(() => {
-      document.body.style.overflow = this.isMenuOpen() ? 'hidden' : '';
+      this.document.body.style.overflow = this.isMenuOpen() ? 'hidden' : '';
     });
 
     this.router.events
@@ -98,7 +101,7 @@ export class NavbarFacade {
       element.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
     } else {
       this.pendingScrollSection.set(sectionId);
-      this.router.navigate(['/']);
+      this.router.navigate([`/${AppRoute.Classic}`]);
     }
   }
 

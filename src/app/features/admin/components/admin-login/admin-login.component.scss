@@ -1,0 +1,63 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+:host {
+  position: fixed;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    colors.$color-sky-top 0%,
+    colors.$color-sky-middle 55%,
+    colors.$color-sky-bottom 100%
+  );
+}
+
+.admin-login__city-placeholder {
+  position: absolute;
+  inset: 0;
+}
+
+.admin-login__pane {
+  @include mixins.glass-pane;
+  position: absolute;
+  inset: 0;
+  display: grid;
+}
+
+// Google draws its button inside an iframe that page CSS cannot reach, so the board look comes
+// from a hand-drawn frame around it plus Google's own pill shape and day/night theme.
+.admin-login__google {
+  @include mixins.hand-sketch;
+  display: flex;
+  width: fit-content;
+  min-height: 2.75rem;
+  margin-top: variables.$space-6;
+  padding: variables.$space-3 variables.$space-4;
+  color: colors.$color-ink-accent;
+  transform: rotate(-1.5deg);
+}
+
+.admin-login__back {
+  @include mixins.hand-note;
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-top: variables.$space-4;
+  color: colors.$color-ink;
+
+  &::before {
+    content: '\2190\00a0';
+  }
+
+  &:hover {
+    color: colors.$color-ink-accent;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}

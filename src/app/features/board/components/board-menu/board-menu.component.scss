@@ -1,0 +1,139 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+%board-menu-control {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  color: colors.$color-ink;
+  background: transparent;
+  cursor: pointer;
+
+  &:hover {
+    color: colors.$color-ink-accent;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.board-menu__close,
+.board-menu__theme {
+  @extend %board-menu-control;
+  @include mixins.hand-note;
+  padding: 0 variables.$space-2;
+  border: 0;
+}
+
+.board-menu__close::after {
+  content: '\00a0\2715';
+}
+
+// The sheet has no padding so that only a click outside the content reaches the dialog element (the backdrop).
+.board-menu__sheet {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  color: colors.$color-ink;
+  border: 0;
+  background: colors.$color-glass-pane;
+  backdrop-filter: blur(14px);
+
+  &::backdrop {
+    background: colors.$color-board-dim;
+  }
+
+  @include mixins.respond-to(md) {
+    width: min(56rem, 92vw);
+    height: fit-content;
+    margin: auto;
+    border-radius: 6px;
+  }
+}
+
+.board-menu__content {
+  display: grid;
+  gap: variables.$space-6;
+  min-height: 100%;
+  align-content: start;
+  padding: variables.$space-6 variables.$space-4 variables.$space-8;
+
+  @include mixins.respond-to(md) {
+    gap: variables.$space-8;
+    padding: variables.$space-12;
+  }
+}
+
+.board-menu__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.board-menu__heading {
+  font-family: variables.$font-family-marker;
+  font-size: clamp(2.25rem, 6vw, 3rem);
+  line-height: 1;
+}
+
+.board-menu__map {
+  display: grid;
+  grid-template-columns: repeat(var(--menu-columns), 1fr);
+  grid-template-rows: repeat(var(--menu-rows), minmax(max(5.5rem, 16vh), auto));
+  gap: variables.$space-4;
+}
+
+.board-menu__cell {
+  display: flex;
+  min-width: 0;
+}
+
+.board-menu__region {
+  @extend %board-menu-control;
+  @include mixins.hand-sketch(2px);
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: variables.$space-2;
+  font-family: variables.$font-family-hand;
+  font-size: clamp(1.15rem, 3.6vw, 2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.board-menu__region--active {
+  border-width: 3.5px;
+  color: colors.$color-ink-accent;
+  background: color-mix(in srgb, colors.$color-ink-accent 14%, transparent);
+}
+
+.board-menu__here {
+  font-size: 0.75em;
+  color: colors.$color-ink-aside;
+}
+
+.board-menu__theme {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: variables.$space-2;
+  color: colors.$color-ink-soft;
+}
+
+.board-menu__theme-option {
+  padding: 0 variables.$space-3 variables.$space-1;
+  border: 2.5px solid transparent;
+}
+
+.board-menu__theme-option--current {
+  @include mixins.hand-circle;
+  color: colors.$color-ink-accent;
+}

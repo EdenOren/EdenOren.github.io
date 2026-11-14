@@ -1,0 +1,164 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+:host {
+  position: fixed;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    colors.$color-sky-top 0%,
+    colors.$color-sky-middle 55%,
+    colors.$color-sky-bottom 100%
+  );
+}
+
+.board__city-placeholder {
+  position: absolute;
+  inset: 0;
+}
+
+.board__viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+
+  // The glass and its reflection stay fixed to the screen; only the writing slides, so no seam
+  // or pane edge ever travels across the view.
+  @include mixins.glass-pane;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(118deg, colors.$color-glass-sheen 0%, transparent 26%);
+  }
+}
+
+.board__surface {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns), 1fr);
+  grid-template-rows: repeat(var(--board-rows), 1fr);
+  width: calc(var(--board-columns) * 100%);
+  height: calc(var(--board-rows) * 100%);
+  transition: transform variables.$transition-board-slide;
+  will-change: transform;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+// The two top corners (admin and menu) share one row with the up arrow: 4rem tall from the top
+// edge on desktop so all three centre on the same line, frosted chips on a phone.
+.board__corner {
+  @include mixins.hand-note;
+  position: absolute;
+  top: variables.$space-3;
+  z-index: variables.$z-above;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: variables.$space-2;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  padding: 0 variables.$space-3;
+  color: colors.$color-ink;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+
+  @media (width < variables.$breakpoint-md) {
+    @include mixins.glass-pane;
+  }
+
+  @include mixins.respond-to(md) {
+    top: 0;
+    height: 4rem;
+    padding: 0 variables.$space-6;
+  }
+
+  &:hover {
+    color: colors.$color-ink-accent;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.board__corner--start {
+  left: variables.$space-3;
+
+  @include mixins.respond-to(md) {
+    left: 0;
+  }
+}
+
+.board__corner--end {
+  right: variables.$space-3;
+
+  @include mixins.respond-to(md) {
+    right: 0;
+  }
+}
+
+.board__icon {
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+// The hand font draws its lowercase low in the line box, so the bars drop a touch to sit on the
+// word's x-height rather than on the box centre.
+.board__icon--menu {
+  translate: 0 0.12em;
+}
+
+.board__classic-link {
+  position: absolute;
+  top: variables.$space-3;
+  left: calc(#{variables.$space-4} + 3.25rem);
+  z-index: variables.$z-above;
+  padding: variables.$space-2 variables.$space-3;
+  font-size: variables.$font-size-sm;
+  font-weight: 500;
+  color: colors.$color-ink;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+
+  // On a phone a tall pane scrolls underneath, so the link keeps its own frosted patch.
+  @media (width < variables.$breakpoint-md) {
+    @include mixins.glass-pane;
+    border-radius: 999px;
+  }
+
+  &:hover {
+    color: colors.$color-ink-accent;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.board__panel-placeholder {
+  @include mixins.hand-note;
+}
+
+.board__page-heading,
+.board__announcer {
+  @include mixins.visually-hidden;
+}

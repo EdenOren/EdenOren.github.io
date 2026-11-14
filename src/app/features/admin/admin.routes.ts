@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AdminRoute } from './enums/admin-route.enum';
+import { AdminRoute } from './enums/admin.enums';
 
 export const adminRoutes: Routes = [
   {

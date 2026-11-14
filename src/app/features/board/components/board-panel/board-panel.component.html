@@ -1,0 +1,15 @@
+<section class="board-panel__writing" [class.board-panel__writing--wide]="isWide()">
+  @if (note()) {
+    <p class="board-panel__note" aria-hidden="true">{{ note() }}</p>
+  }
+  <h2 #headingElement class="board-panel__heading" tabindex="-1">{{ heading() }}</h2>
+  <svg class="board-panel__underline" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true">
+    <path
+      class="board-panel__underline-stroke"
+      d="M3 9 C 40 2, 70 13, 110 7 S 190 3, 230 8 S 280 11, 297 5"
+    />
+  </svg>
+  <div class="board-panel__body">
+    <ng-content />
+  </div>
+</section>

@@ -18,3 +18,14 @@ export enum Theme {
   Light = 'light',
   Dark = 'dark',
 }
+
+export enum AnalyticsEvent {
+  PageView = 'page_view',
+}
+
+export enum AppRoute {
+  Board = '',
+  Classic = 'classic',
+  Admin = 'admin',
+  LegacyBoard = 'v2',
+}

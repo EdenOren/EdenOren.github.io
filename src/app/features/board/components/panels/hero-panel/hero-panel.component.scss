@@ -1,0 +1,62 @@
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+:host {
+  display: block;
+  max-width: 44ch;
+}
+
+.hero-panel__role {
+  font-weight: 600;
+  color: colors.$color-ink;
+}
+
+.hero-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: variables.$space-4;
+  margin-top: variables.$space-6;
+}
+
+.hero-panel__action {
+  @include mixins.hand-note;
+  min-height: 2.75rem;
+  padding: 0 variables.$space-1;
+  color: colors.$color-ink;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transform: rotate(1.5deg);
+
+  &::after {
+    content: '\00a0\2192';
+  }
+
+  &:hover {
+    color: colors.$color-ink-accent;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.hero-panel__action--primary {
+  color: colors.$color-ink-accent;
+  transform: rotate(-2deg);
+
+  &:hover {
+    color: colors.$color-ink;
+  }
+}
+
+.hero-panel__aside {
+  @include mixins.hand-note;
+  margin-top: variables.$space-6;
+  color: colors.$color-ink-aside;
+  transform: rotate(1.5deg);
+  transform-origin: left;
+}

@@ -1,0 +1,36 @@
+@let t = translation();
+@if (isLoading()) {
+  <p class="projects-panel__status" role="status">{{ loadingLabel() }}</p>
+} @else if (isError()) {
+  <p class="projects-panel__status projects-panel__status--error" role="alert">{{ errorLabel() }}</p>
+} @else {
+  <ul class="projects-panel__cards" role="list">
+    @for (project of projects(); track project.id) {
+      <li class="projects-panel__card">
+        <h3 class="projects-panel__title">{{ project.title }}</h3>
+        <p class="projects-panel__description">{{ project.description }}</p>
+        <p class="projects-panel__tags">
+          @for (tag of project.tags; track tag) {
+            <span class="projects-panel__tag">{{ tag }}</span>
+          }
+        </p>
+        <p class="projects-panel__links">
+          @if (project.githubUrl) {
+            <a class="projects-panel__link" [href]="project.githubUrl" target="_blank" rel="noopener noreferrer">
+              {{ t['GITHUB_LABEL'] }} <span aria-hidden="true">↗</span>
+              <span class="projects-panel__link-context">: {{ project.title }}</span>
+            </a>
+          }
+          @if (project.liveUrl) {
+            <a class="projects-panel__link" [href]="project.liveUrl" target="_blank" rel="noopener noreferrer">
+              {{ t['LIVE_LABEL'] }} <span aria-hidden="true">↗</span>
+              <span class="projects-panel__link-context">: {{ project.title }}</span>
+            </a>
+          }
+        </p>
+      </li>
+    } @empty {
+      <li class="projects-panel__status">{{ t['NO_PROJECTS'] }}</li>
+    }
+  </ul>
+}

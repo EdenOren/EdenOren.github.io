@@ -1,6 +1,6 @@
 <nav class="navbar" [class.navbar--scrolled]="isScrolled()" [class.navbar--open]="isMenuOpen()">
   <div class="navbar__inner">
-    <a class="navbar__logo no-select" routerLink="/">
+    <a class="navbar__logo no-select" [routerLink]="CLASSIC_PATH">
       E. Oren
     </a>
 
@@ -39,6 +39,11 @@
             </button>
           </li>
         }
+        <li class="navbar__item">
+          <a class="navbar__link no-select" [routerLink]="BOARD_PATH" (click)="closeMenu()">
+            {{ t['BOARD'] }}
+          </a>
+        </li>
       </ul>
 
       <div class="navbar__actions">

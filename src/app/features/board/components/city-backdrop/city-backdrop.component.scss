@@ -1,0 +1,214 @@
+@use 'sass:math';
+@use 'abstract/colors' as colors;
+@use 'abstract/variables' as variables;
+@use 'abstract/mixins' as mixins;
+
+$overscan-x: 18%;
+$overscan-y: 14%;
+// translate3d percentages are relative to the frame's own (oversized) box, so the pan range
+// is the spare margin expressed as a share of that box.
+$pan-range-x: math.div($overscan-x, 100% + $overscan-x) * -100%;
+$pan-range-y: math.div($overscan-y, 100% + $overscan-y) * -100%;
+$plane-cycle: 70s;
+$plane-width: 22px;
+
+:host {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+:host(.city--paused) {
+  .city__cloud,
+  .city__plane,
+  .city__plane-strobe,
+  .city__plane-beacon {
+    animation-play-state: paused;
+  }
+}
+
+.city__frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% + $overscan-x;
+  height: 100% + $overscan-y;
+  transform: translate3d(
+    calc(var(--city-pan-x) * #{$pan-range-x}),
+    calc(var(--city-pan-y) * #{$pan-range-y}),
+    0
+  );
+  transition: transform variables.$transition-board-slide;
+  will-change: transform;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.city__photo {
+  object-fit: cover;
+  object-position: center calc(var(--city-focus-y) * 100%);
+}
+
+.city__photo--night {
+  opacity: 0;
+  transition: opacity variables.$transition-city-fade;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.city__photo--visible {
+  opacity: 1;
+}
+
+.city__life {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Mobile keeps only the canvas window lights; the sky layer is a wide-screen extra.
+.city__sky {
+  position: absolute;
+  inset: 0 0 45%;
+  display: none;
+  overflow: hidden;
+  container-type: inline-size;
+
+  @include mixins.respond-to(md) {
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
+.city__cloud {
+  position: absolute;
+  left: 0;
+  width: 24cqw;
+  aspect-ratio: 5 / 1;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, colors.$color-city-cloud 0%, transparent 70%);
+  filter: blur(6px);
+  animation: city-cloud-drift 220s linear infinite;
+  transition: opacity variables.$transition-city-fade;
+
+  :host(.city--night) & {
+    opacity: 0;
+  }
+}
+
+.city__cloud--high {
+  top: 10%;
+  animation-delay: -40s;
+}
+
+.city__cloud--middle {
+  top: 26%;
+  width: 18cqw;
+  animation-duration: 280s;
+  animation-delay: -190s;
+}
+
+.city__cloud--low {
+  top: 44%;
+  width: 30cqw;
+  animation-duration: 340s;
+  animation-delay: -120s;
+}
+
+.city__plane {
+  position: absolute;
+  top: 18%;
+  left: 0;
+  width: $plane-width;
+  animation: city-plane-flight $plane-cycle linear infinite;
+  animation-delay: -6s;
+}
+
+.city__plane-body {
+  display: block;
+  width: 100%;
+  fill: colors.$color-city-plane;
+  transition: opacity variables.$transition-city-fade;
+
+  :host(.city--night) & {
+    opacity: 0;
+  }
+}
+
+.city__plane-strobe,
+.city__plane-beacon {
+  position: absolute;
+  top: 50%;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.city__plane-strobe {
+  right: 0;
+  background: colors.$color-city-strobe;
+  box-shadow: 0 0 4px 1px colors.$color-city-strobe;
+}
+
+.city__plane-beacon {
+  left: 40%;
+  background: colors.$color-city-beacon;
+  box-shadow: 0 0 4px 1px colors.$color-city-beacon;
+}
+
+:host(.city--night) {
+  .city__plane-strobe {
+    animation: city-plane-blink 1.4s steps(1, end) infinite;
+  }
+
+  .city__plane-beacon {
+    animation: city-plane-blink 1.1s steps(1, end) infinite 0.5s;
+  }
+}
+
+@keyframes city-cloud-drift {
+  from {
+    transform: translate3d(-35cqw, 0, 0);
+  }
+
+  to {
+    transform: translate3d(105cqw, 0, 0);
+  }
+}
+
+@keyframes city-plane-flight {
+  0% {
+    transform: translate3d(-5cqw, 0, 0);
+  }
+
+  60%,
+  100% {
+    transform: translate3d(105cqw, -4cqw, 0);
+  }
+}
+
+@keyframes city-plane-blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 0;
+  }
+}

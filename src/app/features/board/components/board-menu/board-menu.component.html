@@ -1,0 +1,55 @@
+@let label = labels();
+<dialog
+  #menuDialog
+  class="board-menu__sheet"
+  [attr.aria-label]="label.heading"
+  (click)="onDialogClick($event)"
+  (keydown)="onDialogKeydown($event)"
+>
+  <div class="board-menu__content">
+    <div class="board-menu__top">
+      <p class="board-menu__heading">{{ label.heading }}</p>
+      <button class="board-menu__close" type="button" (click)="onClose()">{{ label.close }}</button>
+    </div>
+
+    <nav [attr.aria-label]="label.heading">
+      <ul
+        class="board-menu__map"
+        [style.--menu-columns]="columnCount()"
+        [style.--menu-rows]="rowCount()"
+      >
+        @for (cell of cells(); track cell.region) {
+          <li class="board-menu__cell" [style.grid-column]="cell.gridColumn" [style.grid-row]="cell.gridRow">
+            <button
+              class="board-menu__region"
+              type="button"
+              [class.board-menu__region--active]="cell.isActive"
+              [attr.aria-current]="cell.isActive ? 'page' : null"
+              (click)="onCellClick(cell.region)"
+            >
+              <span>{{ cell.label }}</span>
+              @if (cell.isActive) {
+                <span class="board-menu__here">{{ label.here }}</span>
+              }
+            </button>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <button
+      class="board-menu__theme"
+      type="button"
+      [attr.aria-label]="label.themeAction"
+      (click)="onThemeClick()"
+    >
+      <span class="board-menu__theme-option" [class.board-menu__theme-option--current]="!isNight()">
+        {{ label.day }}
+      </span>
+      <span class="board-menu__theme-slash" aria-hidden="true">/</span>
+      <span class="board-menu__theme-option" [class.board-menu__theme-option--current]="isNight()">
+        {{ label.night }}
+      </span>
+    </button>
+  </div>
+</dialog>
