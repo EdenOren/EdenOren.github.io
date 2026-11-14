@@ -165,6 +165,12 @@
   backdrop-filter: blur(3px) saturate(1.1);
 }
 
+// A second coat of the pane tint behind dense text over the busiest part of the city. A nested
+// backdrop-filter would see only the already-blurred pane (it is a backdrop root), so this is tint only.
+@mixin frosted-patch {
+  background: colors.$color-glass-pane;
+}
+
 @mixin heading-accent-bar {
   &::after {
     content: '';

@@ -1,8 +1,11 @@
-import { Service, Signal, computed, inject } from '@angular/core';
+import { DestroyRef, Service, Signal, computed, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, map } from 'rxjs';
+import { AnalyticsEvent } from '../../../core/enums/core.enums';
+import { AnalyticsService } from '../../../core/services/platform/analytics.service';
+import { SeoService } from '../../../core/services/platform/seo.service';
 import { ThemeService } from '../../../core/services/platform/theme.service';
 import { BoardDirection, BoardPanelWidth, BoardRegion, BoardRouteParam } from '../enums/board.enums';
 import {
@@ -30,6 +33,8 @@ export class BoardFacade {
   private readonly router: Router = inject(Router);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly themeService: ThemeService = inject(ThemeService);
+  private readonly seoService: SeoService = inject(SeoService);
+  private readonly analyticsService: AnalyticsService = inject(AnalyticsService);
 
   readonly COLUMN_COUNT: number = countBoardColumns();
   readonly ROW_COUNT: number = countBoardRows();
@@ -114,6 +119,18 @@ export class BoardFacade {
     }
     return arrows;
   });
+
+  constructor() {
+    effect(() => {
+      this.seoService.applyPageTitle(this.activeHeading());
+    });
+    effect(() => {
+      this.analyticsService.trackEvent(AnalyticsEvent.PageView, {
+        page_path: `${BOARD_ROOT_PATH}/${this.activeRegion()}`,
+      });
+    });
+    inject(DestroyRef).onDestroy(() => this.seoService.resetTitle());
+  }
 
   move(direction: BoardDirection): Promise<boolean> {
     const neighbour = findNeighbour(this.activeConfig(), direction);

@@ -86,6 +86,7 @@
   @include mixins.hand-note;
 }
 
+.board__page-heading,
 .board__announcer {
   @include mixins.visually-hidden;
 }
