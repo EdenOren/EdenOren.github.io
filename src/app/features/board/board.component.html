@@ -22,7 +22,7 @@
   <a class="board__classic-link" [routerLink]="CLASSIC_PATH">{{ t['CLASSIC_LINK'] }}</a>
 }
 
-@defer (on idle) {
+@defer (on idle; hydrate on idle) {
   <app-city-backdrop [pan]="cityPan()" [isNight]="isNight()" />
 } @placeholder {
   <div class="board__city-placeholder" aria-hidden="true"></div>
@@ -51,35 +51,35 @@
             <app-hero-panel [aside]="t['HERO_ASIDE']" (regionRequested)="onRegionRequested($event)" />
           }
           @case (REGION.About) {
-            @defer (on idle) {
+            @defer (on idle; hydrate on idle) {
               <app-about-panel />
             } @placeholder {
               <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
             }
           }
           @case (REGION.Experience) {
-            @defer (on idle) {
+            @defer (on idle; hydrate on idle) {
               <app-experience-panel [loadingLabel]="t['LOADING']" [errorLabel]="t['LOAD_ERROR']" />
             } @placeholder {
               <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
             }
           }
           @case (REGION.Skills) {
-            @defer (on idle) {
+            @defer (on idle; hydrate on idle) {
               <app-skills-panel [loadingLabel]="t['LOADING']" [errorLabel]="t['LOAD_ERROR']" />
             } @placeholder {
               <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
             }
           }
           @case (REGION.Projects) {
-            @defer (on idle) {
+            @defer (on idle; hydrate on idle) {
               <app-projects-panel [loadingLabel]="t['LOADING']" [errorLabel]="t['LOAD_ERROR']" />
             } @placeholder {
               <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>
             }
           }
           @case (REGION.Contact) {
-            @defer (on idle) {
+            @defer (on idle; hydrate on idle) {
               <app-contact-panel [sendLabel]="t['SEND']" [sendingLabel]="t['SENDING']" />
             } @placeholder {
               <p class="board__panel-placeholder">{{ t['LOADING'] }}</p>

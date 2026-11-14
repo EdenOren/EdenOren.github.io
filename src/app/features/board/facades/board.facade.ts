@@ -4,6 +4,10 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, map } from 'rxjs';
 import { AnalyticsEvent } from '../../../core/enums/core.enums';
+import { AboutService } from '../../../core/services/data/about.service';
+import { ExperienceService } from '../../../core/services/data/experience.service';
+import { ProjectsService } from '../../../core/services/data/projects.service';
+import { SkillsService } from '../../../core/services/data/skills.service';
 import { AnalyticsService } from '../../../core/services/platform/analytics.service';
 import { SeoService } from '../../../core/services/platform/seo.service';
 import { ThemeService } from '../../../core/services/platform/theme.service';
@@ -121,6 +125,14 @@ export class BoardFacade {
   });
 
   constructor() {
+    // The panels hydrate on idle, after the app is stable and the HTTP transfer cache is closed.
+    // Creating the data resources here, during initial hydration, serves them from the
+    // pre-rendered state, so panels never re-fetch or flash a loading state over rendered content.
+    inject(AboutService);
+    inject(ExperienceService);
+    inject(SkillsService);
+    inject(ProjectsService);
+
     effect(() => {
       this.seoService.applyPageTitle(this.activeHeading());
     });

@@ -22,7 +22,8 @@ export class CityBackdropFacade {
   readonly isPaused: Signal<boolean> = computed(() => !this.isAnimating());
 
   private matchMedia(query: string): Signal<boolean> {
-    const mediaQuery = this.document.defaultView?.matchMedia(query);
+    // The server-side window has no matchMedia during pre-rendering.
+    const mediaQuery = this.document.defaultView?.matchMedia?.(query);
     if (!mediaQuery) {
       return computed(() => false);
     }

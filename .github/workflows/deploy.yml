@@ -25,25 +25,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build -- --configuration=production
-
+      # Pre-renders every board region and /classic into <route>/index.html (see app.routes.server.ts).
       - name: Build Angular app
-        run: npx ng build --configuration production --base-href /
+        run: npx ng build --configuration production
 
-      - name: Copy index to 404
-        run: cp dist/portfolio/browser/index.html dist/portfolio/browser/404.html
-
-      # GitHub Pages only returns 200 for files that exist, so every known route gets its own
-      # copy of index.html; anything else still falls back to 404.html and the in-app 404 page.
-      # Keep this list in sync with BoardRegion, AppRoute and AdminRoute.
-      - name: Copy index to known routes
+      # GitHub Pages only returns 200 for files that exist. The router redirects / to /hero, which
+      # pre-rendering writes as a bare meta-refresh page with no link-preview tags, so / serves the
+      # pre-rendered hero instead. Admin routes are client-rendered and get the CSR shell.
+      # Anything else falls back to 404.html and the in-app 404 page.
+      # Keep the admin list in sync with AdminRoute.
+      - name: Place root, admin and 404 pages
         run: |
           cd dist/portfolio/browser
-          for route in hero about experience skills projects contact classic \
-                       admin admin/about admin/experience admin/projects admin/skills; do
+          cp hero/index.html index.html
+          cp index.csr.html 404.html
+          for route in admin admin/about admin/experience admin/projects admin/skills; do
             mkdir -p "$route"
-            cp index.html "$route/index.html"
+            cp index.csr.html "$route/index.html"
           done
 
       - name: Upload artifact
