@@ -1,5 +1,6 @@
 import { BoardDirection, BoardNavigationKey, BoardRegion } from '../enums/board.enums';
 import {
+  buildCityPan,
   buildSurfaceTransform,
   countBoardColumns,
   countBoardRows,
@@ -41,6 +42,12 @@ describe('board utils', () => {
     expect(buildSurfaceTransform(findRegionConfig(BoardRegion.Contact))).toBe(
       `translate3d(-${200 / 3}%, -50%, 0)`
     );
+  });
+
+  it('pans the city across its spare margin by board position', () => {
+    expect(buildCityPan(findRegionConfig(BoardRegion.About))).toEqual({ x: 0, y: 0 });
+    expect(buildCityPan(findRegionConfig(BoardRegion.Hero))).toEqual({ x: 0.5, y: 0 });
+    expect(buildCityPan(findRegionConfig(BoardRegion.Contact))).toEqual({ x: 1, y: 1 });
   });
 
   it('maps arrow keys to directions', () => {

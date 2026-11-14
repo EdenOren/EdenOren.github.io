@@ -12,6 +12,11 @@ export interface BoardOffset {
   row: number;
 }
 
+export interface BoardCityPan {
+  x: number;
+  y: number;
+}
+
 export interface BoardPanelView {
   region: BoardRegion;
   gridColumn: number;

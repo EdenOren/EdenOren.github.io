@@ -30,3 +30,6 @@ export const BOARD_KEY_DIRECTIONS: Record<BoardNavigationKey, BoardDirection> = 
 export const BOARD_CLASSIC_PATH = `/${AppRoute.Home}`;
 export const BOARD_ROOT_PATH = `/${AppRoute.Board}`;
 export const FULL_PERCENT = 100;
+
+export const CITY_DAY_PHOTO = 'assets/images/tlv-west-day.avif';
+export const CITY_NIGHT_PHOTO = 'assets/images/tlv-west-night.avif';
