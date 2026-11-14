@@ -1,6 +1,12 @@
 @let t = translation();
 <a class="board__classic-link" [routerLink]="CLASSIC_PATH">{{ t['CLASSIC_LINK'] }}</a>
 
+@defer (on idle) {
+  <app-city-backdrop [pan]="cityPan()" [isNight]="isNight()" />
+} @placeholder {
+  <div class="board__city-placeholder" aria-hidden="true"></div>
+}
+
 <main class="board__viewport">
   <div
     class="board__surface"

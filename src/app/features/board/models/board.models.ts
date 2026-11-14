@@ -1,5 +1,4 @@
-import { BoardDirection } from '../enums/board-direction.enum';
-import { BoardRegion } from '../enums/board-region.enum';
+import { BoardDirection, BoardRegion } from '../enums/board.enums';
 
 export interface BoardRegionConfig {
   region: BoardRegion;
@@ -11,6 +10,11 @@ export interface BoardRegionConfig {
 export interface BoardOffset {
   column: number;
   row: number;
+}
+
+export interface BoardCityPan {
+  x: number;
+  y: number;
 }
 
 export interface BoardPanelView {

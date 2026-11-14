@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable, filter } from 'rxjs';
 import { AuthService } from '../../../../core/services/platform/auth.service';
 import { ThemeService } from '../../../../core/services/platform/theme.service';
-import { NAVBAR_SCROLL_THRESHOLD_PX } from '../navbar.constants';
+import { NAVBAR_SCROLL_THRESHOLD_PX } from '../navbar.const';
 
 @Service({ autoProvided: false })
 export class NavbarFacade {

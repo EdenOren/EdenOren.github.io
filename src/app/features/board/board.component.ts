@@ -10,15 +10,16 @@ import {
 import { RouterLink } from '@angular/router';
 import { BoardArrowsComponent } from './components/board-arrows/board-arrows.component';
 import { BoardPanelComponent } from './components/board-panel/board-panel.component';
-import { BoardDirection } from './enums/board-direction.enum';
+import { CityBackdropComponent } from './components/city-backdrop/city-backdrop.component';
+import { BoardDirection } from './enums/board.enums';
 import { BoardFacade } from './facades/board.facade';
-import { BoardArrowView, BoardPanelView } from './models/board.models';
-import { BOARD_CLASSIC_PATH } from './utils/board.constants';
+import { BoardArrowView, BoardCityPan, BoardPanelView } from './models/board.models';
+import { BOARD_CLASSIC_PATH } from './utils/board.const';
 import { directionForKey, isTypingTarget } from './utils/board.utils';
 
 @Component({
   selector: 'app-board',
-  imports: [RouterLink, BoardArrowsComponent, BoardPanelComponent],
+  imports: [RouterLink, BoardArrowsComponent, BoardPanelComponent, CityBackdropComponent],
   providers: [BoardFacade],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
@@ -40,6 +41,8 @@ export class BoardComponent {
   protected readonly arrows: Signal<BoardArrowView[]> = this.boardFacade.arrows;
   protected readonly surfaceTransform: Signal<string> = this.boardFacade.surfaceTransform;
   protected readonly activeHeading: Signal<string> = this.boardFacade.activeHeading;
+  protected readonly cityPan: Signal<BoardCityPan> = this.boardFacade.cityPan;
+  protected readonly isNight: Signal<boolean> = this.boardFacade.isNight;
 
   private readonly panelComponents: Signal<readonly BoardPanelComponent[]> =
     viewChildren(BoardPanelComponent);

@@ -1,0 +1,11 @@
+<div class="city__frame">
+  <img class="city__photo" [ngSrc]="DAY_PHOTO" alt="" fill priority />
+  <img
+    class="city__photo city__photo--night"
+    [class.city__photo--visible]="isNight()"
+    [ngSrc]="NIGHT_PHOTO"
+    alt=""
+    fill
+    priority
+  />
+</div>

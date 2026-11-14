@@ -1,14 +1,12 @@
-import { BoardDirection } from '../enums/board-direction.enum';
-import { BoardNavigationKey } from '../enums/board-navigation-key.enum';
-import { BoardRegion } from '../enums/board-region.enum';
-import { BoardRegionConfig } from '../models/board.models';
+import { BoardDirection, BoardNavigationKey, BoardRegion } from '../enums/board.enums';
+import { BoardCityPan, BoardRegionConfig } from '../models/board.models';
 import {
   BOARD_DEFAULT_REGION,
   BOARD_DIRECTION_OFFSETS,
   BOARD_KEY_DIRECTIONS,
   BOARD_REGIONS,
   FULL_PERCENT,
-} from './board.constants';
+} from './board.const';
 
 export function isBoardRegion(value: string | null | undefined): value is BoardRegion {
   return BOARD_REGIONS.some(config => config.region === value);
@@ -45,6 +43,17 @@ export function buildSurfaceTransform(config: BoardRegionConfig): string {
   const offsetX = (config.column * FULL_PERCENT) / countBoardColumns();
   const offsetY = (config.row * FULL_PERCENT) / countBoardRows();
   return `translate3d(-${offsetX}%, -${offsetY}%, 0)`;
+}
+
+export function buildCityPan(config: BoardRegionConfig): BoardCityPan {
+  return {
+    x: panFraction(config.column, countBoardColumns()),
+    y: panFraction(config.row, countBoardRows()),
+  };
+}
+
+function panFraction(index: number, count: number): number {
+  return count > 1 ? index / (count - 1) : 0;
 }
 
 export function directionForKey(key: string): BoardDirection | undefined {

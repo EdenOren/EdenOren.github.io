@@ -1,7 +1,7 @@
 import { Service, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { FORMSPREE_URL } from '../../constants/core.constants';
+import { FORMSPREE_URL } from '../../constants/core.const';
 
 interface ContactPayload {
   name: string;

@@ -3,7 +3,7 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ContactService } from './contact.service';
-import { FORMSPREE_URL } from '../../constants/core.constants';
+import { FORMSPREE_URL } from '../../constants/core.const';
 
 describe('ContactService', () => {
   let service: ContactService;

@@ -1,5 +1,5 @@
 import { Service, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { MS_PER_SECOND } from '../../constants/core.constants';
+import { MS_PER_SECOND } from '../../constants/core.const';
 import { LocalStorageKeys } from '../../enums/core.enums';
 import { GoogleIdTokenPayload } from '../../models/core.models';
 

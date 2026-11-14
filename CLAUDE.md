@@ -32,7 +32,7 @@ This document defines mandatory standards for all code generation, refactoring, 
 
 ### Enums
 - **No literal strings in logic or comparisons** — always define and use an enum.
-- Feature-scoped enums live in `features/[name]/enums/`.
+- Feature-scoped enums live in a single file per feature: `features/[name]/enums/[name].enums.ts`. Do not split a feature's enums into one file per enum.
 - Shared / cross-feature enums live in `shared/enums/[name].enum.ts`.
 - **No string comparisons in templates** — expose a `Signal<boolean>` computed in the facade instead (e.g. `isLoading`, `isSuccess`, `isError`).
 
@@ -352,11 +352,12 @@ Additional rules:
 - Sub-component facades: `[feature]/components/[name]/facades/[name].facade.ts`
 - Feature root facades: `[feature]/facades/[feature].facade.ts`
 - Models: `[feature]/models/[feature].models.ts`
-- Enums: `[feature]/enums/[name].enum.ts`
-- Feature-scoped constants and utilities: `[feature]/utils/[name].constants.ts` or `[feature]/utils/[name].utils.ts`
+- Enums: `[feature]/enums/[feature].enums.ts` (one file per feature)
+- Feature-scoped constants and utilities: `[feature]/utils/[name].const.ts` or `[feature]/utils/[name].utils.ts`
 - Data services: `core/services/data/[feature].service.ts`
 - Platform services: `core/services/platform/[name].service.ts`
-- Core constants: `core/constants/core.constants.ts`
+- Core constants: `core/constants/core.const.ts`
+- Constants files always use the `.const.ts` suffix — never `.constants.ts` or `.consts.ts`.
 - Core enums: `core/enums/core.enums.ts`
 - Core models: `core/models/core.models.ts`
 - Global constants: `src/app/shared/constants/`

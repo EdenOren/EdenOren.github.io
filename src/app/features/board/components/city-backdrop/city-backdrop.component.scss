@@ -1,0 +1,54 @@
+@use 'sass:math';
+@use 'abstract/variables' as variables;
+
+$overscan-x: 18%;
+$overscan-y: 14%;
+// translate3d percentages are relative to the frame's own (oversized) box, so the pan range
+// is the spare margin expressed as a share of that box.
+$pan-range-x: math.div($overscan-x, 100% + $overscan-x) * -100%;
+$pan-range-y: math.div($overscan-y, 100% + $overscan-y) * -100%;
+
+:host {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.city__frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% + $overscan-x;
+  height: 100% + $overscan-y;
+  transform: translate3d(
+    calc(var(--city-pan-x) * #{$pan-range-x}),
+    calc(var(--city-pan-y) * #{$pan-range-y}),
+    0
+  );
+  transition: transform variables.$transition-board-slide;
+  will-change: transform;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.city__photo {
+  object-fit: cover;
+  object-position: center 58%;
+}
+
+.city__photo--night {
+  opacity: 0;
+  transition: opacity variables.$transition-city-fade;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.city__photo--visible {
+  opacity: 1;
+}

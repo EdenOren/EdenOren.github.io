@@ -3,12 +3,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, map } from 'rxjs';
-import { BoardDirection } from '../enums/board-direction.enum';
-import { BoardRegion } from '../enums/board-region.enum';
-import { BoardRouteParam } from '../enums/board-route.enum';
-import { BoardArrowView, BoardPanelView, BoardRegionConfig } from '../models/board.models';
-import { BOARD_REGIONS, BOARD_ROOT_PATH } from '../utils/board.constants';
+import { ThemeService } from '../../../core/services/platform/theme.service';
+import { BoardDirection, BoardRegion, BoardRouteParam } from '../enums/board.enums';
+import { BoardArrowView, BoardCityPan, BoardPanelView, BoardRegionConfig } from '../models/board.models';
+import { BOARD_REGIONS, BOARD_ROOT_PATH } from '../utils/board.const';
 import {
+  buildCityPan,
   buildSurfaceTransform,
   countBoardColumns,
   countBoardRows,
@@ -22,6 +22,7 @@ export class BoardFacade {
   private readonly translateService: TranslateService = inject(TranslateService);
   private readonly router: Router = inject(Router);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly themeService: ThemeService = inject(ThemeService);
 
   readonly COLUMN_COUNT: number = countBoardColumns();
   readonly ROW_COUNT: number = countBoardRows();
@@ -45,6 +46,10 @@ export class BoardFacade {
   readonly surfaceTransform: Signal<string> = computed(() =>
     buildSurfaceTransform(this.activeConfig())
   );
+
+  readonly cityPan: Signal<BoardCityPan> = computed(() => buildCityPan(this.activeConfig()));
+
+  readonly isNight: Signal<boolean> = this.themeService.isDark;
 
   readonly activeHeading: Signal<string> = computed(
     () => this.translation()[this.activeConfig().labelKey] ?? ''

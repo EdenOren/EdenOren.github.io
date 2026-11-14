@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../../enums/icon.enum';
-import { AdminRoute } from '../../../features/admin/enums/admin-route.enum';
+import { AdminRoute } from '../../../features/admin/enums/admin.enums';
 import { NavbarFacade } from './facades/navbar.facade';
 import { SocialShareComponent } from '../../../features/share/share.component';
 
