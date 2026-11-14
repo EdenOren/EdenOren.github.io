@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { SkillsService } from '../../../core/services/data/skills.service';
 import { Skill } from '../models/skills.models';
+import { CATEGORY_TO_I18N_KEY, SKILL_CATEGORY_ORDER } from '../utils/skills.const';
 
 export interface SkillGroup {
   id: string;
@@ -11,11 +12,10 @@ export interface SkillGroup {
   skills: string[];
 }
 
-const CATEGORY_TO_I18N_KEY: Record<string, string> = {
-  'Frontend': 'FRONTEND',
-  'Tools': 'TOOLS',
-  'Backend & APIs': 'OTHER',
-};
+function categoryRank(category: string): number {
+  const index = SKILL_CATEGORY_ORDER.indexOf(category);
+  return index === -1 ? SKILL_CATEGORY_ORDER.length : index;
+}
 
 @Service({ autoProvided: false })
 export class SkillsFacade {
@@ -26,8 +26,13 @@ export class SkillsFacade {
   readonly isError: Signal<boolean> = this.skillsService.isError;
 
   readonly groups: Signal<SkillGroup[]> = computed(() => {
+    const sortedSkills: Skill[] = [...this.skillsService.items()].sort(
+      (first: Skill, second: Skill) =>
+        categoryRank(first.category) - categoryRank(second.category) ||
+        first.sort_order - second.sort_order
+    );
     const grouped = new Map<string, string[]>();
-    for (const skill of this.skillsService.items()) {
+    for (const skill of sortedSkills) {
       const existing = grouped.get(skill.category) ?? [];
       existing.push(skill.name);
       grouped.set(skill.category, existing);

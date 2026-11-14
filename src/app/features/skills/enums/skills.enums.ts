@@ -3,3 +3,9 @@ export enum SkillGroupKey {
   Tools = 'TOOLS',
   Other = 'OTHER',
 }
+
+export enum SkillCategory {
+  Frontend = 'Frontend',
+  Backend = 'Backend & APIs',
+  Tools = 'Tools',
+}
