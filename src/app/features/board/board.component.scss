@@ -55,10 +55,82 @@
   }
 }
 
+// The two top corners (admin and menu) share one row with the up arrow: 4rem tall from the top
+// edge on desktop so all three centre on the same line, frosted chips on a phone.
+.board__corner {
+  @include mixins.hand-note;
+  position: absolute;
+  top: variables.$space-3;
+  z-index: variables.$z-above;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: variables.$space-2;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  padding: 0 variables.$space-3;
+  color: colors.$color-ink;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+
+  @media (width < variables.$breakpoint-md) {
+    @include mixins.glass-pane;
+  }
+
+  @include mixins.respond-to(md) {
+    top: 0;
+    height: 4rem;
+    padding: 0 variables.$space-6;
+  }
+
+  &:hover {
+    color: colors.$color-ink-accent;
+  }
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+.board__corner--start {
+  left: variables.$space-3;
+
+  @include mixins.respond-to(md) {
+    left: 0;
+  }
+}
+
+.board__corner--end {
+  right: variables.$space-3;
+
+  @include mixins.respond-to(md) {
+    right: 0;
+  }
+}
+
+.board__icon {
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+// The hand font draws its lowercase low in the line box, so the bars drop a touch to sit on the
+// word's x-height rather than on the box centre.
+.board__icon--menu {
+  translate: 0 0.12em;
+}
+
 .board__classic-link {
   position: absolute;
   top: variables.$space-3;
-  left: variables.$space-4;
+  left: calc(#{variables.$space-4} + 3.25rem);
   z-index: variables.$z-above;
   padding: variables.$space-2 variables.$space-3;
   font-size: variables.$font-size-sm;

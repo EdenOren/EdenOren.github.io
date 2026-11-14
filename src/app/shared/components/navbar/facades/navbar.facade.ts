@@ -13,6 +13,7 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, filter } from 'rxjs';
+import { AppRoute } from '../../../../core/enums/core.enums';
 import { AuthService } from '../../../../core/services/platform/auth.service';
 import { ThemeService } from '../../../../core/services/platform/theme.service';
 import { NAVBAR_SCROLL_THRESHOLD_PX } from '../navbar.const';
@@ -98,7 +99,7 @@ export class NavbarFacade {
       element.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
     } else {
       this.pendingScrollSection.set(sectionId);
-      this.router.navigate(['/']);
+      this.router.navigate([`/${AppRoute.Classic}`]);
     }
   }
 

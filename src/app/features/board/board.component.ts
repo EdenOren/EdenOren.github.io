@@ -5,6 +5,7 @@ import {
   Signal,
   afterNextRender,
   inject,
+  viewChild,
   viewChildren,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -29,7 +30,9 @@ import {
   BoardTouchPoint,
 } from './models/board.models';
 import {
+  BOARD_ADMIN_PATH,
   BOARD_CLASSIC_PATH,
+  BOARD_SHOWS_CLASSIC_LINK,
   BOARD_WHEEL_GESTURE_GAP_MS,
   BOARD_WHEEL_LOCK_MS,
   BOARD_WHEEL_QUIET_MS,
@@ -71,6 +74,8 @@ export class BoardComponent {
   private readonly injector: Injector = inject(Injector);
 
   protected readonly CLASSIC_PATH: string = BOARD_CLASSIC_PATH;
+  protected readonly SHOWS_CLASSIC_LINK: boolean = BOARD_SHOWS_CLASSIC_LINK;
+  protected readonly ADMIN_PATH: string = BOARD_ADMIN_PATH;
   protected readonly REGION: typeof BoardRegion = BoardRegion;
   protected readonly COLUMN_COUNT: number = this.boardFacade.COLUMN_COUNT;
   protected readonly ROW_COUNT: number = this.boardFacade.ROW_COUNT;
@@ -88,6 +93,7 @@ export class BoardComponent {
 
   private readonly panelComponents: Signal<readonly BoardPanelComponent[]> =
     viewChildren(BoardPanelComponent);
+  private readonly menu: Signal<BoardMenuComponent> = viewChild.required(BoardMenuComponent);
 
   private touchStart: BoardTouchPoint | undefined;
   private touchStartScroll: number = 0;
@@ -102,6 +108,10 @@ export class BoardComponent {
 
   protected onRegionRequested(region: BoardRegion): void {
     this.focusAfter(this.boardFacade.goTo(region));
+  }
+
+  protected onMenuOpen(): void {
+    this.menu().open();
   }
 
   protected onThemeToggled(): void {

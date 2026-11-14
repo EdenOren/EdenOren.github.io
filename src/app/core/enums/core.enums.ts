@@ -24,7 +24,8 @@ export enum AnalyticsEvent {
 }
 
 export enum AppRoute {
-  Home = '',
+  Board = '',
+  Classic = 'classic',
   Admin = 'admin',
-  Board = 'v2',
+  LegacyBoard = 'v2',
 }

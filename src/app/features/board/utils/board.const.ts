@@ -1,6 +1,6 @@
 import { AppRoute } from '../../../core/enums/core.enums';
 import { BoardDirection, BoardNavigationKey, BoardPanelWidth, BoardRegion } from '../enums/board.enums';
-import { BoardOffset, BoardRegionConfig } from '../models/board.models';
+import { BoardCityPan, BoardOffset, BoardRegionConfig } from '../models/board.models';
 
 export const BOARD_REGIONS: BoardRegionConfig[] = [
   {
@@ -75,9 +75,14 @@ export const BOARD_KEY_DIRECTIONS: Record<BoardNavigationKey, BoardDirection> = 
   [BoardNavigationKey.ArrowDown]: BoardDirection.Down,
 };
 
-export const BOARD_CLASSIC_PATH = `/${AppRoute.Home}`;
+export const BOARD_CLASSIC_PATH = `/${AppRoute.Classic}`;
+// The classic site still exists at /classic; the links to it are only hidden for now.
+export const BOARD_SHOWS_CLASSIC_LINK = false;
+export const BOARD_ADMIN_PATH = `/${AppRoute.Admin}`;
 export const BOARD_ROOT_PATH = `/${AppRoute.Board}`;
 export const FULL_PERCENT = 100;
+// The 404 page has no place on the board, so the city sits centred in its pan range.
+export const BOARD_NOT_FOUND_CITY_PAN: BoardCityPan = { x: 0.5, y: 0.5 };
 
 export const BOARD_SWIPE_MIN_DISTANCE = 60;
 export const BOARD_SWIPE_MAX_DURATION_MS = 700;

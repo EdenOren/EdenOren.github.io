@@ -36,6 +36,7 @@ export class NavbarComponent {
   protected readonly NAV_LINKS: { labelKey: string; sectionId: string }[] = this.navbarFacade.NAV_LINKS;
   protected readonly ADMIN_ROUTE: typeof AdminRoute = AdminRoute;
   protected readonly BOARD_PATH: string = `/${AppRoute.Board}`;
+  protected readonly CLASSIC_PATH: string = `/${AppRoute.Classic}`;
 
   protected scrollToSection(sectionId: string): void {
     this.navbarFacade.scrollToSection(sectionId);

@@ -1,6 +1,26 @@
 @let t = translation();
 <h1 class="board__page-heading">{{ t['PAGE_HEADING'] }}</h1>
-<a class="board__classic-link" [routerLink]="CLASSIC_PATH">{{ t['CLASSIC_LINK'] }}</a>
+<a class="board__corner board__corner--start" [routerLink]="ADMIN_PATH" [attr.aria-label]="t['ADMIN_LINK']">
+  <svg class="board__icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M7.5 11 V7.8 C7.5 5 9.4 3.2 12 3.2 S16.6 5.1 16.4 7.9 V11" />
+    <path d="M5.2 11.3 C9.6 10.7 14.6 10.8 18.9 11.2 C19.3 14.4 19.1 17.6 18.7 20.6 C14.3 21.1 9.7 21.2 5.4 20.7 C4.9 17.6 4.9 14.5 5.2 11.3 Z" />
+    <path d="M12 14.6 V17.2" />
+  </svg>
+</a>
+<button
+  class="board__corner board__corner--end no-select"
+  type="button"
+  aria-haspopup="dialog"
+  (click)="onMenuOpen()"
+>
+  <svg class="board__icon board__icon--menu" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 7 C9 6.2 15 6.6 20 6.8 M4.5 12.2 C9.5 11.6 14.5 12.4 19.5 11.8 M4 17.2 C9 16.6 15 17.4 20 16.8" />
+  </svg>
+  {{ menuLabels().open }}
+</button>
+@if (SHOWS_CLASSIC_LINK) {
+  <a class="board__classic-link" [routerLink]="CLASSIC_PATH">{{ t['CLASSIC_LINK'] }}</a>
+}
 
 @defer (on idle) {
   <app-city-backdrop [pan]="cityPan()" [isNight]="isNight()" />

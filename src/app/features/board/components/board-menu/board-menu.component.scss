@@ -18,30 +18,12 @@
   }
 }
 
-.board-menu__open,
 .board-menu__close,
 .board-menu__theme {
   @extend %board-menu-control;
   @include mixins.hand-note;
   padding: 0 variables.$space-2;
   border: 0;
-}
-
-.board-menu__open {
-  position: absolute;
-  top: variables.$space-3;
-  right: variables.$space-4;
-  z-index: variables.$z-above;
-  transform: rotate(2deg);
-
-  @media (width < variables.$breakpoint-md) {
-    @include mixins.glass-pane;
-    border-radius: 999px;
-  }
-
-  &::before {
-    content: '\2261\00a0';
-  }
 }
 
 .board-menu__close::after {
@@ -66,7 +48,7 @@
   }
 
   @include mixins.respond-to(md) {
-    width: min(38rem, 90vw);
+    width: min(56rem, 92vw);
     height: fit-content;
     margin: auto;
     border-radius: 6px;
@@ -81,7 +63,8 @@
   padding: variables.$space-6 variables.$space-4 variables.$space-8;
 
   @include mixins.respond-to(md) {
-    padding: variables.$space-8;
+    gap: variables.$space-8;
+    padding: variables.$space-12;
   }
 }
 
@@ -100,11 +83,8 @@
 .board-menu__map {
   display: grid;
   grid-template-columns: repeat(var(--menu-columns), 1fr);
-  grid-template-rows: repeat(var(--menu-rows), minmax(5.5rem, auto));
-  gap: variables.$space-3;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  grid-template-rows: repeat(var(--menu-rows), minmax(max(5.5rem, 16vh), auto));
+  gap: variables.$space-4;
 }
 
 .board-menu__cell {
@@ -123,7 +103,7 @@
   min-width: 0;
   padding: variables.$space-2;
   font-family: variables.$font-family-hand;
-  font-size: clamp(1.15rem, 3.6vw, 1.5rem);
+  font-size: clamp(1.15rem, 3.6vw, 2rem);
   font-weight: 700;
   line-height: 1.1;
   overflow-wrap: anywhere;

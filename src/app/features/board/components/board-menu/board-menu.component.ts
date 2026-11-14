@@ -30,7 +30,7 @@ export class BoardMenuComponent {
   private readonly dialog: Signal<ElementRef<HTMLDialogElement>> =
     viewChild.required<ElementRef<HTMLDialogElement>>('menuDialog');
 
-  protected onOpen(): void {
+  open(): void {
     this.dialog().nativeElement.showModal();
   }
 

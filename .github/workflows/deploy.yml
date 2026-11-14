@@ -34,6 +34,18 @@ jobs:
       - name: Copy index to 404
         run: cp dist/portfolio/browser/index.html dist/portfolio/browser/404.html
 
+      # GitHub Pages only returns 200 for files that exist, so every known route gets its own
+      # copy of index.html; anything else still falls back to 404.html and the in-app 404 page.
+      # Keep this list in sync with BoardRegion, AppRoute and AdminRoute.
+      - name: Copy index to known routes
+        run: |
+          cd dist/portfolio/browser
+          for route in hero about experience skills projects contact classic \
+                       admin admin/about admin/experience admin/projects admin/skills; do
+            mkdir -p "$route"
+            cp index.html "$route/index.html"
+          done
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
