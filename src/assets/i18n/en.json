@@ -6,6 +6,7 @@
     "PROJECTS": "Projects",
     "CONTACT": "Contact",
     "RESUME": "Resume",
+    "BOARD": "Glass board",
     "TOGGLE_THEME_DARK": "Switch to dark mode",
     "TOGGLE_THEME_LIGHT": "Switch to light mode"
   },
@@ -142,6 +143,7 @@
     "GO_TO": "Go to",
     "NAVIGATION_LABEL": "Board navigation",
     "CLASSIC_LINK": "Classic version",
+    "PAGE_HEADING": "Eden Oren — Frontend Developer portfolio",
     "HEADING_HERO": "Eden Oren",
     "HEADING_ABOUT": "About Me",
     "HEADING_EXPERIENCE": "Experience",

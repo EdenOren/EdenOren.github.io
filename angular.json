@@ -55,6 +55,18 @@
                   "maximumError": "1MB"
                 },
                 {
+                  "type": "bundle",
+                  "name": "board-component",
+                  "maximumWarning": "40kB",
+                  "maximumError": "60kB"
+                },
+                {
+                  "type": "bundle",
+                  "name": "city-backdrop-component",
+                  "maximumWarning": "35kB",
+                  "maximumError": "50kB"
+                },
+                {
                   "type": "anyComponentStyle",
                   "maximumWarning": "4kB",
                   "maximumError": "8kB"

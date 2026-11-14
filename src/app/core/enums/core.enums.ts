@@ -19,6 +19,10 @@ export enum Theme {
   Dark = 'dark',
 }
 
+export enum AnalyticsEvent {
+  PageView = 'page_view',
+}
+
 export enum AppRoute {
   Home = '',
   Admin = 'admin',

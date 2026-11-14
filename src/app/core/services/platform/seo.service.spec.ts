@@ -31,6 +31,16 @@ describe('SeoService', () => {
     expect(titleMock.setTitle).toHaveBeenCalledWith('Eden Oren — Frontend Developer');
   });
 
+  it('names the page in the title and falls back to the site title', () => {
+    service.applyPageTitle('Projects');
+    expect(titleMock.setTitle).toHaveBeenLastCalledWith('Projects — Eden Oren');
+    service.applyPageTitle('');
+    expect(titleMock.setTitle).toHaveBeenLastCalledWith('Eden Oren — Frontend Developer');
+    service.applyPageTitle('Skills');
+    service.resetTitle();
+    expect(titleMock.setTitle).toHaveBeenLastCalledWith('Eden Oren — Frontend Developer');
+  });
+
   it('adds meta tags including og:title and twitter:card', () => {
     service.apply();
     expect(metaMock.addTags).toHaveBeenCalledTimes(1);

@@ -25,6 +25,7 @@
 
 .projects-panel__card {
   @include mixins.hand-sketch;
+  @include mixins.frosted-patch;
   display: flex;
   flex-direction: column;
   gap: variables.$space-2;
