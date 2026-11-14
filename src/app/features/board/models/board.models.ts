@@ -17,6 +17,40 @@ export interface BoardCityPan {
   y: number;
 }
 
+export interface CityPoint {
+  x: number;
+  y: number;
+}
+
+export interface CityWindow extends CityPoint {
+  width: number;
+  height: number;
+  offColor: string;
+}
+
+export interface CityCover {
+  scale: number;
+  offsetX: number;
+  offsetY: number;
+}
+
+export interface CityWindowState {
+  cityWindow: CityWindow;
+  isOff: boolean;
+  shade: number;
+}
+
+export interface CityGlint extends CityPoint {
+  length: number;
+  age: number;
+  lifetime: number;
+}
+
+export interface CityLifeOptions {
+  showsWindows: boolean;
+  showsGlints: boolean;
+}
+
 export interface BoardPanelView {
   region: BoardRegion;
   gridColumn: number;
