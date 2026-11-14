@@ -28,7 +28,6 @@
   // Glass board (v2) — smoked glass with light ink at night
   --color-glass-pane: rgb(6 10 26 / 50%);
   --color-glass-sheen: rgb(120 140 230 / 16%);
-  --color-glass-frame: #05070F;
   --color-ink: #F6F7FB;
   --color-ink-soft: #D3D8EA;
   --color-ink-accent: #6EF0B4;
@@ -41,7 +40,6 @@
   // Glass board (v2) — milky glass with dark ink by day
   --color-glass-pane: rgb(255 255 255 / 46%);
   --color-glass-sheen: rgb(255 255 255 / 70%);
-  --color-glass-frame: #2B3038;
   --color-ink: #111D33;
   --color-ink-soft: #2C3A52;
   --color-ink-accent: #0A6B42;
@@ -85,7 +83,6 @@ $color-warning: var(--color-warning);
 // Glass board (v2)
 $color-glass-pane: var(--color-glass-pane);
 $color-glass-sheen: var(--color-glass-sheen);
-$color-glass-frame: var(--color-glass-frame);
 $color-ink: var(--color-ink);
 $color-ink-soft: var(--color-ink-soft);
 $color-ink-accent: var(--color-ink-accent);

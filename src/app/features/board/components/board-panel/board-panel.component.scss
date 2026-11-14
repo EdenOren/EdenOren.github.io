@@ -3,7 +3,6 @@
 @use 'abstract/mixins' as mixins;
 
 :host {
-  @include mixins.glass-pane;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,9 +28,13 @@
   line-height: 0.95;
   text-wrap: balance;
 
+  // Focus lands here after every board move, so the indicator is the underline changing ink rather than a box.
   &:focus-visible {
-    @include mixins.focus-ring;
-    outline-offset: variables.$space-2;
+    outline: none;
+
+    + .board-panel__underline {
+      color: colors.$color-ink;
+    }
   }
 }
 
