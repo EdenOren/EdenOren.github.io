@@ -1,6 +1,4 @@
-import { BoardDirection } from '../enums/board-direction.enum';
-import { BoardNavigationKey } from '../enums/board-navigation-key.enum';
-import { BoardRegion } from '../enums/board-region.enum';
+import { BoardDirection, BoardNavigationKey, BoardRegion } from '../enums/board.enums';
 import {
   buildSurfaceTransform,
   countBoardColumns,

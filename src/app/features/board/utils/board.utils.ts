@@ -1,6 +1,4 @@
-import { BoardDirection } from '../enums/board-direction.enum';
-import { BoardNavigationKey } from '../enums/board-navigation-key.enum';
-import { BoardRegion } from '../enums/board-region.enum';
+import { BoardDirection, BoardNavigationKey, BoardRegion } from '../enums/board.enums';
 import { BoardRegionConfig } from '../models/board.models';
 import {
   BOARD_DEFAULT_REGION,
@@ -8,7 +6,7 @@ import {
   BOARD_KEY_DIRECTIONS,
   BOARD_REGIONS,
   FULL_PERCENT,
-} from './board.constants';
+} from './board.const';
 
 export function isBoardRegion(value: string | null | undefined): value is BoardRegion {
   return BOARD_REGIONS.some(config => config.region === value);

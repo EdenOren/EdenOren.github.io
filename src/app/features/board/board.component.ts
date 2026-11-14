@@ -10,10 +10,10 @@ import {
 import { RouterLink } from '@angular/router';
 import { BoardArrowsComponent } from './components/board-arrows/board-arrows.component';
 import { BoardPanelComponent } from './components/board-panel/board-panel.component';
-import { BoardDirection } from './enums/board-direction.enum';
+import { BoardDirection } from './enums/board.enums';
 import { BoardFacade } from './facades/board.facade';
 import { BoardArrowView, BoardPanelView } from './models/board.models';
-import { BOARD_CLASSIC_PATH } from './utils/board.constants';
+import { BOARD_CLASSIC_PATH } from './utils/board.const';
 import { directionForKey, isTypingTarget } from './utils/board.utils';
 
 @Component({

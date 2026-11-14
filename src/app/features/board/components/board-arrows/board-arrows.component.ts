@@ -6,7 +6,7 @@ import {
   input,
   output,
 } from '@angular/core';
-import { BoardDirection } from '../../enums/board-direction.enum';
+import { BoardDirection } from '../../enums/board.enums';
 import { BoardArrowView } from '../../models/board.models';
 
 @Component({

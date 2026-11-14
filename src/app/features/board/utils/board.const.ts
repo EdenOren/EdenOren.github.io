@@ -1,7 +1,5 @@
 import { AppRoute } from '../../../core/enums/core.enums';
-import { BoardDirection } from '../enums/board-direction.enum';
-import { BoardNavigationKey } from '../enums/board-navigation-key.enum';
-import { BoardRegion } from '../enums/board-region.enum';
+import { BoardDirection, BoardNavigationKey, BoardRegion } from '../enums/board.enums';
 import { BoardOffset, BoardRegionConfig } from '../models/board.models';
 
 export const BOARD_REGIONS: BoardRegionConfig[] = [

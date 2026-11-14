@@ -3,11 +3,9 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, map } from 'rxjs';
-import { BoardDirection } from '../enums/board-direction.enum';
-import { BoardRegion } from '../enums/board-region.enum';
-import { BoardRouteParam } from '../enums/board-route.enum';
+import { BoardDirection, BoardRegion, BoardRouteParam } from '../enums/board.enums';
 import { BoardArrowView, BoardPanelView, BoardRegionConfig } from '../models/board.models';
-import { BOARD_REGIONS, BOARD_ROOT_PATH } from '../utils/board.constants';
+import { BOARD_REGIONS, BOARD_ROOT_PATH } from '../utils/board.const';
 import {
   buildSurfaceTransform,
   countBoardColumns,

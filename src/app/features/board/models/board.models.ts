@@ -1,5 +1,4 @@
-import { BoardDirection } from '../enums/board-direction.enum';
-import { BoardRegion } from '../enums/board-region.enum';
+import { BoardDirection, BoardRegion } from '../enums/board.enums';
 
 export interface BoardRegionConfig {
   region: BoardRegion;
