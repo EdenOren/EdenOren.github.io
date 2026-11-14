@@ -42,9 +42,9 @@ export const CITY_MAX_PIXEL_RATIO = 2;
 export const CITY_WINDOW_TOGGLE_INTERVAL_MS = 700;
 export const CITY_WINDOW_FADE_MS = 500;
 export const CITY_WINDOW_MAX_OFF_RATIO = 0.15;
-export const CITY_GLINT_MAX_COUNT = 24;
-export const CITY_GLINT_MIN_LIFETIME_MS = 700;
-export const CITY_GLINT_MAX_LIFETIME_MS = 1800;
+export const CITY_GLINT_MAX_COUNT = 16;
+export const CITY_GLINT_MIN_LIFETIME_MS = 2600;
+export const CITY_GLINT_MAX_LIFETIME_MS = 5200;
 // Sized in photo pixels to survive the 3px glass blur; smaller glints vanish behind the pane.
 export const CITY_GLINT_MIN_LENGTH = 8;
 export const CITY_GLINT_MAX_LENGTH = 22;
