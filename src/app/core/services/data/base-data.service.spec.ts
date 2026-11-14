@@ -51,12 +51,12 @@ describe('BaseDataService', () => {
     expect(emitted).toEqual([item]);
   });
 
-  it('update() sends a PUT to the item-specific URL', () => {
+  it('update() sends a PATCH to the item-specific URL', () => {
     const item: TestItem = { id: '42', name: 'Beta' };
     const emitted: TestItem[] = [];
     service.update('42', item).subscribe(result => emitted.push(result));
     const req = httpTesting.expectOne(`${BASE_URL}/42`);
-    expect(req.request.method).toBe('PUT');
+    expect(req.request.method).toBe('PATCH');
     expect(req.request.body).toEqual(item);
     req.flush(item);
     expect(emitted).toEqual([item]);

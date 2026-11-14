@@ -35,13 +35,13 @@ describe('AboutService', () => {
     expect(service.data()).toBeUndefined();
   });
 
-  it('update() sends a PUT to the admin about endpoint with the payload', () => {
+  it('update() sends a PATCH to the admin about endpoint with the payload', () => {
     httpTesting.match(ABOUT_URL).forEach(req => req.flush(null));
     const payload = { bio_text: 'Updated bio' };
     const emitted: unknown[] = [];
     service.update(payload).subscribe(result => emitted.push(result));
     const req = httpTesting.expectOne(ADMIN_ABOUT_URL);
-    expect(req.request.method).toBe('PUT');
+    expect(req.request.method).toBe('PATCH');
     expect(req.request.body).toEqual(payload);
     req.flush({ ok: true });
     expect(emitted).toEqual([{ ok: true }]);
