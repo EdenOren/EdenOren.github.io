@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { BoardRegion } from '../../enums/board.enums';
 import { BoardMenuCell, BoardMenuLabels } from '../../models/board.models';
 import { BoardMenuComponent } from './board-menu.component';
@@ -18,6 +19,7 @@ const LABELS: BoardMenuLabels = {
   day: 'day',
   night: 'night',
   themeAction: 'Switch to day',
+  admin: 'admin sign in',
 };
 
 describe('BoardMenuComponent', () => {
@@ -25,13 +27,14 @@ describe('BoardMenuComponent', () => {
   let host: HTMLElement;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({ providers: [provideZonelessChangeDetection()] });
+    TestBed.configureTestingModule({ providers: [provideZonelessChangeDetection(), provideRouter([])] });
     fixture = TestBed.createComponent(BoardMenuComponent);
     fixture.componentRef.setInput('cells', CELLS);
     fixture.componentRef.setInput('labels', LABELS);
     fixture.componentRef.setInput('isNight', true);
     fixture.componentRef.setInput('columnCount', 3);
     fixture.componentRef.setInput('rowCount', 2);
+    fixture.componentRef.setInput('adminPath', '/admin');
     await fixture.whenStable();
     host = fixture.nativeElement as HTMLElement;
   });
@@ -71,5 +74,11 @@ describe('BoardMenuComponent', () => {
     expect(themeButton?.getAttribute('aria-label')).toBe('Switch to day');
     themeButton?.click();
     expect(toggleCount).toBe(1);
+  });
+
+  it('links to the admin sign in', () => {
+    const adminLink = host.querySelector<HTMLAnchorElement>('.board-menu__admin');
+    expect(adminLink?.getAttribute('href')).toBe('/admin');
+    expect(adminLink?.textContent?.trim()).toBe('admin sign in');
   });
 });

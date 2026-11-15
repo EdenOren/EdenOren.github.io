@@ -80,6 +80,7 @@ export interface BoardMenuLabels {
   day: string;
   night: string;
   themeAction: string;
+  admin: string;
 }
 
 export interface BoardTouchPoint {
