@@ -19,7 +19,8 @@
 }
 
 .board-menu__close,
-.board-menu__theme {
+.board-menu__theme,
+.board-menu__admin {
   @extend %board-menu-control;
   @include mixins.hand-note;
   padding: 0 variables.$space-2;
@@ -120,12 +121,21 @@
   color: colors.$color-ink-aside;
 }
 
-.board-menu__theme {
+.board-menu__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: variables.$space-4;
+}
+
+.board-menu__theme,
+.board-menu__admin {
   display: inline-flex;
   align-items: center;
-  justify-self: start;
   gap: variables.$space-2;
   color: colors.$color-ink-soft;
+  text-decoration: none;
 }
 
 .board-menu__theme-option {
@@ -136,4 +146,11 @@
 .board-menu__theme-option--current {
   @include mixins.hand-circle;
   color: colors.$color-ink-accent;
+}
+
+.board-menu__admin-icon {
+  width: 1.375rem;
+  height: 1.375rem;
+  background-color: currentColor;
+  mask: url('/assets/icons/lock.svg') center / contain no-repeat;
 }

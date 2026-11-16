@@ -55,8 +55,8 @@
   }
 }
 
-// The two top corners (admin and menu) share one row with the up arrow: 4rem tall from the top
-// edge on desktop so all three centre on the same line, frosted chips on a phone.
+// The menu corner shares one row with the up arrow: 4rem tall from the top edge on desktop so
+// both centre on the same line, a frosted chip on a phone.
 .board__corner {
   @include mixins.hand-note;
   position: absolute;
@@ -94,14 +94,6 @@
   }
 }
 
-.board__corner--start {
-  left: variables.$space-3;
-
-  @include mixins.respond-to(md) {
-    left: 0;
-  }
-}
-
 .board__corner--end {
   right: variables.$space-3;
 
@@ -110,21 +102,15 @@
   }
 }
 
-.board__icon {
+// The hand font draws its lowercase low in the line box, so the bars drop a touch to sit on the
+// word's x-height rather than on the box centre.
+.board__menu-icon {
   flex: none;
   width: 1.375rem;
   height: 1.375rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-// The hand font draws its lowercase low in the line box, so the bars drop a touch to sit on the
-// word's x-height rather than on the box centre.
-.board__icon--menu {
   translate: 0 0.12em;
+  background-color: currentColor;
+  mask: url('/assets/icons/menu.svg') center / contain no-repeat;
 }
 
 .board__classic-link {

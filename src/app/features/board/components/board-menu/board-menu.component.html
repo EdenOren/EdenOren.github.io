@@ -37,19 +37,26 @@
       </ul>
     </nav>
 
-    <button
-      class="board-menu__theme"
-      type="button"
-      [attr.aria-label]="label.themeAction"
-      (click)="onThemeClick()"
-    >
-      <span class="board-menu__theme-option" [class.board-menu__theme-option--current]="!isNight()">
-        {{ label.day }}
-      </span>
-      <span class="board-menu__theme-slash" aria-hidden="true">/</span>
-      <span class="board-menu__theme-option" [class.board-menu__theme-option--current]="isNight()">
-        {{ label.night }}
-      </span>
-    </button>
+    <div class="board-menu__footer">
+      <button
+        class="board-menu__theme"
+        type="button"
+        [attr.aria-label]="label.themeAction"
+        (click)="onThemeClick()"
+      >
+        <span class="board-menu__theme-option" [class.board-menu__theme-option--current]="!isNight()">
+          {{ label.day }}
+        </span>
+        <span class="board-menu__theme-slash" aria-hidden="true">/</span>
+        <span class="board-menu__theme-option" [class.board-menu__theme-option--current]="isNight()">
+          {{ label.night }}
+        </span>
+      </button>
+
+      <a class="board-menu__admin" [routerLink]="adminPath()" (click)="onClose()">
+        <span class="board-menu__admin-icon" aria-hidden="true"></span>
+        {{ label.admin }}
+      </a>
+    </div>
   </div>
 </dialog>
