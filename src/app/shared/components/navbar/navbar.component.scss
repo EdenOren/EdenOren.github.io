@@ -2,6 +2,21 @@
 @use 'abstract/variables' as variables;
 @use 'abstract/mixins' as mixins;
 
+%navbar-control {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    @include mixins.focus-ring;
+  }
+}
+
+%navbar-label {
+  @include mixins.text-label;
+  text-decoration: none;
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -15,7 +30,6 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-color: transparent;
     transition:
       background-color variables.$transition-base,
       backdrop-filter variables.$transition-base;
@@ -27,7 +41,6 @@
     &::before {
       background-color: colors.$color-bg-scrolled;
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
     }
   }
 
@@ -56,6 +69,7 @@
   }
 
   &__burger {
+    @extend %navbar-control;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,18 +77,11 @@
     width: 44px;
     height: 44px;
     padding: variables.$space-2;
-    background: none;
-    border: none;
-    cursor: pointer;
     color: colors.$color-text;
     flex-shrink: 0;
 
     @include mixins.respond-to(md) {
       display: none;
-    }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
     }
   }
 
@@ -83,7 +90,6 @@
     width: 22px;
     height: 1.5px;
     background-color: currentColor;
-    transform-origin: center;
     transition:
       transform variables.$transition-base,
       opacity variables.$transition-fast;
@@ -111,74 +117,33 @@
     pointer-events: none;
     transition: opacity variables.$transition-base;
 
-    @media (max-width: #{variables.$breakpoint-md - 1px}) {
-      display: block;
-    }
-
     &--visible {
       opacity: 1;
       pointer-events: auto;
     }
   }
 
-  &__drawer {
-    display: flex;
-    align-items: center;
-    gap: variables.$space-6;
-
-    @media (max-width: #{variables.$breakpoint-md - 1px}) {
-      position: fixed;
-      top: 4rem;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      padding: variables.$space-6;
-      background-color: colors.$color-surface;
-      transform: translateX(100%);
-      transition: transform variables.$transition-base;
-      overflow-y: auto;
-      z-index: variables.$z-nav;
-    }
-
-    &--open {
-      transform: translateX(0);
-    }
-  }
-
+  &__drawer,
   &__links {
     display: flex;
     align-items: center;
     gap: variables.$space-6;
-
-    @media (max-width: #{variables.$breakpoint-md - 1px}) {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-    }
   }
 
   &__item {
     display: flex;
-
-    @media (max-width: #{variables.$breakpoint-md - 1px}) {
-      &:not(:last-child) {
-        border-bottom: 1px solid colors.$color-border;
-      }
-    }
   }
 
   &__admin-link {
-    @include mixins.text-label;
+    @extend %navbar-label;
     color: colors.$color-accent;
-    text-decoration: none;
     padding: variables.$space-2 variables.$space-4;
     border: 1px solid color-mix(in srgb, #{colors.$color-accent} 40%, transparent);
     border-radius: 4px;
-    transition: color variables.$transition-fast, border-color variables.$transition-fast, background-color variables.$transition-fast;
+    transition:
+      color variables.$transition-fast,
+      border-color variables.$transition-fast,
+      background-color variables.$transition-fast;
     white-space: nowrap;
     flex-shrink: 0;
 
@@ -190,42 +155,21 @@
     &:focus-visible {
       @include mixins.focus-ring;
     }
-
-    @media (max-width: #{variables.$breakpoint-md - 1px}) {
-      margin-top: variables.$space-6;
-      padding: variables.$space-4 variables.$space-3;
-      border-left: none;
-      border-right: none;
-      border-top: 1px solid color-mix(in srgb, #{colors.$color-accent} 30%, transparent);
-      border-bottom: none;
-      border-radius: 0;
-    }
   }
 
   &__theme-toggle {
+    @extend %navbar-control;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 36px;
     height: 36px;
-    background: none;
-    border: none;
-    cursor: pointer;
     color: colors.$color-text-muted;
     flex-shrink: 0;
     transition: color variables.$transition-fast;
 
     &:hover {
       color: colors.$color-text;
-    }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
-
-    @media (max-width: #{variables.$breakpoint-md - 1px}) {
-      width: 44px;
-      height: 44px;
     }
   }
 
@@ -234,54 +178,29 @@
     width: 18px;
     height: 18px;
     background-color: currentColor;
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
+    mask: center / contain no-repeat;
   }
 
   &__actions {
     display: flex;
     align-items: center;
     justify-content: space-around;
-
-    @media (max-width: #{variables.$breakpoint-md - 1px}) {
-      margin-top: variables.$space-6;
-      padding-top: variables.$space-6;
-      border-top: 1px solid colors.$color-border;
-    }
   }
 
   &__link {
-    @include mixins.text-label;
+    @extend %navbar-label;
+    @extend %navbar-control;
     position: relative;
     color: colors.$color-text-muted;
-    text-decoration: none;
     padding-block: variables.$space-1;
     text-align: center;
     transition: color variables.$transition-fast;
-    background: none;
-    border: none;
-    cursor: pointer;
-
-    @media (max-width: #{variables.$breakpoint-md - 1px}) {
-      padding-block: variables.$space-4;
-      width: 100%;
-      font-size: variables.$font-size-base;
-
-      &::after {
-        display: none;
-      }
-    }
 
     &::after {
       content: '';
       position: absolute;
       bottom: 0;
-      left: 0;
-      right: 0;
+      inset-inline: 0;
       height: 1px;
       background-color: colors.$color-accent;
       transform: scaleX(0);
@@ -289,14 +208,7 @@
       transition: transform variables.$transition-base;
     }
 
-    &:hover {
-      color: colors.$color-text;
-
-      &::after {
-        transform: scaleX(1);
-      }
-    }
-
+    &:hover,
     &--active {
       color: colors.$color-text;
 
@@ -304,10 +216,71 @@
         transform: scaleX(1);
       }
     }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
   }
 
+  // Kept as one block at the end so these overrides win over the base rules above
+  // at equal specificity — including the drawer's closed/open transform pair.
+  @media (max-width: #{variables.$breakpoint-md - 1px}) {
+    &__overlay {
+      display: block;
+    }
+
+    &__drawer {
+      position: fixed;
+      top: 4rem;
+      inset-inline: 0;
+      bottom: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: variables.$space-6;
+      background-color: colors.$color-surface;
+      transform: translateX(100%);
+      transition: transform variables.$transition-base;
+      overflow-y: auto;
+      z-index: variables.$z-nav;
+
+      &--open {
+        transform: none;
+      }
+    }
+
+    &__links {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    &__item:not(:last-child) {
+      border-bottom: 1px solid colors.$color-border;
+    }
+
+    &__admin-link {
+      margin-top: variables.$space-6;
+      padding: variables.$space-4 variables.$space-3;
+      border: 0;
+      border-top: 1px solid color-mix(in srgb, #{colors.$color-accent} 30%, transparent);
+      border-radius: 0;
+    }
+
+    &__theme-toggle {
+      width: 44px;
+      height: 44px;
+    }
+
+    &__actions {
+      margin-top: variables.$space-6;
+      padding-top: variables.$space-6;
+      border-top: 1px solid colors.$color-border;
+    }
+
+    &__link {
+      padding-block: variables.$space-4;
+      width: 100%;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
 }
