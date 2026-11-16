@@ -33,8 +33,8 @@
   "SKILLS": {
     "HEADING": "Skills",
     "FRONTEND": "Frontend",
-    "TOOLS": "Tools & DevOps",
-    "OTHER": "Other",
+    "BACKEND": "Backend & APIs",
+    "TOOLS": "Tools & Methodology",
     "LOADING_ARIA": "Loading skills…"
   },
   "PROJECTS": {
@@ -132,7 +132,7 @@
     "CODE": "404",
     "TITLE": "Page not found",
     "SUBTITLE": "The page you're looking for doesn't exist.",
-    "CTA": "Back to home"
+    "CTA": "Go back home"
   },
   "BOARD": {
     "REGION_HERO": "Home",
@@ -144,13 +144,13 @@
     "GO_TO": "Go to",
     "NAVIGATION_LABEL": "Board navigation",
     "CLASSIC_LINK": "Classic version",
-    "ADMIN_LINK": "Admin sign in",
+    "ADMIN_LINK": "admin sign in",
     "PAGE_HEADING": "Eden Oren — Frontend Developer portfolio",
     "NOT_FOUND_TITLE": "Page not found",
     "NOT_FOUND_NOTE": "lost?",
     "NOT_FOUND_HEADING": "404",
     "NOT_FOUND_BODY": "Nothing is written on this part of the board.",
-    "NOT_FOUND_HOME": "back to the board",
+    "NOT_FOUND_HOME": "go back home",
     "HEADING_HERO": "Eden Oren",
     "HEADING_ABOUT": "About Me",
     "HEADING_EXPERIENCE": "Experience",
