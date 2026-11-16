@@ -1,7 +1,7 @@
 export enum SkillGroupKey {
   Frontend = 'FRONTEND',
+  Backend = 'BACKEND',
   Tools = 'TOOLS',
-  Other = 'OTHER',
 }
 
 export enum SkillCategory {
