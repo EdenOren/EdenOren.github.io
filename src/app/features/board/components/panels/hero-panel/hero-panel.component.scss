@@ -29,10 +29,6 @@
   cursor: pointer;
   transform: rotate(1.5deg);
 
-  &::after {
-    content: '\00a0\2192';
-  }
-
   &:hover {
     color: colors.$color-ink-accent;
     text-decoration: underline;
@@ -55,8 +51,35 @@
 
 .hero-panel__aside {
   @include mixins.hand-note;
-  margin-top: variables.$space-6;
-  color: colors.$color-ink-aside;
-  transform: rotate(1.5deg);
-  transform-origin: left;
+  position: relative;
+  width: fit-content;
+  margin-top: variables.$space-8;
+  padding: variables.$space-4 variables.$space-6;
+  color: colors.$color-board-sticky-ink;
+  background: colors.$color-board-sticky;
+  box-shadow: 0 6px 12px colors.$color-board-shadow;
+  transform: rotate(-3deg);
+
+  // The host is deliberately not positioned: the panel's rotated writing block is the nearest
+  // containing block (its transform makes it one), so the note pins to that block's top-right
+  // corner beside the heading. On a phone the heading fills the width, so it stays below.
+  @include mixins.respond-to(md) {
+    position: absolute;
+    top: calc(-1 * #{variables.$space-4});
+    right: 0;
+    margin-top: 0;
+    white-space: nowrap;
+    transform: rotate(6deg);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -0.6rem;
+    left: 50%;
+    width: 3.5rem;
+    height: 1.2rem;
+    background: colors.$color-board-tape;
+    transform: translateX(-50%) rotate(4deg);
+  }
 }
